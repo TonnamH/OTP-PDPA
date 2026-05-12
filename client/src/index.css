@@ -1,0 +1,213 @@
+/* src/index.css */
+
+/* 1. Import Google Fonts (Including lighter weights for elegance) */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&family=Sarabun:wght@300;400;500&display=swap');
+
+/* 2. Global Variables (The Elegant Palette) */
+:root {
+  --primary-navy: #182337;
+  /* Softening the backgrounds to feel like high-quality paper rather than a glowing screen */
+  --bg-paper: #FDFCF8; 
+  --bg-light: #F4F4F5; 
+  --bg-white: #FFFFFF;
+  
+  /* Softer text colors to reduce eye strain */
+  --text-dark: #2C3545; 
+  --text-gray: #6B7280;
+  --border-color: #E5E7EB;
+  
+  /* A very delicate, airy shadow for cards */
+  --shadow-elegant: 0 10px 30px rgba(24, 35, 55, 0.04);
+}
+
+/* 3. CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-paper);
+  
+  /* The Secret to Elegance: Smaller base font, massive line height */
+  font-size: 15px; 
+  line-height: 1.8; 
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased; /* Makes the font render thinner and sharper */
+  overflow-x: hidden; 
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Prompt', sans-serif;
+  color: var(--primary-navy);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.2rem; }
+
+a {
+  text-decoration: none;
+  color: var(--text-dark);
+  /* A slower, softer transition, like a fading memory */
+  transition: all 0.4s ease-in-out; 
+}
+
+a:hover {
+  color: var(--primary-navy);
+  opacity: 0.7;
+}
+
+/* 5. The Spacious Layout Classes */
+.section-full {
+  width: 100%;
+  /* Increased padding to give the content a lot more room to breathe */
+  padding: 6rem 1rem; 
+}
+
+.container {
+  max-width: 1400px; /* Shrunk slightly to make the text lines shorter and easier to read */
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-gap {
+  display: flex;
+  gap: 3rem; /* Pushed the nav links further apart */
+  align-items: center;
+}
+
+/* Add this class to any white boxes/cards to make them float gracefully */
+.elegant-card {
+  background-color: var(--bg-white);
+  border-radius: 4px;
+  box-shadow: var(--shadow-elegant);
+  border: 1px solid rgba(0,0,0,0.02);
+}
+
+/* --- Dropdown Menu Styles --- */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+  /* Adds a small invisible padding bridge so the mouse doesn't fall off when moving down */
+  padding-bottom: 0.5rem; 
+  margin-bottom: -0.5rem;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px); /* Centers the menu and pushes it down slightly */
+  background-color: var(--bg-white);
+  min-width: 220px;
+  box-shadow: var(--shadow-elegant);
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.03);
+  padding: 0.5rem 0;
+  
+  /* The elegant invisible-to-visible transition */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 200;
+}
+
+/* When hovering over the parent, reveal the hidden menu */
+.nav-dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+  display: block;
+  padding: 0.6rem 1.5rem;
+  color: var(--text-dark);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--bg-light);
+  color: var(--primary-navy);
+  padding-left: 1.8rem; /* A premium little indentation effect on hover */
+}
+
+/* --- Responsive Breakpoints (Mobile & Tablet) --- */
+
+/* TABLET (Screens smaller than 992px) */
+@media (max-width: 992px) {
+  /* 1. Fold the side-by-side layouts into a vertical stack */
+  .flex-between {
+    flex-direction: column;
+    gap: 3rem !important; /* Overrides inline styles */
+  }
+
+  /* 2. Reset the text alignment so staggered rows don't look weird when stacked */
+  .flex-between > div {
+    text-align: left !important;
+    width: 100%;
+  }
+
+  /* 3. Shrink the massive placeholder images */
+  .elegant-card {
+    width: 100%;
+    height: 250px !important; 
+  }
+}
+
+/* MOBILE (Screens smaller than 768px) */
+@media (max-width: 768px) {
+  /* 1. Shrink the giant headers */
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.2rem; }
+
+  /* 2. Reduce the massive padding so content fits on the screen */
+  .section-full { 
+    padding: 3rem 1rem; 
+  }
+
+  /* 3. Stack the Navbar and center the links */
+  header .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .flex-gap {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  /* 4. Stack and center the Footer */
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  /* Centers the search bar and copyright text in the footer */
+  footer .flex-between > div {
+    align-items: center !important;
+    margin-left: 0 !important;
+  }
+}

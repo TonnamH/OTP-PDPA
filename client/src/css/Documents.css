@@ -1,0 +1,71 @@
+/* src/css/Documents.css */
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-pill {
+  padding: 0.5rem 1.25rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-gray);
+  font-family: 'Prompt', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-pill:hover {
+  border-color: var(--primary-navy);
+  color: var(--primary-navy);
+}
+
+.filter-pill.active {
+  background-color: var(--bg-light);
+  border-color: var(--border-color);
+  color: var(--primary-navy);
+  font-weight: 600;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doc-table th {
+  text-align: left;
+  padding: 1rem 0;
+  color: var(--text-dark);
+  font-family: 'Prompt', sans-serif;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.doc-table td {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-dark);
+}
+
+.doc-row {
+  transition: background-color 0.2s ease;
+}
+
+.doc-row:hover {
+  background-color: rgba(24, 35, 55, 0.02);
+}
+
+.download-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--text-gray);
+  transition: color 0.2s ease;
+}
+
+.doc-row:hover .download-icon {
+  color: var(--primary-navy);
+}

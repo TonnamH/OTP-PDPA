@@ -1,0 +1,84 @@
+{
+    "nav": {
+        "title": "OTP PDPA",
+        "home": "Home",
+        "about": "About",
+        "aboutDpo": "DPO Working Group",
+        "aboutDocs": "Related Documents",
+        "services": "Services",
+        "contact": "Contact",
+        "search": "Search..."
+    },
+    "home": {
+        "hero": {
+            "title": "Personal Data Protection Center (PDPA)",
+            "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)",
+            "searchPlaceholder": "Search information",
+            "searchButton": "Search"
+        },
+        "benefits": {
+            "heading": "Benefits to the Public and Government from",
+            "subHeading": "Personal Data Protection Act B.E. 2562 (2019)",
+            "pointOneTitle": "PLACEHOLDERTEXT",
+            "pointOneText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
+            "pointTwoTitle": "PLACEHOLDERTEXT",
+            "pointTwoText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
+        }
+    },
+    "dpo": {
+    "title": "Data Protection Officer (DPO)",
+    "subtitle": "Working Group for Personal Data Protection Officers of the Office of Transport and Traffic Policy and Planning (OTP)",
+    "chairmanTitle": "Deputy Director-General of OTP (DCIO of OTP)",
+    "chairmanRole": "Chairman of the Working Group",
+    "workingGroupLabel": "Working Group",
+    "members": {
+      "centralAdmin": "Director of Central Administration Bureau",
+      "landTraffic": "Director of Land Traffic Management Division",
+      "transportSystem": "Director of Transport and Traffic System Development Division",
+      "ticketing": "Director of Common Ticketing System Management Office",
+      "safetyPlan": "Director of Safety Planning Bureau",
+      "planning": "Director of Planning Bureau",
+      "regionalTransport": "Director of Regional Transport Promotion Bureau",
+      "adminSystem": "Head of Administrative System Development Group",
+      "internalAudit": "Head of Internal Audit Group"
+    },
+    "secretaries": {
+      "itDirector": "Director of Transport and Traffic Information Technology Center",
+      "itRole": "Working Group Member and Secretary",
+      "networkHead": "Head of Computer and Network System Development Group",
+      "networkRole": "Working Group Member and Assistant Secretary",
+      "infoPolicyHead": "Head of Information Policy and Administration Group",
+      "infoSystemHead": "Head of Information System Development Group"
+    },
+    "dutiesTitle": "Duties and Powers",
+    "duty1": "Provide advice to the Data Controller or Data Processor, including their employees or contractors, regarding compliance with the Personal Data Protection Act.",
+    "duty2": "Inspect the operations of the Data Controller or Data Processor, including their employees or contractors, regarding the collection, use, or disclosure of personal data to ensure compliance with the law.",
+    "duty3": "Coordinate and cooperate with the Office of the Personal Data Protection Commission in cases of issues related to the collection, use, or disclosure of personal data.",
+    "duty4": "Maintain strict confidentiality of any personal data known or acquired through the performance of duties, in accordance with the Personal Data Protection Act."
+  },
+  "docs": {
+    "title": "Documents related to the PDPA of OTP",
+    "subtitle": "Collection of laws, regulations, orders, and forms available for download.",
+    "sectionTitle": "All Documents",
+    "filters": {
+      "all": "All",
+      "law": "Acts / Related Laws",
+      "order": "Orders / Announcements / Regulations",
+      "policy": "Policies / Guidelines / Practices",
+      "form": "Forms"
+    },
+    "table": {
+      "file": "File",
+      "date": "Date",
+      "download": "Download"
+    }
+  },
+    "footer": {
+        "websitePolicy": "Website Policy",
+        "cookiePolicy": "Cookie Policy",
+        "securityPolicy": "Security Policy",
+        "privacyPolicy": "Privacy Policy",
+        "copyright": "Copyright © 2026 Transport and Traffic Information Technology Center - All Rights Reserved.",
+        "backToTop": "Back to Top"
+    }
+}
