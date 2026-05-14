@@ -1,9 +1,28 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next'; // 1. Import
+// src/pages/Home.jsx
+import React, { useState } from 'react'; // Added useState
+import { useNavigate } from 'react-router-dom'; // Added useNavigate
+import { useTranslation } from 'react-i18next';
 import '../css/Home.css';
 
 export default function Home() {
-  const { t } = useTranslation(); // 2. Initialize
+  const { t } = useTranslation();
+  
+  // --- Hooks & State ---
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // --- Handlers ---
+  const executeSearch = () => {
+    if (searchQuery.trim() !== '') {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      executeSearch();
+    }
+  };
 
   return (
     <>
@@ -11,7 +30,6 @@ export default function Home() {
       <section className="section-full hero-banner">
         <div className="container">
           <div style={{ maxWidth: '700px' }}>
-            {/* 3. Replace text with dictionary keys */}
             <h1 style={{ fontSize: '3rem', marginBottom: '0.5rem', color: 'var(--bg-white)' }}>
               {t('home.hero.title')}
             </h1>
@@ -24,8 +42,14 @@ export default function Home() {
                 type="text" 
                 placeholder={t('home.hero.searchPlaceholder')} 
                 className="hero-search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
-              <button className="hero-search-button">
+              <button 
+                className="hero-search-button"
+                onClick={executeSearch}
+              >
                 {t('home.hero.searchButton')}
               </button>
             </div>

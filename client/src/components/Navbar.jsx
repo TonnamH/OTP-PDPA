@@ -1,17 +1,29 @@
 // src/components/Navbar.jsx
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
+  // --- Handlers ---
+  
   const toggleLanguage = () => {
     const newLang = i18n.language === 'th' ? 'en' : 'th';
     i18n.changeLanguage(newLang);
   };
 
-  // 1. The Container Style (Removed the textDecoration from here)
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim() !== '') {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery(''); // Clear the input after searching
+    }
+  };
+
+  // --- Styles ---
+
   const getLinkStyle = ({ isActive }) => ({
     fontFamily: 'Prompt, sans-serif',
     fontWeight: isActive ? '700' : '400',
@@ -19,10 +31,9 @@ export default function Navbar() {
     transition: 'all 0.2s ease',
     display: 'flex',
     alignItems: 'center',
-    gap: '4px' // Space for the little arrow
+    gap: '4px' 
   });
 
-  // 2. NEW: The Text Style (Handles only the underline)
   const getTextStyle = (isActive) => ({
     textDecoration: isActive ? 'underline' : 'none',
     textUnderlineOffset: '6px'
@@ -42,6 +53,7 @@ export default function Navbar() {
     }}>
       <div className="container flex-between">
         
+        {/* Brand / Logo */}
         <div style={{ padding: '0.5rem 1rem', border: '2px solid var(--primary-navy)', fontWeight: '700', color: 'var(--primary-navy)', fontFamily: 'Prompt, sans-serif' }}>
           {t('nav.title')}
         </div>
@@ -50,7 +62,6 @@ export default function Navbar() {
           
           {/* Home Link */}
           <NavLink to="/" style={getLinkStyle}>
-            {/* We pass a function to grab 'isActive' and apply it only to the text span */}
             {({ isActive }) => (
               <span style={getTextStyle(isActive)}>{t('nav.home')}</span>
             )}
@@ -62,7 +73,6 @@ export default function Navbar() {
               {({ isActive }) => (
                 <>
                   <span style={getTextStyle(isActive)}>{t('nav.about')}</span> 
-                  {/* The arrow is outside the span, so it escapes the underline! */}
                   <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
                 </>
               )}
@@ -70,7 +80,7 @@ export default function Navbar() {
             <div className="dropdown-content">
               <Link to="/about/dpo">{t('nav.aboutDpo')}</Link>
               <Link to="/about/documents">{t('nav.aboutDocs')}</Link>
-              <Link to="/about/structure">Placeholder Link 3</Link>
+              <Link to="/about/structure">โครงสร้างองค์กร</Link> {/* Placeholder */}
             </div>
           </div>
 
@@ -85,8 +95,8 @@ export default function Navbar() {
               )}
             </NavLink>
             <div className="dropdown-content">
-              <Link to="/services/request">Placeholder Link 1</Link>
-              <Link to="/services/check">Placeholder Link 2</Link>
+              <Link to="/services/ropa">รายการ ROPA</Link>
+              <Link to="/services/check">ตรวจสอบสิทธิ</Link> {/* Placeholder */}
             </div>
           </div>
 
@@ -101,25 +111,31 @@ export default function Navbar() {
               )}
             </NavLink>
             <div className="dropdown-content">
-              <Link to="/contact/location">Placeholder Link 1</Link>
-              <Link to="/contact/faq">Placeholder Link 2</Link>
+              <Link to="/contact/location">แผนที่และการเดินทาง</Link> {/* Placeholder */}
+              <Link to="/contact/faq">คำถามที่พบบ่อย (FAQ)</Link> {/* Placeholder */}
             </div>
           </div>
           
+          {/* Search Bar */}
           <input 
             type="text" 
             placeholder={t('nav.search')} 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
             style={{ 
-              padding: '0.5rem', 
-              borderRadius: '4px', 
+              padding: '0.5rem 1rem', 
+              borderRadius: '20px', 
               border: '1px solid var(--border-color)', 
               outlineColor: 'var(--primary-navy)', 
               fontFamily: 'Sarabun, sans-serif',
               backgroundColor: 'var(--bg-white)',
-              width: '150px'
+              width: '180px',
+              transition: 'all 0.2s ease'
             }} 
           />
 
+          {/* Language Toggle */}
           <div 
             onClick={toggleLanguage}
             style={{
