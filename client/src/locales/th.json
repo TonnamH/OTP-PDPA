@@ -1,31 +1,38 @@
 {
-    "nav": {
-        "title": "สนข. PDPA",
-        "home": "หน้าหลัก",
-        "about": "เกี่ยวกับ",
-        "aboutDpo": "คณะทำงาน DPO",
-        "aboutDocs": "เอกสารที่เกี่ยวข้อง",
-        "services": "บริการ",
-        "contact": "ติดต่อเรา",
-        "search": "ค้นหา..."
+  "nav": {
+    "title": "สนข. PDPA",
+    "home": "หน้าหลัก",
+    "about": "เกี่ยวกับ",
+    "aboutDpo": "คณะทำงาน DPO",
+    "aboutDocs": "เอกสารที่เกี่ยวข้อง",
+    "aboutRopa": "บันทึกรายการกิจกรรม สนข.",
+    "services": "บริการ",
+    "servicesInfographics": "อินโฟกราฟิก",
+    "servicesVideos": "วิดีโอ",
+    "servicesTraining": "อบรม",
+    "servicesEbook": "E-Book",
+    "servicesOTPBoard": "ถาม-ตอบ (Intranet)",
+    "contact": "ติดต่อเรา",
+    "Report": "สอบถาม/แจ้งเหตุ",
+    "search": "ค้นหา..."
+  },
+  "home": {
+    "hero": {
+      "title": "ศูนย์คุ้มครองข้อมูลส่วนบุคคล (PDPA)",
+      "subtitle": "สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)",
+      "searchPlaceholder": "ค้นหาข้อมูล",
+      "searchButton": "ค้นหา"
     },
-    "home": {
-        "hero": {
-            "title": "ศูนย์คุ้มครองข้อมูลส่วนบุคคล (PDPA)",
-            "subtitle": "สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)",
-            "searchPlaceholder": "ค้นหาข้อมูล",
-            "searchButton": "ค้นหา"
-        },
-        "benefits": {
-            "heading": "ประโยชน์ที่ประชาชน และภาครัฐ จะได้รับจาก",
-            "subHeading": "พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ.2562",
-            "pointOneTitle": "PLACEHOLDERTEXT",
-            "pointOneText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
-            "pointTwoTitle": "PLACEHOLDERTEXT",
-            "pointTwoText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
-        }
-    },
-    "dpo": {
+    "benefits": {
+      "heading": "ประโยชน์ที่ประชาชน และภาครัฐ จะได้รับจาก",
+      "subHeading": "พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ.2562",
+      "pointOneTitle": "PLACEHOLDERTEXT",
+      "pointOneText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
+      "pointTwoTitle": "PLACEHOLDERTEXT",
+      "pointTwoText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
+    }
+  },
+  "dpo": {
     "title": "เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล (DPO)",
     "subtitle": "คณะทำงานเพื่อปฏิบัติหน้าที่เป็นเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล ของสำนักงานนโยบายและแผนการขนส่งและจราจร",
     "chairmanTitle": "รอง ผอ.สนข. (DCIO ประจำ สนข.)",
@@ -73,12 +80,119 @@
       "download": "Download"
     }
   },
-    "footer": {
-        "websitePolicy": "นโยบายเว็บไซต์",
-        "cookiePolicy": "นโยบายการใช้คุกกี้",
-        "securityPolicy": "นโยบายการรักษาความมั่นคงปลอดภัยเว็บไซต์",
-        "privacyPolicy": "นโยบายข้อมูลส่วนบุคคล",
-        "copyright": "Copyright © 2026 ศูนย์เทคโนโลยีสารสนเทศการขนส่งและจราจร - All Rights Reserved.",
-        "backToTop": "กลับขึ้นด้านบน"
+  "ropa": {
+    "title": "รายการกิจกรรมประมวลผลข้อมูลส่วนบุคคลของ สนข.",
+    "subtitle": "(Record of processing Activities : ROPA)",
+    "viewerTitle": "PDPA ROPA",
+    "download": "ดาวน์โหลด :"
+  },
+  "search": {
+    "title": "ผลการค้นหา: \"{{query}}\"",
+    "found": "พบ {{count}} รายการ",
+    "notFound": "ไม่พบข้อมูลที่ตรงกับการค้นหาของคุณ",
+    "tryAgain": "ลองใช้คำค้นหาอื่น หรือตรวจสอบการสะกดคำอีกครั้ง"
+  },
+  "searchData": {
+    "categories": {
+      "page": "หน้าเว็บไซต์",
+      "policy": "นโยบาย",
+      "document": "เอกสาร",
+      "service": "บริการ"
+    },
+    "homeTitle": "หน้าหลัก (Home)",
+    "homeDesc": "ศูนย์บริการข้อมูลและการปฏิบัติตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล",
+    "dpoTitle": "คณะทำงาน DPO (Data Protection Officer)",
+    "dpoDesc": "เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล ของสำนักงานนโยบายและแผนการขนส่งและจราจร หน้าที่และอำนาจ",
+    "privacyTitle": "นโยบายข้อมูลส่วนบุคคล (Privacy Policy)",
+    "privacyDesc": "การเก็บรวบรวมข้อมูลส่วนบุคคล วัตถุประสงค์ในการประมวลผลข้อมูล",
+    "docTitle": "พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
+    "docDesc": "ดาวน์โหลดเอกสาร พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล กฎหมายที่เกี่ยวข้อง",
+    "ropaTitle": "รายการกิจกรรมประมวลผลข้อมูลส่วนบุคคล (ROPA)",
+    "ropaDesc": "Record of processing Activities : ROPA ของ สนข."
+  },
+  "infographics": {
+    "title": "อินโฟกราฟิก PDPA",
+    "subtitle": "รวมสื่อประชาสัมพันธ์และเกร็ดความรู้เรื่องการคุ้มครองข้อมูลส่วนบุคคล",
+    "sectionTitle": "Infographics",
+    "filters": {
+      "all": "ทั้งหมด (All)",
+      "basics": "พื้นฐาน (Basics)",
+      "roles": "บทบาทหน้าที่ (Roles)"
     }
+  },
+  "videos": {
+    "title": "วิดีโอ และ มัลติมีเดีย",
+    "subtitle": "รวมสื่อวีดิทัศน์เพื่อการเรียนรู้และทำความเข้าใจ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล",
+    "sectionTitle": "วิดีโอ (Videos)",
+    "categories": {
+      "cat1": "วิดีโอบรรยายหลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
+      "cat2": "คลิปกลไกเพื่อให้เกิดการบังคับใช้กฎหมายคุ้มครองข้อมูลส่วนบุคคล",
+      "cat3": "คลิปสาระสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562"
+    }
+  },
+  "training": {
+    "title": "อบรมความรู้เกี่ยวกับ PDPA",
+    "subtitle": "วิดีโอและสื่อการสอนจากการจัดอบรมให้ความรู้",
+    "sectionTitle": "วิดีโอ (Videos)",
+    "eventTitle": "วิดีโอบรรยายความรู้ความเข้าใจเกี่ยวกับพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 แก่เจ้าหน้าที่ สนข. วันที่ 18 มกราคม 2566",
+    "part1": "(ช่วงแรก)",
+    "part2": "(ช่วงหลัง)",
+    "downloadDoc": "เอกสารการฝึกอบรม: ",
+    "downloadBtn": "ดาวน์โหลด"
+  },
+  "contactPage": {
+    "title": "ติดต่อเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล (DPO)",
+    "subtitle": "สอบถามข้อมูลเพิ่มเติมหรือแจ้งเรื่องร้องเรียนเกี่ยวกับ PDPA",
+    "infoTitle": "ข้อมูลการติดต่อ",
+    "addressLabel": "ที่อยู่",
+    "address": "สำนักงานนโยบายและแผนการขนส่งและจราจร\nเลขที่ 35 อาคาร สนข. ถนนเพชรบุรี แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพฯ 10400",
+    "phoneLabel": "โทรศัพท์",
+    "phone": "0 2215 1515 ต่อ 4081",
+    "emailLabel": "อีเมล",
+    "email": "compliance@otp.go.th",
+    "websiteLabel": "เว็บไซต์",
+    "website": "http://www.otp.go.th",
+    "hoursLabel": "เวลาทำการ",
+    "hours": "จันทร์ - ศุกร์: 08:30 - 16:30 น.",
+    "mapTitle": "แผนที่และการเดินทาง"
+  },
+  "reportPage": {
+    "title": "แจ้งเหตุ ฯ หรือร้องเรียนการคุ้มครองข้อมูลส่วนบุคคล",
+    "subtitle": "Fields marked with an * are required",
+    "form": {
+      "firstNameLabel": "ชื่อ",
+      "lastNameLabel": "นามสกุล",
+      "emailLabel": "Email",
+      "emailPlaceholder": "กรอกอีเมลของคุณ",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "กรอกเบอร์โทรศัพท์ของคุณ",
+      "issueLabel": "แจ้งปัญหาการใช้งานเว็บไซต์",
+      "typeOptions": {
+        "website": "แจ้งปัญหาการใช้งานเว็บไซต์ pdpa.otp.go.th",
+        "inquiry": "สอบถามข้อมูลเพิ่มเติมเกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคล",
+        "complaint": "ร้องเรียนงานบริการเกี่ยวกับ PDPA",
+        "other": "อื่น ๆ (เกี่ยวกับ PDPA)"
+      },
+      "otherSpecifyLabel": "อื่น ๆ",
+      "otherSpecifyPlaceholder": "ระบุ (เกี่ยวกับ PDPA)",
+      "detailLabel": "รายละเอียด",
+      "detailPlaceholder": "ระบุข้อความของคุณ",
+      "consentLabel": "ยอมรับการส่งข้อมูล",
+      "submitBtn": "ส่งข้อมูล",
+      "submitting": "กำลังส่งข้อมูล..."
+    },
+    "success": {
+      "title": "ส่งข้อมูลสำเร็จ",
+      "message": "ระบบได้รับข้อมูลของคุณเรียบร้อยแล้ว",
+      "backBtn": "กลับสู่หน้าหลัก"
+    }
+  },
+  "footer": {
+    "websitePolicy": "นโยบายเว็บไซต์",
+    "cookiePolicy": "นโยบายการใช้คุกกี้",
+    "securityPolicy": "นโยบายการรักษาความมั่นคงปลอดภัยเว็บไซต์",
+    "privacyPolicy": "นโยบายข้อมูลส่วนบุคคล",
+    "copyright": "Copyright © 2026 ศูนย์เทคโนโลยีสารสนเทศการขนส่งและจราจร - All Rights Reserved.",
+    "backToTop": "กลับขึ้นด้านบน"
+  }
 }

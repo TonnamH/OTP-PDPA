@@ -1,15 +1,15 @@
 // src/components/Navbar.jsx
 import React, { useState } from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom'; // 1. Added useLocation
 import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation(); // 2. Initialize useLocation
   const [searchQuery, setSearchQuery] = useState('');
 
   // --- Handlers ---
-  
   const toggleLanguage = () => {
     const newLang = i18n.language === 'th' ? 'en' : 'th';
     i18n.changeLanguage(newLang);
@@ -18,12 +18,11 @@ export default function Navbar() {
   const handleSearch = (e) => {
     if (e.key === 'Enter' && searchQuery.trim() !== '') {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery(''); // Clear the input after searching
+      setSearchQuery('');
     }
   };
 
   // --- Styles ---
-
   const getLinkStyle = ({ isActive }) => ({
     fontFamily: 'Prompt, sans-serif',
     fontWeight: isActive ? '700' : '400',
@@ -31,13 +30,19 @@ export default function Navbar() {
     transition: 'all 0.2s ease',
     display: 'flex',
     alignItems: 'center',
-    gap: '4px' 
+    gap: '4px',
+    cursor: 'pointer' // Ensures it still looks clickable so users hover over it
   });
 
   const getTextStyle = (isActive) => ({
     textDecoration: isActive ? 'underline' : 'none',
     textUnderlineOffset: '6px'
   });
+
+  // 3. Helper variables to check if we are inside a specific section
+  const isAboutActive = location.pathname.startsWith('/about');
+  const isServicesActive = location.pathname.startsWith('/services');
+  const isContactActive = location.pathname.startsWith('/contact');
 
   return (
     <header style={{ 
@@ -60,59 +65,50 @@ export default function Navbar() {
 
         <nav className="flex-gap">
           
-          {/* Home Link */}
+          {/* Home Link (Remains a real link) */}
           <NavLink to="/" style={getLinkStyle}>
             {({ isActive }) => (
               <span style={getTextStyle(isActive)}>{t('nav.home')}</span>
             )}
           </NavLink>
 
-          {/* About Dropdown */}
+          {/* About Dropdown (Now unclickable) */}
           <div className="nav-dropdown">
-            <NavLink to="/about" style={getLinkStyle}>
-              {({ isActive }) => (
-                <>
-                  <span style={getTextStyle(isActive)}>{t('nav.about')}</span> 
-                  <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
-                </>
-              )}
-            </NavLink>
+            <div style={getLinkStyle({ isActive: isAboutActive })}>
+              <span style={getTextStyle(isAboutActive)}>{t('nav.about')}</span> 
+              <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
+            </div>
             <div className="dropdown-content">
               <Link to="/about/dpo">{t('nav.aboutDpo')}</Link>
               <Link to="/about/documents">{t('nav.aboutDocs')}</Link>
-              <Link to="/about/structure">โครงสร้างองค์กร</Link> {/* Placeholder */}
+              <Link to="/about/ropa">{t('nav.aboutRopa')}</Link>
             </div>
           </div>
 
-          {/* Services Dropdown */}
+          {/* Services Dropdown (Now unclickable) */}
           <div className="nav-dropdown">
-            <NavLink to="/services" style={getLinkStyle}>
-              {({ isActive }) => (
-                <>
-                  <span style={getTextStyle(isActive)}>{t('nav.services')}</span> 
-                  <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
-                </>
-              )}
-            </NavLink>
+            <div style={getLinkStyle({ isActive: isServicesActive })}>
+              <span style={getTextStyle(isServicesActive)}>{t('nav.services')}</span> 
+              <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
+            </div>
             <div className="dropdown-content">
-              <Link to="/services/ropa">รายการ ROPA</Link>
-              <Link to="/services/check">ตรวจสอบสิทธิ</Link> {/* Placeholder */}
+              <Link to="/services/infographics">{t('nav.servicesInfographics')}</Link>
+              <Link to="/services/videos">{t('nav.servicesVideos')}</Link>
+              <Link to="/services/training">{t('nav.servicesTraining')}</Link>
+              <Link to="https://www.pdpc.or.th/pdpc-book/">{t('nav.servicesEbook')}</Link>
+              <Link to="http://otpboard.otp.go.th/">{t('nav.servicesOTPBoard')}</Link>
             </div>
           </div>
 
-          {/* Contact Dropdown */}
+          {/* Contact Dropdown (Now unclickable) */}
           <div className="nav-dropdown">
-            <NavLink to="/contact" style={getLinkStyle}>
-              {({ isActive }) => (
-                <>
-                  <span style={getTextStyle(isActive)}>{t('nav.contact')}</span> 
-                  <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
-                </>
-              )}
-            </NavLink>
+            <div style={getLinkStyle({ isActive: isContactActive })}>
+              <span style={getTextStyle(isContactActive)}>{t('nav.contact')}</span> 
+              <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▾</span>
+            </div>
             <div className="dropdown-content">
-              <Link to="/contact/location">แผนที่และการเดินทาง</Link> {/* Placeholder */}
-              <Link to="/contact/faq">คำถามที่พบบ่อย (FAQ)</Link> {/* Placeholder */}
+              <Link to="/contact">{t('nav.contact')}</Link>
+              <Link to="/contact/report">{t('nav.Report')}</Link>
             </div>
           </div>
           
@@ -167,7 +163,6 @@ export default function Navbar() {
           </div>
 
         </nav>
-
       </div>
     </header>
   );

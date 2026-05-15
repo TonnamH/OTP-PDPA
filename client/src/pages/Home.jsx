@@ -6,7 +6,7 @@ import '../css/Home.css';
 
 export default function Home() {
   const { t } = useTranslation();
-  
+ 
   // --- Hooks & State ---
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');

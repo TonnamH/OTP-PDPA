@@ -3,38 +3,42 @@
 export const searchIndex = [
   {
     id: 'home',
-    title: 'หน้าหลัก (Home)',
-    description: 'ศูนย์บริการข้อมูลและการปฏิบัติตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล',
+    titleKey: 'searchData.homeTitle',
+    descKey: 'searchData.homeDesc',
+    categoryKey: 'searchData.categories.page',
     path: '/',
-    category: 'Page'
+    keywords: ['pdpa', 'home', 'หน้าหลัก'] 
   },
   {
     id: 'dpo',
-    title: 'คณะทำงาน DPO (Data Protection Officer)',
-    description: 'เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล ของสำนักงานนโยบายและแผนการขนส่งและจราจร หน้าที่และอำนาจ',
+    titleKey: 'searchData.dpoTitle',
+    descKey: 'searchData.dpoDesc',
+    categoryKey: 'searchData.categories.page',
     path: '/about/dpo',
-    category: 'Page'
+    keywords: ['officer', 'team', 'เจ้าหน้าที่', 'คณะทำงาน']
   },
   {
     id: 'privacy',
-    title: 'นโยบายข้อมูลส่วนบุคคล (Privacy Policy)',
-    description: 'การเก็บรวบรวมข้อมูลส่วนบุคคล วัตถุประสงค์ในการประมวลผลข้อมูล',
+    titleKey: 'searchData.privacyTitle',
+    descKey: 'searchData.privacyDesc',
+    categoryKey: 'searchData.categories.policy',
     path: '/policy/privacy',
-    category: 'Policy'
+    keywords: ['security', 'protect', 'คุ้มครอง', 'ความปลอดภัย']
   },
   {
     id: 'doc-1',
-    title: 'พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562',
-    description: 'ดาวน์โหลดเอกสาร พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล กฎหมายที่เกี่ยวข้อง',
+    titleKey: 'searchData.docTitle',
+    descKey: 'searchData.docDesc',
+    categoryKey: 'searchData.categories.document',
     path: '/about/documents',
-    category: 'Document'
+    keywords: ['law', 'act', 'กฎหมาย', 'พ.ร.บ.', 'pdpa'] 
   },
   {
     id: 'ropa',
-    title: 'รายการกิจกรรมประมวลผลข้อมูลส่วนบุคคล (ROPA)',
-    description: 'Record of processing Activities : ROPA ของ สนข.',
+    titleKey: 'searchData.ropaTitle',
+    descKey: 'searchData.ropaDesc',
+    categoryKey: 'searchData.categories.service',
     path: '/services/ropa',
-    category: 'Service'
+    keywords: ['record', 'processing', 'ประมวลผล', 'กิจกรรม']
   }
-  // You can add every page, document, and policy to this array!
 ];

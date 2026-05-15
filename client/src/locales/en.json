@@ -5,8 +5,15 @@
         "about": "About",
         "aboutDpo": "DPO Working Group",
         "aboutDocs": "Related Documents",
+        "aboutRopa": "OTP Record of Processing Activities",
         "services": "Services",
+        "servicesInfographics": "Infographics",
+        "servicesVideos": "Videos",
+        "servicesTraining": "Training",
+        "servicesEbook": "E-Book",
+        "servicesOTPBoard": "Q&A (Intranet)",
         "contact": "Contact",
+        "Report": "Inquire/Report",
         "search": "Search..."
     },
     "home": {
@@ -71,6 +78,113 @@
       "file": "File",
       "date": "Date",
       "download": "Download"
+    }
+  },
+  "ropa": {
+    "title": "Record of Processing Activities of OTP",
+    "subtitle": "(Record of processing Activities : ROPA)",
+    "viewerTitle": "PDPA ROPA",
+    "download": "Download :"
+  },
+  "search": {
+    "title": "Search Results: \"{{query}}\"",
+    "found": "{{count}} items found",
+    "notFound": "No results match your search",
+    "tryAgain": "Try using different keywords or check your spelling"
+  },
+  "searchData": {
+    "categories": {
+      "page": "Page",
+      "policy": "Policy",
+      "document": "Document",
+      "service": "Service"
+    },
+    "homeTitle": "Home",
+    "homeDesc": "Information Center and Personal Data Protection Act Compliance.",
+    "dpoTitle": "DPO Working Group",
+    "dpoDesc": "Personal Data Protection Officers of OTP, duties, and authorities.",
+    "privacyTitle": "Privacy Policy",
+    "privacyDesc": "Collection of personal data and purposes of data processing.",
+    "docTitle": "Personal Data Protection Act B.E. 2562 (2019)",
+    "docDesc": "Download PDPA documents and related laws.",
+    "ropaTitle": "Record of Processing Activities (ROPA)",
+    "ropaDesc": "Official Record of Processing Activities for OTP."
+  },
+  "infographics": {
+    "title": "PDPA Infographics",
+    "subtitle": "Collection of public relations materials and knowledge about personal data protection.",
+    "sectionTitle": "Infographics",
+    "filters": {
+      "all": "All",
+      "basics": "Basics",
+      "roles": "Roles & Responsibilities"
+    }
+  },
+  "videos": {
+    "title": "Video and Multimedia",
+    "subtitle": "Collection of educational videos to understand the Personal Data Protection Act.",
+    "sectionTitle": "Videos",
+    "categories": {
+      "cat1": "Lectures on Key Principles of PDPA B.E. 2562 (2019)",
+      "cat2": "Mechanisms for Enforcing Personal Data Protection Laws",
+      "cat3": "Summary of Personal Data Protection Act B.E. 2562 (2019)"
+    }
+  },
+  "training": {
+    "title": "PDPA Knowledge Training",
+    "subtitle": "Videos and learning materials from our training sessions.",
+    "sectionTitle": "Videos",
+    "eventTitle": "Lecture on the Personal Data Protection Act B.E. 2562 (2019) for OTP Officials, January 18, 2023",
+    "part1": "(First Half)",
+    "part2": "(Second Half)",
+    "downloadDoc": "Training Document: ",
+    "downloadBtn": "Download"
+  },
+"contactPage": {
+    "title": "Contact Data Protection Officer (DPO)",
+    "subtitle": "For inquiries or complaints regarding the Personal Data Protection Act",
+    "infoTitle": "Contact Information",
+    "addressLabel": "Address",
+    "address": "Office of Transport and Traffic Policy and Planning (OTP)\nNo. 35 OTP Building, Phetchaburi Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400",
+    "phoneLabel": "Phone",
+    "phone": "0 2215 1515 ext. 4081",
+    "emailLabel": "Email",
+    "email": "compliance@otp.go.th",
+    "websiteLabel": "Website",
+    "website": "http://www.otp.go.th",
+    "hoursLabel": "Working Hours",
+    "hours": "Monday - Friday: 08:30 AM - 04:30 PM",
+    "mapTitle": "Map & Directions"
+  },
+  "reportPage": {
+    "title": "Report Incident or PDPA Complaint",
+    "subtitle": "Fields marked with an * are required",
+    "form": {
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "Enter your phone number",
+      "issueLabel": "Topic",
+      "typeOptions": {
+        "website": "Report website issue (pdpa.otp.go.th)",
+        "inquiry": "Inquire about Personal Data Protection",
+        "complaint": "PDPA Service Complaint",
+        "other": "Other (related to PDPA)"
+      },
+      "otherSpecifyLabel": "Other",
+      "otherSpecifyPlaceholder": "Please specify",
+      "detailLabel": "Details",
+      "detailPlaceholder": "Specify your message",
+      "consentLabel": "I accept sending this data",
+      "submitBtn": "Submit",
+      "submitting": "Submitting..."
+    },
+    "success": {
+      "title": "Submission Successful",
+      "message": "The system has received your information.",
+      "backBtn": "Return to Home"
     }
   },
     "footer": {
