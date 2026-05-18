@@ -1,18 +1,20 @@
 // src/components/Navbar.jsx
 import React, { useState } from 'react';
-import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom'; // 1. Added useLocation
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom'; 
 import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation(); // 2. Initialize useLocation
+  const location = useLocation(); 
   const [searchQuery, setSearchQuery] = useState('');
 
   // --- Handlers ---
   const toggleLanguage = () => {
     const newLang = i18n.language === 'th' ? 'en' : 'th';
     i18n.changeLanguage(newLang);
+
+    localStorage.setItem('preferredLanguage', newLang);
   };
 
   const handleSearch = (e) => {
@@ -31,7 +33,7 @@ export default function Navbar() {
     display: 'flex',
     alignItems: 'center',
     gap: '4px',
-    cursor: 'pointer' // Ensures it still looks clickable so users hover over it
+    cursor: 'pointer' 
   });
 
   const getTextStyle = (isActive) => ({
@@ -39,7 +41,7 @@ export default function Navbar() {
     textUnderlineOffset: '6px'
   });
 
-  // 3. Helper variables to check if we are inside a specific section
+  // --- Helper variables ---
   const isAboutActive = location.pathname.startsWith('/about');
   const isServicesActive = location.pathname.startsWith('/services');
   const isContactActive = location.pathname.startsWith('/contact');
@@ -59,20 +61,29 @@ export default function Navbar() {
       <div className="container flex-between">
         
         {/* Brand / Logo */}
-        <div style={{ padding: '0.5rem 1rem', border: '2px solid var(--primary-navy)', fontWeight: '700', color: 'var(--primary-navy)', fontFamily: 'Prompt, sans-serif' }}>
-          {t('nav.title')}
-        </div>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img 
+            src="otplogo.png" 
+            alt="OTP Logo" 
+            style={{ 
+              height: '45px', 
+              width: 'auto', 
+              objectFit: 'contain',
+              borderRadius: '4px'
+            }} 
+          />
+        </Link>
 
         <nav className="flex-gap">
           
-          {/* Home Link (Remains a real link) */}
+          {/* Home Link */}
           <NavLink to="/" style={getLinkStyle}>
             {({ isActive }) => (
               <span style={getTextStyle(isActive)}>{t('nav.home')}</span>
             )}
           </NavLink>
 
-          {/* About Dropdown (Now unclickable) */}
+          {/* About Dropdown */}
           <div className="nav-dropdown">
             <div style={getLinkStyle({ isActive: isAboutActive })}>
               <span style={getTextStyle(isAboutActive)}>{t('nav.about')}</span> 
@@ -85,7 +96,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Services Dropdown (Now unclickable) */}
+          {/* Services Dropdown */}
           <div className="nav-dropdown">
             <div style={getLinkStyle({ isActive: isServicesActive })}>
               <span style={getTextStyle(isServicesActive)}>{t('nav.services')}</span> 
@@ -100,7 +111,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Contact Dropdown (Now unclickable) */}
+          {/* Contact Dropdown */}
           <div className="nav-dropdown">
             <div style={getLinkStyle({ isActive: isContactActive })}>
               <span style={getTextStyle(isContactActive)}>{t('nav.contact')}</span> 

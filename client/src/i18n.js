@@ -1,22 +1,22 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import enTranslations from './locales/en.json';
+import thTranslations from './locales/th.json';
 
-import translationEN from './locales/en.json';
-import translationTH from './locales/th.json';
-
-const resources = {
-  en: { translation: translationEN },
-  th: { translation: translationTH }
-};
+const savedLanguage = localStorage.getItem('preferredLanguage') || 'th';
 
 i18n
   .use(initReactI18next)
   .init({
-    resources,
-    lng: 'th',
-    fallbackLng: 'en',
+    resources: {
+      en: { translation: enTranslations },
+      th: { translation: thTranslations }
+    },
+    lng: savedLanguage, 
+    
+    fallbackLng: 'th',
     interpolation: {
-      escapeValue: false
+      escapeValue: false 
     }
   });
 

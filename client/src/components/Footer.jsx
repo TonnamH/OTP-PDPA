@@ -30,11 +30,11 @@ export default function Footer() {
         <div className="flex-gap" style={{ flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
           <Link to="/policy/website" style={linkStyle}>{t('footer.websitePolicy')}</Link>
           <span style={dividerStyle}>|</span>
-          <Link to="/policy/cookie" style={linkStyle}>{t('footer.cookiePolicy')}</Link>
+          <Link to="/policy-cookie" style={linkStyle}>{t('footer.cookiePolicy')}</Link>
           <span style={dividerStyle}>|</span>
           <Link to="/policy/security" style={linkStyle}>{t('footer.securityPolicy')}</Link>
           <span style={dividerStyle}>|</span>
-          <Link to="/policy/privacy" style={linkStyle}>{t('footer.privacyPolicy')}</Link>
+          <Link to="/privacy-policy" style={linkStyle}>{t('footer.privacyPolicy')}</Link>
         </div>
 
         <div style={{ 

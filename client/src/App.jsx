@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Documents from './pages/Documents';
@@ -11,6 +11,13 @@ import Videos from './pages/Videos';
 import Training from './pages/Training';
 import TitleManager from './components/TitleManager';
 import ReportForm from './pages/ReportForm';
+import Login from './pages/Login';
+import DocumentUpload from './pages/admin/DocumentUpload'; 
+import InfographicUpload from './pages/admin/InfographicUpload';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import CookiePolicy from './pages/CookiePolicy';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -18,6 +25,8 @@ function App() {
       <TitleManager />
       <Routes>
         <Route path="/" element={<Layout />}>
+          
+          {/* === PUBLIC ROUTES === */}
           <Route index element={<Home />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/contact/report" element={<ReportForm />} />
@@ -28,6 +37,39 @@ function App() {
           <Route path="/services/infographics" element={<Infographics />} />
           <Route path="/services/videos" element={<Videos />} />
           <Route path="/services/training" element={<Training />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/policy-cookie" element={<CookiePolicy />} />
+          
+          {/* === ADMIN ROUTES === */}
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+          <Route path="/admin/login" element={<Login />} />
+
+          <Route 
+            path="/admin/dashboard" 
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
+
+          <Route 
+            path="/admin/documents/upload" 
+            element={
+              <ProtectedRoute>
+                <DocumentUpload />
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route 
+            path="/admin/infographics/upload" 
+            element={
+              <ProtectedRoute>
+                <InfographicUpload />
+              </ProtectedRoute>
+            } 
+          />
 
         </Route>
       </Routes>

@@ -16,13 +16,22 @@ export default function TitleManager() {
     '/services/infographics': 'infographics.title',
     '/services/videos': 'videos.title',
     '/services/training': 'training.title',
+    '/contact': 'nav.contact',
+    '/contact/report': 'nav.Report',
+    '/admin/login': 'loginPage.title',
+    '/admin/dashboard': 'adminDashboard.title',
+    '/admin/documents/upload': 'adminUploadDoc.title',
+    '/admin/infographics/upload': 'adminUploadInfo.title',
+    '/privacy-policy': 'privacyPolicyPage.title',
+    '/policy-cookie': 'cookiePolicyPage.title',
+    // Add more routes and their corresponding translation keys here as needed
     // Search is handled a bit differently below because of the URL query
   };
 
   useEffect(() => {
     // 2. Grab the base URL path (ignoring ?q=search stuff)
     const currentPath = location.pathname;
-    
+
     let pageName = '';
 
     // 3. Special rule for the search page so we can include the searched word
@@ -30,18 +39,18 @@ export default function TitleManager() {
       const searchParams = new URLSearchParams(location.search);
       const query = searchParams.get('q') || '';
       pageName = t('search.title', { query: query });
-    } 
+    }
     // 4. Standard rule for all other pages
     else if (routeTitles[currentPath]) {
       pageName = t(routeTitles[currentPath]);
-    } 
+    }
     // 5. Fallback just in case
     else {
-      pageName = t('nav.home'); 
+      pageName = t('nav.home');
     }
 
-    const brandName = t('nav.title'); 
-    
+    const brandName = t('nav.title');
+
     // 6. Update the browser tab
     document.title = `${pageName} | ${brandName}`;
 

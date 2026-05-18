@@ -1,38 +1,57 @@
 {
-    "nav": {
-        "title": "OTP PDPA",
-        "home": "Home",
-        "about": "About",
-        "aboutDpo": "DPO Working Group",
-        "aboutDocs": "Related Documents",
-        "aboutRopa": "OTP Record of Processing Activities",
-        "services": "Services",
-        "servicesInfographics": "Infographics",
-        "servicesVideos": "Videos",
-        "servicesTraining": "Training",
-        "servicesEbook": "E-Book",
-        "servicesOTPBoard": "Q&A (Intranet)",
-        "contact": "Contact",
-        "Report": "Inquire/Report",
-        "search": "Search..."
+  "nav": {
+    "title": "OTP PDPA",
+    "home": "Home",
+    "about": "About",
+    "aboutDpo": "DPO Working Group",
+    "aboutDocs": "Related Documents",
+    "aboutRopa": "OTP Record of Processing Activities",
+    "services": "Services",
+    "servicesInfographics": "Infographics",
+    "servicesVideos": "Videos",
+    "servicesTraining": "Training",
+    "servicesEbook": "E-Book",
+    "servicesOTPBoard": "Q&A (Intranet)",
+    "contact": "Contact",
+    "Report": "Inquire/Report",
+    "search": "Search..."
+  },
+  "home": {
+    "hero": {
+      "title": "Personal Data Protection Center (PDPA)",
+      "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)",
+      "searchPlaceholder": "Search information",
+      "searchButton": "Search"
     },
-    "home": {
-        "hero": {
-            "title": "Personal Data Protection Center (PDPA)",
-            "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)",
-            "searchPlaceholder": "Search information",
-            "searchButton": "Search"
-        },
-        "benefits": {
-            "heading": "Benefits to the Public and Government from",
-            "subHeading": "Personal Data Protection Act B.E. 2562 (2019)",
-            "pointOneTitle": "PLACEHOLDERTEXT",
-            "pointOneText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
-            "pointTwoTitle": "PLACEHOLDERTEXT",
-            "pointTwoText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
-        }
-    },
-    "dpo": {
+    "benefits": {
+      "heading": "Benefits to the Public and Government from",
+      "subHeading": "Personal Data Protection Act B.E. 2562 (2019)",
+      "pointOneTitle": "Benefits to the Public",
+      "pointOneList": [
+        "Confidence that personal data is securely stored, appropriately handled, and used only within stated purposes.",
+        "Reduces damages and distress caused by personal data breaches.",
+        "The right to be clearly informed of purposes, grant or withdraw consent, and request access, copies, disclosure, deletion, destruction, or suspension of personal data usage.",
+        "The ability to file complaints and request compensation if data is used beyond its stated purpose."
+      ],
+      "pointTwoTitle": "Benefits to the Government",
+      "pointTwoList": [
+        "Elevates the country to international standards regarding personal data protection laws.",
+        "Establishes effective regulatory measures and operational tools.",
+        "Promotes good governance with transparent and verifiable data protection operations.",
+        "Builds a strong society by allowing public and private sector data operations to be audited for accuracy.",
+        "Enhances the country's national image regarding data protection efficiency."
+      ]
+    },"slider": [
+      { "title": "Personal Data Protection Center", "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)" },
+      { "title": "OTP Personal Data Protection Policy", "subtitle": "Committed to safeguarding your information" },
+      { "title": "Protecting Citizens' Personal Data Rights", "subtitle": "Ensuring transparency and security in data usage" },
+      { "title": "Acknowledge Our PDPA Policy", "subtitle": "Scan the QR code to understand how we collect and use data" },
+      { "title": "PDPA Knowledge & Understanding Training", "subtitle": "Preparing officials for proper compliance" },
+      { "title": "Building Awareness for Internal Staff", "subtitle": "Strengthening data security standards within the organization" },
+      { "title": "Committed to Elevating Security Standards", "subtitle": "Building public trust in government operations" }
+    ]
+  },
+  "dpo": {
     "title": "Data Protection Officer (DPO)",
     "subtitle": "Working Group for Personal Data Protection Officers of the Office of Transport and Traffic Policy and Planning (OTP)",
     "chairmanTitle": "Deputy Director-General of OTP (DCIO of OTP)",
@@ -63,21 +82,16 @@
     "duty3": "Coordinate and cooperate with the Office of the Personal Data Protection Commission in cases of issues related to the collection, use, or disclosure of personal data.",
     "duty4": "Maintain strict confidentiality of any personal data known or acquired through the performance of duties, in accordance with the Personal Data Protection Act."
   },
-  "docs": {
+  "documentsPage": {
     "title": "Documents related to the PDPA of OTP",
     "subtitle": "Collection of laws, regulations, orders, and forms available for download.",
-    "sectionTitle": "All Documents",
-    "filters": {
-      "all": "All",
+    "loading": "Loading documents...",
+    "empty": "No documents available in this category.",
+    "categories": {
       "law": "Acts / Related Laws",
       "order": "Orders / Announcements / Regulations",
       "policy": "Policies / Guidelines / Practices",
       "form": "Forms"
-    },
-    "table": {
-      "file": "File",
-      "date": "Date",
-      "download": "Download"
     }
   },
   "ropa": {
@@ -110,14 +124,17 @@
     "ropaTitle": "Record of Processing Activities (ROPA)",
     "ropaDesc": "Official Record of Processing Activities for OTP."
   },
-  "infographics": {
+  "infographicsPage": {
     "title": "PDPA Infographics",
     "subtitle": "Collection of public relations materials and knowledge about personal data protection.",
-    "sectionTitle": "Infographics",
+    "loading": "Loading images...",
+    "empty": "No infographics available in this category.",
     "filters": {
       "all": "All",
       "basics": "Basics",
-      "roles": "Roles & Responsibilities"
+      "roles": "Roles & Responsibilities",
+      "operations": "Operations & Compliance",
+      "it_security": "IT & Security"
     }
   },
   "videos": {
@@ -140,7 +157,7 @@
     "downloadDoc": "Training Document: ",
     "downloadBtn": "Download"
   },
-"contactPage": {
+  "contactPage": {
     "title": "Contact Data Protection Officer (DPO)",
     "subtitle": "For inquiries or complaints regarding the Personal Data Protection Act",
     "infoTitle": "Contact Information",
@@ -187,12 +204,92 @@
       "backBtn": "Return to Home"
     }
   },
-    "footer": {
-        "websitePolicy": "Website Policy",
-        "cookiePolicy": "Cookie Policy",
-        "securityPolicy": "Security Policy",
-        "privacyPolicy": "Privacy Policy",
-        "copyright": "Copyright © 2026 Transport and Traffic Information Technology Center - All Rights Reserved.",
-        "backToTop": "Back to Top"
+  "loginPage": {
+    "title": "Admin Login",
+    "subtitle": "Please enter your username and password to access the management portal.",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "loginBtn": "Login",
+    "loggingIn": "Verifying...",
+    "errorGeneric": "Invalid username or password. Please try again."
+  },
+  "adminUploadDoc": {
+    "title": "Upload Document",
+    "subtitle": "Add a new document to the system (e.g., Acts, Policies, Forms)",
+    "form": {
+      "docTitleLabel": "Document Title",
+      "docTitlePlaceholder": "Enter document title...",
+      "categoryLabel": "Category",
+      "categoryOptions": {
+        "law": "Acts / Related Laws",
+        "order": "Orders / Announcements / Regulations",
+        "policy": "Policies / Rules / Guidelines",
+        "form": "Forms"
+      },
+      "fileLabel": "Document File (PDF, Word)",
+      "uploadBtn": "Upload Document",
+      "uploading": "Uploading..."
+    },
+    "messages": {
+      "success": "Document uploaded successfully!",
+      "errorAuth": "Session expired. Please log in again.",
+      "errorGeneric": "An error occurred during upload. Please try again."
     }
+  },
+  "adminUploadInfo": {
+    "title": "Upload Infographic",
+    "subtitle": "Add visual learning materials to publish on the website.",
+    "form": {
+      "titleLabel": "Infographic Title",
+      "titlePlaceholder": "e.g., Summary of DPO Duties...",
+      "categoryLabel": "Category",
+      "categoryOptions": {
+        "basics": "Basic Concepts",
+        "roles": "Roles & Responsibilities",
+        "operations": "Operations & Compliance",
+        "it_security": "IT & Security"
+      },
+      "fileLabel": "Image File (PNG, JPG, WEBP)",
+      "uploadBtn": "Upload Image",
+      "uploading": "Uploading..."
+    },
+    "messages": {
+      "success": "Infographic uploaded successfully!",
+      "errorAuth": "Session expired. Please log in again.",
+      "errorGeneric": "An error occurred during upload. Please try again."
+    }
+  },
+  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage documents, infographics, and website content.",
+    "quickActions": "Quick Actions",
+    "uploadDocBtn": "+ Upload New Document",
+    "uploadInfoBtn": "+ Upload New Infographic",
+    "recentDocs": "Recent Documents",
+    "recentInfo": "Recent Infographics",
+    "table": {
+      "title": "Title",
+      "category": "Category",
+      "date": "Upload Date",
+      "view": "View"
+    },
+    "loading": "Loading data...",
+    "empty": "No data available yet."
+  },
+  "privacyPolicyPage": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: May 18, 2026"
+  },
+  "cookiePolicyPage": {
+    "title": "Cookie Policy",
+    "lastUpdated": "Last Updated: May 18, 2026"
+  },
+  "footer": {
+    "websitePolicy": "Website Policy",
+    "cookiePolicy": "Cookie Policy",
+    "securityPolicy": "Security Policy",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "Copyright © 2026 Transport and Traffic Information Technology Center - All Rights Reserved.",
+    "backToTop": "Back to Top"
+  }
 }
