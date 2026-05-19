@@ -14,7 +14,9 @@
     "servicesOTPBoard": "Q&A (Intranet)",
     "contact": "Contact",
     "Report": "Inquire/Report",
-    "search": "Search..."
+    "search": "Search...",
+    "dashboard": "Dashboard",
+    "logout": "Log out"
   },
   "home": {
     "hero": {
@@ -41,14 +43,36 @@
         "Builds a strong society by allowing public and private sector data operations to be audited for accuracy.",
         "Enhances the country's national image regarding data protection efficiency."
       ]
-    },"slider": [
-      { "title": "Personal Data Protection Center", "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)" },
-      { "title": "OTP Personal Data Protection Policy", "subtitle": "Committed to safeguarding your information" },
-      { "title": "Protecting Citizens' Personal Data Rights", "subtitle": "Ensuring transparency and security in data usage" },
-      { "title": "Acknowledge Our PDPA Policy", "subtitle": "Scan the QR code to understand how we collect and use data" },
-      { "title": "PDPA Knowledge & Understanding Training", "subtitle": "Preparing officials for proper compliance" },
-      { "title": "Building Awareness for Internal Staff", "subtitle": "Strengthening data security standards within the organization" },
-      { "title": "Committed to Elevating Security Standards", "subtitle": "Building public trust in government operations" }
+    },
+    "slider": [
+      {
+        "title": "Personal Data Protection Center",
+        "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)"
+      },
+      {
+        "title": "OTP Personal Data Protection Policy",
+        "subtitle": "Committed to safeguarding your information"
+      },
+      {
+        "title": "Protecting Citizens' Personal Data Rights",
+        "subtitle": "Ensuring transparency and security in data usage"
+      },
+      {
+        "title": "Acknowledge Our PDPA Policy",
+        "subtitle": "Scan the QR code to understand how we collect and use data"
+      },
+      {
+        "title": "PDPA Knowledge & Understanding Training",
+        "subtitle": "Preparing officials for proper compliance"
+      },
+      {
+        "title": "Building Awareness for Internal Staff",
+        "subtitle": "Strengthening data security standards within the organization"
+      },
+      {
+        "title": "Committed to Elevating Security Standards",
+        "subtitle": "Building public trust in government operations"
+      }
     ]
   },
   "dpo": {
@@ -122,7 +146,19 @@
     "docTitle": "Personal Data Protection Act B.E. 2562 (2019)",
     "docDesc": "Download PDPA documents and related laws.",
     "ropaTitle": "Record of Processing Activities (ROPA)",
-    "ropaDesc": "Official Record of Processing Activities for OTP."
+    "ropaDesc": "Official Record of Processing Activities for OTP.",
+    "infoTitle": "PDPA Infographics",
+    "infoDesc": "Collection of public relations materials and knowledge about personal data protection.",
+    "videoTitle": "Video and Multimedia",
+    "videoDesc": "Collection of educational videos to understand the Personal Data Protection Act.",
+    "trainingTitle": "PDPA Knowledge Training",
+    "trainingDesc": "Videos and learning materials from our training sessions.",
+    "contactTitle": "Contact Us",
+    "contactDesc": "Contact information, maps, and channels to reach the DPO.",
+    "reportTitle": "Report / Inquire / Complain",
+    "reportDesc": "Form to report breaches, ask questions, or submit complaints.",
+    "cookieTitle": "Cookie Policy",
+    "cookieDesc": "Details on the use of cookies on the website for a better user experience."
   },
   "infographicsPage": {
     "title": "PDPA Infographics",
@@ -216,6 +252,7 @@
   "adminUploadDoc": {
     "title": "Upload Document",
     "subtitle": "Add a new document to the system (e.g., Acts, Policies, Forms)",
+    "backToDashboard": "Back to Dashboard",
     "form": {
       "docTitleLabel": "Document Title",
       "docTitlePlaceholder": "Enter document title...",
@@ -226,7 +263,11 @@
         "policy": "Policies / Rules / Guidelines",
         "form": "Forms"
       },
-      "fileLabel": "Document File (PDF, Word)",
+      "fileLabel": "Document File",
+      "fileSelected": "Selected file: ",
+      "clickToChange": "Click to change file",
+      "clickToBrowse": "Click to browse for a file",
+      "supportedFiles": "Supported files: PDF, DOC, DOCX",
       "uploadBtn": "Upload Document",
       "uploading": "Uploading..."
     },
@@ -239,6 +280,7 @@
   "adminUploadInfo": {
     "title": "Upload Infographic",
     "subtitle": "Add visual learning materials to publish on the website.",
+    "backToDashboard": "Back to Dashboard",
     "form": {
       "titleLabel": "Infographic Title",
       "titlePlaceholder": "e.g., Summary of DPO Duties...",
@@ -249,7 +291,11 @@
         "operations": "Operations & Compliance",
         "it_security": "IT & Security"
       },
-      "fileLabel": "Image File (PNG, JPG, WEBP)",
+      "fileLabel": "Image File",
+      "fileSelected": "Selected file: ",
+      "clickToChange": "Click to change image",
+      "clickToBrowse": "Click to browse for an image",
+      "supportedFiles": "Supported files: PNG, JPG, WEBP",
       "uploadBtn": "Upload Image",
       "uploading": "Uploading..."
     },
@@ -257,6 +303,36 @@
       "success": "Infographic uploaded successfully!",
       "errorAuth": "Session expired. Please log in again.",
       "errorGeneric": "An error occurred during upload. Please try again."
+    }
+  },
+  "adminEditDoc": {
+    "title": "Edit Document",
+    "subtitle": "Update details or replace the document file.",
+    "form": {
+      "currentFile": "Current File:",
+      "keepCurrent": "Leave empty to keep the current file.",
+      "uploadNew": "Upload a new file to replace the current one",
+      "updateBtn": "Save Changes",
+      "updating": "Saving..."
+    },
+    "messages": {
+      "success": "Document updated successfully!",
+      "errorFetch": "Could not fetch document details."
+    }
+  },
+  "adminEditInfo": {
+    "title": "Edit Infographic",
+    "subtitle": "Update details or replace the infographic image.",
+    "form": {
+      "currentImage": "Current Image:",
+      "keepCurrent": "Leave empty to keep the current image.",
+      "uploadNew": "Upload a new image to replace the current one",
+      "updateBtn": "Save Changes",
+      "updating": "Saving..."
+    },
+    "messages": {
+      "success": "Infographic updated successfully!",
+      "errorFetch": "Could not fetch infographic details."
     }
   },
   "adminDashboard": {
@@ -270,8 +346,16 @@
     "table": {
       "title": "Title",
       "category": "Category",
-      "date": "Upload Date",
-      "view": "View"
+      "date": "Date",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "actions": "Actions"
+    },
+    "messages": {
+      "confirmDelete": "Are you sure you want to delete this item? This action cannot be undone.",
+      "deleteSuccess": "Item deleted successfully",
+      "deleteError": "Error deleting item"
     },
     "loading": "Loading data...",
     "empty": "No data available yet."

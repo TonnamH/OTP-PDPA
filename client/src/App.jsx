@@ -17,7 +17,20 @@ import InfographicUpload from './pages/admin/InfographicUpload';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import CookiePolicy from './pages/CookiePolicy';
+import EditDocument from './pages/admin/EditDocument';
+import EditInfographic from './pages/admin/EditInfographic';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// === NEW HELPER COMPONENT ===
+// This checks if the user is ALREADY logged in.
+// If they have a token, send them to the dashboard. If not, let them see the login page.
+const AuthRedirect = ({ children }) => {
+  const token = localStorage.getItem('adminToken');
+  if (token) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+  return children;
+};
 
 function App() {
   return (
@@ -41,8 +54,26 @@ function App() {
           <Route path="/policy-cookie" element={<CookiePolicy />} />
           
           {/* === ADMIN ROUTES === */}
-          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
-          <Route path="/admin/login" element={<Login />} />
+          
+          {/* 1. Base /admin redirect wrapper */}
+          <Route 
+            path="/admin" 
+            element={
+              <AuthRedirect>
+                <Navigate to="/admin/login" replace />
+              </AuthRedirect>
+            } 
+          />
+          
+          {/* 2. Login page wrapper */}
+          <Route 
+            path="/admin/login" 
+            element={
+              <AuthRedirect>
+                <Login />
+              </AuthRedirect>
+            } 
+          />
 
           <Route 
             path="/admin/dashboard" 
@@ -70,6 +101,23 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/admin/documents/edit/:id" 
+            element={
+              <ProtectedRoute>
+                <EditDocument />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route 
+            path="/admin/infographics/edit/:id" 
+            element={
+              <ProtectedRoute>
+                <EditInfographic />
+              </ProtectedRoute>
+            }
+           />
 
         </Route>
       </Routes>

@@ -182,3 +182,24 @@
     border-right-color: var(--border);
   }
 }
+
+/* --- Navbar Spacing --- */
+.flex-gap {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Generous spacing for large desktop monitors */
+}
+
+/* Tablet / Small Laptop Adjustments */
+@media (max-width: 1024px) {
+  .flex-gap {
+    gap: 1rem; /* Shrinks the gap safely before things collide */
+  }
+}
+
+/* Large Mobile Adjustments */
+@media (max-width: 768px) {
+  .flex-gap {
+    gap: 0.5rem; /* Packs them tighter right before shifting to a mobile menu */
+  }
+}

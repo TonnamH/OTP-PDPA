@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^12.39.0",
     "fuse.js": "^7.3.0",
     "i18next": "^26.1.0",
     "react": "^19.2.6",
