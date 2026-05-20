@@ -177,10 +177,13 @@
     "title": "Video and Multimedia",
     "subtitle": "Collection of educational videos to understand the Personal Data Protection Act.",
     "sectionTitle": "Videos",
+    "moreVideosText": "You can watch more videos about PDPA ",
+    "moreVideosLink": "here",
     "categories": {
       "cat1": "Lectures on Key Principles of PDPA B.E. 2562 (2019)",
       "cat2": "Mechanisms for Enforcing Personal Data Protection Laws",
-      "cat3": "Summary of Personal Data Protection Act B.E. 2562 (2019)"
+      "cat3": "Summary of Personal Data Protection Act B.E. 2562 (2019)",
+      "cat4": "Introduction to the Personal Data Protection Act B.E. 2562 (2019)"
     }
   },
   "training": {
@@ -369,11 +372,9 @@
     "lastUpdated": "Last Updated: May 18, 2026"
   },
   "footer": {
-    "websitePolicy": "Website Policy",
-    "cookiePolicy": "Cookie Policy",
-    "securityPolicy": "Security Policy",
+    "visitorCount": "Total Visitors",
     "privacyPolicy": "Privacy Policy",
-    "copyright": "Copyright © 2026 Transport and Traffic Information Technology Center - All Rights Reserved.",
-    "backToTop": "Back to Top"
+    "cookiePolicy": "Cookie Policy",
+    "copyright": "Copyright © 2026 Office of Transport and Traffic Policy and Planning - All Rights Reserved."
   }
 }

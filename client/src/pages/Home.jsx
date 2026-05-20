@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../components/FadeIn'; // <-- 1. Import your new animation component!
+import FadeIn from '../components/FadeIn';
 import '../css/Home.css';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
   // --- Hooks & State ---
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentSlide, setCurrentSlide] = useState(0); // Slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // --- Slider Data ---
   const slides = [
@@ -45,16 +45,14 @@ export default function Home() {
     }
   };
 
-  // Pulling the bullet points from the JSON dictionary
   const publicBenefits = t('home.benefits.pointOneList', { returnObjects: true });
   const govBenefits = t('home.benefits.pointTwoList', { returnObjects: true });
 
   return (
     <>
-      {/* LAYER 2: Hero Banner Section */}
-      {/* Short delay so it loads smoothly when the page first opens */}
+      {/* Hero Banner Section - Extended padding for overlap */}
       <FadeIn delay={0.1}>
-        <section className="section-full hero-banner">
+        <section className="section-full hero-banner" style={{ paddingBottom: '10rem' }}>
           <div className="container">
             <div style={{ maxWidth: '700px' }}>
               <h1 style={{ fontSize: '3rem', marginBottom: '0.5rem', color: 'var(--bg-white)' }}>
@@ -85,31 +83,54 @@ export default function Home() {
         </section>
       </FadeIn>
 
-      {/* LAYER 2.5: The Slideshow Section */}
+      {/* Floating Slideshow - Overlaps the hero */}
       <FadeIn delay={0.2}>
-        <section style={{ backgroundColor: 'var(--bg-white)', padding: '3rem 0' }}>
-          <div className="container" style={{ maxWidth: '1350px' }}>
+        <div style={{ 
+          marginTop: '-7rem',
+          paddingBottom: '5rem',
+          position: 'relative',
+          zIndex: 10,
+          backgroundColor: 'var(--bg-white)'
+        }}>
+          <div className="container" style={{ maxWidth: '1200px' }}>
             
-            {/* Slider Container */}
+            {/* Floating Card with Strong Shadow */}
             <div style={{ 
-              width: '100%', borderRadius: '12px', boxShadow: 'var(--shadow-elegant)', 
-              overflow: 'hidden', backgroundColor: 'var(--bg-white)', border: '1px solid var(--border-color)' 
+              width: '100%', 
+              borderRadius: '16px', 
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)',
+              overflow: 'hidden', 
+              backgroundColor: 'var(--bg-white)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease'
             }}>
               
-              {/* Image Track & Arrows Wrapper */}
+              {/* Image Track & Arrows */}
               <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
                 
                 <div style={{ 
                   display: 'flex', 
-                  transition: 'transform 0.5s ease-in-out', 
+                  transition: 'transform 0.5s ease-in-out',
                   transform: `translateX(-${currentSlide * 100}%)` 
                 }}>
                   {slides.map((slide, index) => (
-                    <div key={index} style={{ width: '100%', flexShrink: 0, height: '450px', backgroundColor: '#f8fafc' }}>
+                    <div key={index} style={{ 
+                      width: '100%', 
+                      flexShrink: 0, 
+                      height: '480px', 
+                      backgroundColor: '#f8fafc',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
                       <img 
                         src={slide} 
                         alt={`Slide ${index + 1}`} 
-                        style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '1rem' }}
+                        style={{ 
+                          maxWidth: '100%', 
+                          maxHeight: '100%', 
+                          objectFit: 'contain', 
+                          padding: '2rem' 
+                        }}
                       />
                     </div>
                   ))}
@@ -119,14 +140,32 @@ export default function Home() {
                 <button 
                   onClick={() => setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))}
                   style={{
-                    position: 'absolute', top: '50%', left: '1rem', transform: 'translateY(-50%)',
-                    width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                    border: 'none', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.15)', zIndex: 10, color: 'var(--primary-navy)',
-                    transition: 'background-color 0.2s, transform 0.2s'
+                    position: 'absolute', 
+                    top: '50%', 
+                    left: '1.5rem', 
+                    transform: 'translateY(-50%)',
+                    width: '48px', 
+                    height: '48px', 
+                    borderRadius: '50%', 
+                    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                    border: 'none',
+                    cursor: 'pointer', 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', 
+                    zIndex: 10, 
+                    color: 'var(--primary-navy)',
+                    transition: 'all 0.2s ease'
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.85)'}
+                  onMouseOver={(e) => { 
+                    e.currentTarget.style.backgroundColor = 'white';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                  }}
+                  onMouseOut={(e) => { 
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                  }}
                 >
                   <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -137,14 +176,32 @@ export default function Home() {
                 <button 
                   onClick={() => setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))}
                   style={{
-                    position: 'absolute', top: '50%', right: '1rem', transform: 'translateY(-50%)',
-                    width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                    border: 'none', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.15)', zIndex: 10, color: 'var(--primary-navy)',
-                    transition: 'background-color 0.2s, transform 0.2s'
+                    position: 'absolute', 
+                    top: '50%', 
+                    right: '1.5rem', 
+                    transform: 'translateY(-50%)',
+                    width: '48px', 
+                    height: '48px', 
+                    borderRadius: '50%', 
+                    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                    border: 'none',
+                    cursor: 'pointer', 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', 
+                    zIndex: 10, 
+                    color: 'var(--primary-navy)',
+                    transition: 'all 0.2s ease'
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.85)'}
+                  onMouseOver={(e) => { 
+                    e.currentTarget.style.backgroundColor = 'white';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                  }}
+                  onMouseOut={(e) => { 
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                  }}
                 >
                   <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -153,37 +210,55 @@ export default function Home() {
 
               </div>
 
-              {/* Dynamic Caption Bar & Navigation */}
+              {/* Caption Bar & Navigation */}
               <div style={{ 
-                padding: '1.5rem 2rem', 
-                borderTop: '1px solid var(--border-color)', 
+                padding: '2rem 2.5rem', 
+                backgroundColor: 'white', 
+                borderTop: '1px solid rgba(0, 0, 0, 0.06)',
                 display: 'flex', 
                 justifyContent: 'space-between', 
                 alignItems: 'center',
                 flexWrap: 'wrap',
-                gap: '1rem'
+                gap: '1.5rem'
               }}>
                 
-                {/* The Text */}
+                {/* Caption Text */}
                 <div style={{ flex: '1 1 300px' }}>
-                  <h3 style={{ fontSize: '1.4rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: '0 0 0.2rem 0' }}>
+                  <h3 style={{ 
+                    fontSize: '1.5rem', 
+                    fontFamily: 'Prompt, sans-serif', 
+                    color: 'var(--primary-navy)', 
+                    margin: '0 0 0.3rem 0',
+                    fontWeight: '600'
+                  }}>
                     {t('home.slider', { returnObjects: true })[currentSlide]?.title}
                   </h3>
-                  <p style={{ fontSize: '1rem', fontFamily: 'Sarabun, sans-serif', color: 'var(--text-gray)', margin: 0 }}>
+                  <p style={{ 
+                    fontSize: '1rem', 
+                    fontFamily: 'Sarabun, sans-serif', 
+                    color: 'var(--text-gray)', 
+                    margin: 0,
+                    lineHeight: '1.5'
+                  }}>
                     {t('home.slider', { returnObjects: true })[currentSlide]?.subtitle}
                   </p>
                 </div>
 
                 {/* Slider Dots */}
-                <div style={{ display: 'flex', gap: '0.6rem' }}>
+                <div style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
                   {slides.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentSlide(index)}
                       style={{
-                        width: '12px', height: '12px', borderRadius: '50%', border: 'none', cursor: 'pointer',
+                        width: currentSlide === index ? '32px' : '10px',
+                        height: '10px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        cursor: 'pointer',
                         backgroundColor: currentSlide === index ? 'var(--primary-navy)' : '#cbd5e1',
-                        transition: 'all 0.3s'
+                        transition: 'all 0.3s ease',
+                        opacity: currentSlide === index ? 1 : 0.5
                       }}
                       aria-label={`Go to slide ${index + 1}`}
                     />
@@ -194,11 +269,11 @@ export default function Home() {
 
             </div>
           </div>
-        </section>
+        </div>
       </FadeIn>
 
-      {/* LAYER 3: Benefits Section */}
-      <section className="section-full" style={{ backgroundColor: 'var(--bg-white)' }}>
+      {/* Benefits Section */}
+      <section className="section-full" style={{ backgroundColor: 'var(--bg-white)', paddingTop: '2rem' }}>
         <div className="container">
           
           <FadeIn delay={0.1}>

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import VisitorCounter from './VisitorCounter';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -21,29 +22,43 @@ export default function Footer() {
   };
 
   return (
-    // Slightly balanced the outer padding to match the new inner gap
     <footer style={{ backgroundColor: 'var(--primary-navy)', color: 'var(--bg-white)', padding: '1.5rem 0' }}>
       
-      {/* THE FIX: Increased the gap from 0.5rem to 1.25rem for comfortable breathing room */}
-      <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
+      {/* THE FIX: Changed to a horizontal flex row with space-between */}
+      <div 
+        className="container" 
+        style={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          flexWrap: 'wrap', // Ensures it stacks neatly on mobile phones
+          gap: '1.5rem' 
+        }}
+      >
 
-        <div className="flex-gap" style={{ flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-          <Link to="/policy/website" style={linkStyle}>{t('footer.websitePolicy')}</Link>
-          <span style={dividerStyle}>|</span>
-          <Link to="/policy-cookie" style={linkStyle}>{t('footer.cookiePolicy')}</Link>
-          <span style={dividerStyle}>|</span>
-          <Link to="/policy/security" style={linkStyle}>{t('footer.securityPolicy')}</Link>
-          <span style={dividerStyle}>|</span>
-          <Link to="/privacy-policy" style={linkStyle}>{t('footer.privacyPolicy')}</Link>
+        {/* LEFT SIDE: Links and Copyright */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link to="/privacy-policy" style={linkStyle}>{t('footer.privacyPolicy')}</Link>
+            <span style={dividerStyle}>|</span>
+            <Link to="/policy-cookie" style={linkStyle}>{t('footer.cookiePolicy')}</Link>
+          </div>
+
+          <div style={{ 
+            fontFamily: 'Sarabun, sans-serif',
+            fontSize: '0.8rem',
+            opacity: 0.7
+          }}>
+            {t('footer.copyright')}
+          </div>
+
         </div>
 
-        <div style={{ 
-          textAlign: 'center',
-          fontFamily: 'Sarabun, sans-serif',
-          fontSize: '0.8rem',
-          opacity: 0.7
-        }}>
-          {t('footer.copyright')}
+        {/* RIGHT SIDE: Visitor Counter */}
+        <div>
+          <VisitorCounter />
         </div>
 
       </div>

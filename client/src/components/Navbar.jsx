@@ -72,7 +72,7 @@ export default function Navbar() {
         {/* Brand / Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <img 
-            src="otplogo.png" 
+            src="/otplogo.png" 
             alt="OTP Logo" 
             style={{ height: '45px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }} 
           />

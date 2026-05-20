@@ -1,37 +1,41 @@
 // src/pages/Videos.jsx
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../components/FadeIn'; // <-- 1. Import the FadeIn component
+import FadeIn from '../components/FadeIn';
 
 export default function Videos() {
     const { t } = useTranslation();
-    const [selectedVideo, setSelectedVideo] = useState(null); // Controls the Video Lightbox
+    const [selectedVideo, setSelectedVideo] = useState(null);
 
-    // THE FAKE DATABASE
     const videoData = [
         {
             categoryKey: 'cat1',
             videos: [
-                { id: 1, title: 'PDPA คืออะไร สรุปเข้าใจง่ายใน 3 นาที', youtubeId: 'Y9zS4M0bJUM' },
-                { id: 2, title: 'หน้าที่ของผู้ควบคุมข้อมูลส่วนบุคคล', youtubeId: 'dQw4w9WgXcQ' },
-                { id: 3, title: 'สิทธิของเจ้าของข้อมูล', youtubeId: 'jNQXAC9IVRw' }
+                { id: 1, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.1', youtubeId: 'MBeK0KrHd5w' },
+                { id: 2, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.2', youtubeId: '7h72snD29Ls' },
+                { id: 3, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.3', youtubeId: 'lPbIiFC5L6I' }
             ]
         },
         {
             categoryKey: 'cat2',
             videos: [
-                { id: 4, title: 'ขั้นตอนการแจ้งเหตุละเมิด', youtubeId: 'tPEE9ZwTmy0' }
+                { id: 4, title: 'กลไกเพื่อให้เกิดการบังคับใช้กฎหมายคุ้มครองข้อมูลส่วนบุคคล', youtubeId: 'i6UWPL1DaoE' }
             ]
         },
         {
             categoryKey: 'cat3',
             videos: [
-                { id: 5, title: 'สรุปสาระสำคัญ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล', youtubeId: 'M7lc1UVf-VE' }
+                { id: 5, title: 'สาระสำคัญ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562', youtubeId: '-Qejl-2F_Vk' }
+            ]
+        },
+        {
+            categoryKey: 'cat4',
+            videos: [
+                { id: 6, title: 'แนะนำ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 25622', youtubeId: '5siFs7qKBgU' }
             ]
         }
     ];
 
-    // Close lightbox when hitting Escape key
     useEffect(() => {
         const handleEsc = (e) => { if (e.key === 'Escape') setSelectedVideo(null); };
         window.addEventListener('keydown', handleEsc);
@@ -41,7 +45,6 @@ export default function Videos() {
     return (
         <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
 
-            {/* 1. Header Section */}
             <FadeIn delay={0.1}>
                 <section className="section-full" style={{ paddingBottom: '2rem' }}>
                     <div className="container">
@@ -57,7 +60,6 @@ export default function Videos() {
                 </section>
             </FadeIn>
 
-            {/* 2. Multimedia Content Section */}
             <section className="section-full" style={{ paddingTop: '0' }}>
                 <div className="container">
 
@@ -67,7 +69,6 @@ export default function Videos() {
                         </h3>
                     </FadeIn>
 
-                    {/* Loop through each Category - USING DYNAMIC DELAY! */}
                     {videoData.map((categoryGroup, index) => (
                         <FadeIn key={index} delay={0.3 + (index * 0.15)}>
                             <div style={{ marginBottom: '4rem' }}>
@@ -83,14 +84,12 @@ export default function Videos() {
                                     {t(`videos.categories.${categoryGroup.categoryKey}`)}
                                 </h4>
 
-                                {/* Video Grid */}
                                 <div style={{
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
                                     gap: '2rem'
                                 }}>
                                     {categoryGroup.videos.map((video) => (
-                                        // Click handler to open the Lightbox
                                         <div key={video.id} onClick={() => setSelectedVideo(video)} style={{ cursor: 'pointer', group: 'hover' }}>
 
                                             <div style={{
@@ -105,7 +104,7 @@ export default function Videos() {
                                             }}
                                                 onMouseOver={(e) => {
                                                     e.currentTarget.querySelector('.play-btn').style.transform = 'translate(-50%, -50%) scale(1.1)';
-                                                    e.currentTarget.querySelector('.play-btn').style.backgroundColor = '#FF0000'; // YouTube Red on hover!
+                                                    e.currentTarget.querySelector('.play-btn').style.backgroundColor = '#FF0000';
                                                     e.currentTarget.querySelector('img').style.transform = 'scale(1.05)';
                                                     e.currentTarget.querySelector('.overlay').style.backgroundColor = 'rgba(24, 35, 55, 0.4)';
                                                 }}
@@ -116,13 +115,11 @@ export default function Videos() {
                                                     e.currentTarget.querySelector('.overlay').style.backgroundColor = 'rgba(24, 35, 55, 0.2)';
                                                 }}
                                             >
-                                                {/* Auto-fetch thumbnail from YouTube using the ID */}
                                                 <img
                                                     src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
                                                     alt={video.title}
                                                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
                                                     onError={(e) => {
-                                                        // Fallback to a lower quality thumbnail if the max-res one doesn't exist
                                                         e.target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
                                                     }}
                                                 />
@@ -139,7 +136,6 @@ export default function Videos() {
                                                     display: 'flex', justifyContent: 'center', alignItems: 'center',
                                                     transition: 'all 0.3s ease', backdropFilter: 'blur(4px)'
                                                 }}>
-                                                    {/* Play Icon */}
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M8 5v14l11-7z" />
                                                     </svg>
@@ -158,10 +154,31 @@ export default function Videos() {
                         </FadeIn>
                     ))}
 
+                    <FadeIn delay={0.9}>
+                        <div style={{ 
+                            marginTop: '2rem', 
+                            paddingTop: '2rem', 
+                            borderTop: '1px solid var(--border-color)',
+                            textAlign: 'center',
+                            fontSize: '1.1rem', 
+                            color: 'var(--text-gray)',
+                            fontFamily: 'Sarabun, sans-serif'
+                        }}>
+                            {t('videos.moreVideosText')} 
+                            <a 
+                                href="https://www.pdpc.or.th/pdpc-channel/" 
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: '#0ea5e9', textDecoration: 'none' }}
+                            >
+                                {t('videos.moreVideosLink')}
+                            </a>
+                        </div>
+                    </FadeIn>
+
                 </div>
             </section>
 
-            {/* 3. YOUTUBE VIDEO LIGHTBOX (Left without FadeIn) */}
             {selectedVideo && (
                 <div
                     onClick={() => setSelectedVideo(null)}
@@ -190,7 +207,6 @@ export default function Videos() {
                         &times;
                     </button>
 
-                    {/* Video Container */}
                     <div
                         onClick={(e) => e.stopPropagation()}
                         style={{

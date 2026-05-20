@@ -9,8 +9,8 @@ export default function Training() {
 
   // The specific videos for this training session
   const trainingVideos = [
-    { id: 1, titleKey: 'training.part1', youtubeId: 'Y9zS4M0bJUM' }, // Replace with real Part 1 ID
-    { id: 2, titleKey: 'training.part2', youtubeId: 'dQw4w9WgXcQ' }  // Replace with real Part 2 ID
+    { id: 1, titleKey: 'อบรม PDPA Part1', youtubeId: '4-LgztfilBM' },
+    { id: 2, titleKey: 'อบรม PDPA Part2', youtubeId: 't6iBc6RpzYE' }
   ];
 
   // Close lightbox when hitting Escape key
@@ -32,7 +32,7 @@ export default function Training() {
                 {t('training.title')}
               </h1>
               <h2 style={{ fontSize: '1.2rem', color: 'var(--text-gray)', fontWeight: '400' }}>
-                {t('training.subtitle')} {/* Optional subtitle to make it look nicer */}
+                {t('training.subtitle')}
               </h2>
             </div>
           </div>
@@ -59,7 +59,7 @@ export default function Training() {
               display: 'grid', 
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
               gap: '2rem',
-              maxWidth: '900px', // Prevents the 2 videos from becoming gigantic on large screens
+              maxWidth: '900px',
               marginBottom: '3rem'
             }}>
               {trainingVideos.map((video) => (
