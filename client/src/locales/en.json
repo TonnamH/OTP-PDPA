@@ -120,10 +120,55 @@
     }
   },
   "ropa": {
-    "title": "Record of Processing Activities of OTP",
-    "subtitle": "(Record of processing Activities : ROPA)",
-    "viewerTitle": "PDPA ROPA",
-    "download": "Download :"
+    "title": "Record of Processing Activities (ROPA)",
+    "subtitle": "Explore what data OTP collects, why, and how — ensuring transparency and protecting your rights.",
+    "backToDept": "Back to Departments",
+    "backToActivities": "Back to Activities",
+    "home": "Home",
+    "selectDept": "Select a Department to Explore",
+    "totalActivities": "{{count}} Activities",
+    "downloadPdf": "Download PDF",
+    "pdfCtaTitle": "Need the full ROPA document?",
+    "pdfCtaSub": "Download the complete PDF containing all extensive regulatory details.",
+    "filter": {
+      "title": "Filters",
+      "reset": "Reset",
+      "search": "Search activities...",
+      "hasSensitive": "Contains Sensitive Data",
+      "basis": "Lawful Basis",
+      "all": "All",
+      "retention": "Retention Period",
+      "short": "< 1 Year",
+      "medium": "1-5 Years",
+      "long": "> 5 Years (or Lifetime)",
+      "showing": "Showing {{count}} activities",
+      "notFound": "No activities match your current filters.",
+      "exportCsv": "Export to CSV"
+    },
+    "details": {
+      "generalData": "General Data",
+      "sensitiveData": "Sensitive Data",
+      "hasSensitiveTag": "Sensitive Data",
+      "basis": "Lawful Basis",
+      "retention": "Retention Period",
+      "storage": "Storage Medium",
+      "disclosure": "Data Disclosure / Access",
+      "security": "Security Measures",
+      "viewFull": "View Full ROPA Details (A1 - I3)",
+      "controller": "Data Controller"
+    },
+    "rights": {
+      "title": "Your Rights Under the PDPA",
+      "access": "Right to Access:",
+      "accessDesc": "You have the right to access and request a copy of your personal data.",
+      "edit": "Right to Rectification:",
+      "editDesc": "If your data is inaccurate, you can request corrections.",
+      "delete": "Right to Erasure:",
+      "deleteDesc24": "As this data is collected under a legal obligation, erasure may not be possible, but you may request usage suspension in specific cases.",
+      "deleteDesc": "You may request the erasure or suspension of your data under certain conditions.",
+      "object": "Right to Object:",
+      "objectDesc": "You have the right to object to the processing of your data in specific circumstances."
+    }
   },
   "search": {
     "title": "Search Results: \"{{query}}\"",
