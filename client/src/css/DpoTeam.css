@@ -1,141 +1,399 @@
-/* src/css/DpoTeam.css */
+/* =====================
+   DPO TEAM PAGE
+   ===================== */
 
-.org-chart-container {
+.dpo-hero {
+  background-color: var(--primary-navy);
+  padding: 5rem 0 4rem;
+}
+
+.dpo-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.8rem;
+}
+
+.dpo-hero p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 580px;
+}
+
+/* --- Org Chart Wrapper --- */
+.org-chart-section {
+  padding: 5rem 0;
+  background: #f8fafc;
+}
+
+.org-chart-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
-  padding: 3rem 0;
+  gap: 0;
 }
 
-/* The Chairman (Top Level) */
-.org-level-1 {
+/* --- Connector Lines --- */
+.org-connector {
+  width: 2px;
+  height: 40px;
+  background: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.org-connector-h {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
   width: 100%;
-  max-width: 500px;
-  background-color: var(--primary-navy);
-  color: var(--bg-white);
-  padding: 1.5rem;
-  border-radius: 8px;
+  justify-content: center;
+}
+
+.org-connector-h::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: #cbd5e1;
+}
+
+/* --- Level 1: Chairman --- */
+.org-level-1-card {
+  background: var(--primary-navy);
+  color: white;
+  border-radius: 14px;
+  padding: 1.6rem 2.5rem;
   text-align: center;
-  box-shadow: var(--shadow-elegant);
-}
-
-.org-level-1 h4 {
-  color: var(--bg-white);
-  margin-bottom: 0.5rem;
-}
-
-/* The Working Group (Middle Level) */
-.org-level-2 {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  padding: 2.5rem;
-  background-color: var(--bg-light);
-  border: 1px dashed var(--border-color);
-  border-radius: 12px;
+  min-width: 280px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
   position: relative;
 }
 
-.org-group-label {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--bg-light);
-  padding: 0 1rem;
-  font-family: 'Prompt', sans-serif;
+.org-level-1-card .level-label {
+  display: inline-block;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: var(--primary-navy);
-  border: 1px dashed var(--border-color);
-  border-radius: 20px;
-  z-index: 10;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.6rem;
 }
 
-/* In src/css/DpoTeam.css */
-
-.org-card {
-  background-color: var(--bg-white);
-  padding: 1.25rem;
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(24, 35, 55, 0.02);
-  transition: transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  /* Optional: You can add a min-height if you want all cards to look a bit chunkier by default */
-  /* min-height: 80px; */
+.org-level-1-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.3rem;
 }
 
-.org-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--primary-navy);
+.org-level-1-card p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
 }
 
-/* The Secretaries (Bottom Level) */
-.org-level-3 {
+/* --- Level 2: Working Group --- */
+.org-level-2-wrapper {
   width: 100%;
-  max-width: 900px;
+}
+
+.org-level-2-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.org-level-2-rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  padding: 0; /* Removed padding so columns pack tightly */
+}
+
+/* (The .org-level-2-rail::before block has been completely removed) */
+
+.org-level-2-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  flex: 1;
+  max-width: 140px;
+  padding: 0 0.4rem;
+  position: relative; /* Added: anchors the horizontal line to the column */
 }
 
-.secretary-main {
+/* ADDED: Top horizontal line drawn across every column */
+.org-level-2-col::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 500px;
-  border: 2px solid #22c55e;
-  background-color: #f0fdf4;
+  height: 2px;
+  background: #cbd5e1;
 }
 
-.secretary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+/* ADDED: First item's line starts at the center and goes right */
+.org-level-2-col:first-child::after {
+  left: 50%;
+  width: 50%;
+}
+
+/* ADDED: Last item's line starts at the left and stops at the center */
+.org-level-2-col:last-child::after {
+  left: 0;
+  width: 50%;
+}
+
+/* The vertical drop line (Kept exactly as you had it) */
+.org-level-2-col::before {
+  content: '';
+  width: 2px;
+  height: 24px;
+  background: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.org-member-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.9rem 0.8rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--primary-navy);
+  line-height: 1.45;
   width: 100%;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-.secretary-sub {
-  border: 2px solid #22c55e;
+.org-member-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border-color: var(--primary-navy);
 }
 
-/* Duties List Styling */
-.duties-list {
-  padding-left: 1.5rem;
+/* --- Level 3: Secretaries --- */
+.org-level-3-wrapper {
+  width: 100%;
+  max-width: 860px;
 }
 
-.duties-list li {
+.org-level-3-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.org-level-3-inner {
+  background: white;
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.org-secretary-main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
   margin-bottom: 1.5rem;
-  color: var(--text-dark);
 }
 
-/* --- DPO Team Breakpoints --- */
+.org-secretary-avatar {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 12px;
+  background: #dcfce7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-@media (max-width: 768px) {
-  /* Shrink the minimum width of the grid boxes so they fit on narrow phones */
-  .org-level-2 {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    padding: 2rem 1rem;
+.org-secretary-main h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #166534;
+  margin: 0 0 0.2rem;
+}
+
+.org-secretary-main p {
+  font-size: 0.88rem;
+  color: #15803d;
+  margin: 0;
+}
+
+.org-secretary-sub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.org-secretary-sub-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.25s ease;
+}
+
+.org-secretary-sub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(21,128,61,0.1);
+}
+
+.org-secretary-sub-card strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #166534;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.org-secretary-sub-card span {
+  font-size: 0.8rem;
+  color: #4ade80;
+  color: #15803d;
+  opacity: 0.8;
+}
+
+/* --- Duties Section --- */
+.duties-section {
+  padding: 5rem 0;
+  background: white;
+}
+
+.duties-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.duty-card {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.8rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.25s ease;
+}
+
+.duty-card:hover {
+  background: white;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-color: var(--primary-navy);
+  transform: translateY(-2px);
+}
+
+.duty-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 8px;
+  background: var(--primary-navy);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Prompt', sans-serif;
+}
+
+.duty-text {
+  font-size: 1rem;
+  color: #334155;
+  line-height: 1.65;
+  padding-top: 0.4rem;
+}
+
+/* --- Contact CTA --- */
+.contact-cta {
+  padding: 4rem 0;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.contact-cta-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contact-cta h3 {
+  font-size: 1.4rem;
+  color: var(--primary-navy);
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+}
+
+.contact-cta p {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.contact-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.8rem;
+  background: var(--primary-navy);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.contact-cta a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15,23,42,0.15);
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .org-level-2-rail {
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
-  .secretary-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  /* Remove the side-borders on mobile so the text isn't squished */
-  .duties-list {
-    padding-left: 1rem;
+  /* Hide both horizontal and vertical lines when wrapping */
+  .org-level-2-col::before,
+  .org-level-2-col::after { 
+    display: none; 
   }
   
-  h3[style*="borderLeft"] {
-    border-left: none !important;
-    border-bottom: 2px solid var(--primary-navy);
-    padding-left: 0 !important;
-    padding-bottom: 0.5rem;
-  }
+  .org-level-2-col { max-width: calc(33% - 1rem); }
+  .org-secretary-sub-grid { grid-template-columns: 1fr; }
+  .duties-grid { grid-template-columns: 1fr; }
+  .contact-cta-inner { flex-direction: column; align-items: flex-start; }
 }

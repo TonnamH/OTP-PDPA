@@ -21,64 +21,49 @@
   },
   "home": {
     "hero": {
-      "title": "Personal Data Protection Center (PDPA)",
-      "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)",
-      "searchPlaceholder": "Search information",
-      "searchButton": "Search"
+      "badge": "Personal Data Command Center",
+      "title": "PDPA Portal: OTP Knowledge & Personal Data Hub",
+      "subtitle": "Transparent, secure, and prioritizing your rights. Understand how the Office of Transport and Traffic Policy and Planning protects your information.",
+      "reportBtn": "Report Data Breach",
+      "learnMoreBtn": "View ROPA Records"
     },
-    "benefits": {
-      "heading": "Benefits to the Public and Government from",
-      "subHeading": "Personal Data Protection Act B.E. 2562 (2019)",
-      "pointOneTitle": "Benefits to the Public",
-      "pointOneList": [
-        "Confidence that personal data is securely stored, appropriately handled, and used only within stated purposes.",
-        "Reduces damages and distress caused by personal data breaches.",
-        "The right to be clearly informed of purposes, grant or withdraw consent, and request access, copies, disclosure, deletion, destruction, or suspension of personal data usage.",
-        "The ability to file complaints and request compensation if data is used beyond its stated purpose."
-      ],
-      "pointTwoTitle": "Benefits to the Government",
-      "pointTwoList": [
-        "Elevates the country to international standards regarding personal data protection laws.",
-        "Establishes effective regulatory measures and operational tools.",
-        "Promotes good governance with transparent and verifiable data protection operations.",
-        "Builds a strong society by allowing public and private sector data operations to be audited for accuracy.",
-        "Enhances the country's national image regarding data protection efficiency."
-      ]
+    "pdpa1min": {
+      "label": "What is PDPA?",
+      "title": "The Law That Returns Data Rights to You",
+      "desc": "The Personal Data Protection Act (PDPA) empowers you as the true owner of your data. OTP is obligated to keep your information highly secure and use it only as strictly necessary.",
+      "check1": "Data must be stored with maximum security",
+      "check2": "Used exclusively for clearly stated purposes",
+      "check3": "You have the right to access, edit, or delete your data"
     },
-    "slider": [
-      {
-        "title": "Personal Data Protection Center",
-        "subtitle": "Office of Transport and Traffic Policy and Planning (OTP)"
+    "quickLinks": {
+      "label": "Services",
+      "title": "Essential Information & Services",
+      "readMore": "View Details",
+      "ropa": {
+        "title": "ROPA (Record of Processing)",
+        "desc": "Check which activities and departments process your personal data."
       },
-      {
-        "title": "OTP Personal Data Protection Policy",
-        "subtitle": "Committed to safeguarding your information"
+      "docs": {
+        "title": "Policy Documents",
+        "desc": "Download consent forms, manuals, and privacy policy declarations."
       },
-      {
-        "title": "Protecting Citizens' Personal Data Rights",
-        "subtitle": "Ensuring transparency and security in data usage"
-      },
-      {
-        "title": "Acknowledge Our PDPA Policy",
-        "subtitle": "Scan the QR code to understand how we collect and use data"
-      },
-      {
-        "title": "PDPA Knowledge & Understanding Training",
-        "subtitle": "Preparing officials for proper compliance"
-      },
-      {
-        "title": "Building Awareness for Internal Staff",
-        "subtitle": "Strengthening data security standards within the organization"
-      },
-      {
-        "title": "Committed to Elevating Security Standards",
-        "subtitle": "Building public trust in government operations"
+      "dpo": {
+        "title": "OTP DPO Team",
+        "desc": "Get to know our Data Protection Officers and contact channels."
       }
-    ]
+    },
+    "updates": {
+      "label": "Updates",
+      "title": "Latest News",
+      "viewAll": "View All",
+      "loading": "Loading updates...",
+      "empty": "No news available at the moment."
+    }
   },
   "dpo": {
     "title": "Data Protection Officer (DPO)",
     "subtitle": "Working Group for Personal Data Protection Officers of the Office of Transport and Traffic Policy and Planning (OTP)",
+    "orgChartTitle": "DPO Organizational Chart",
     "chairmanTitle": "Deputy Director-General of OTP (DCIO of OTP)",
     "chairmanRole": "Chairman of the Working Group",
     "workingGroupLabel": "Working Group",
@@ -105,7 +90,9 @@
     "duty1": "Provide advice to the Data Controller or Data Processor, including their employees or contractors, regarding compliance with the Personal Data Protection Act.",
     "duty2": "Inspect the operations of the Data Controller or Data Processor, including their employees or contractors, regarding the collection, use, or disclosure of personal data to ensure compliance with the law.",
     "duty3": "Coordinate and cooperate with the Office of the Personal Data Protection Commission in cases of issues related to the collection, use, or disclosure of personal data.",
-    "duty4": "Maintain strict confidentiality of any personal data known or acquired through the performance of duties, in accordance with the Personal Data Protection Act."
+    "duty4": "Maintain strict confidentiality of any personal data known or acquired through the performance of duties, in accordance with the Personal Data Protection Act.",
+    "contactTitle": "Have questions about personal data?",
+    "contactSub": "Contact the OTP DPO team directly via email"
   },
   "documentsPage": {
     "title": "Documents related to the PDPA of OTP",
