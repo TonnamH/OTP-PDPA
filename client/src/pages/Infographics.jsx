@@ -1,30 +1,55 @@
 // src/pages/Infographics.jsx
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../components/FadeIn'; // <-- 1. Import the FadeIn component
+import FadeIn from '../components/FadeIn';
+import '../css/Infographics.css';
+
+const Icon = ({ name, size = 20, color = 'currentColor', strokeWidth = 1.6 }) => {
+  const icons = {
+    image: (
+      <>
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </>
+    ),
+    filter: (
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+    ),
+    search: (
+      <>
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </>
+    ),
+  };
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+      {icons[name]}
+    </svg>
+  );
+};
+
+const FILTERS = ['all', 'basics', 'roles', 'operations', 'it_security'];
 
 export default function Infographics() {
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
-  const [selectedImage, setSelectedImage] = useState(null); 
-  
-  // 1. Live Database & Pagination State
+  const [selectedImage, setSelectedImage] = useState(null);
   const [infographics, setInfographics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // 12 is perfect for grids (divides well into 2, 3, or 4 columns)
+  const itemsPerPage = 12;
 
-  // 2. Fetch data from your backend
   useEffect(() => {
     const fetchInfographics = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/infographics');
-        if (response.ok) {
-          const data = await response.json();
-          setInfographics(data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch infographics:', error);
+        if (response.ok) setInfographics(await response.json());
+      } catch (err) {
+        console.error('Failed to fetch infographics:', err);
       } finally {
         setLoading(false);
       }
@@ -32,146 +57,110 @@ export default function Infographics() {
     fetchInfographics();
   }, []);
 
-  // 3. Filter Logic using real data
-  const filteredDocs = activeFilter === 'all' 
-    ? infographics 
-    : infographics.filter(doc => doc.category === activeFilter);
-
-  // --- Reset to page 1 whenever the filter changes ---
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeFilter]);
-
-  // --- Pagination Math ---
-  const totalPages = Math.ceil(filteredDocs.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentData = filteredDocs.slice(startIndex, startIndex + itemsPerPage);
-
-  // Close lightbox when hitting Escape key
   useEffect(() => {
     const handleEsc = (e) => { if (e.key === 'Escape') setSelectedImage(null); };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
-  // Pagination Styles
-  const pageBtnStyle = {
-    padding: '0.4rem 0.8rem', border: '1px solid var(--border-color)', borderRadius: '4px',
-    backgroundColor: 'white', cursor: 'pointer', fontFamily: 'Prompt, sans-serif', fontSize: '0.9rem',
-    transition: 'all 0.2s', color: 'var(--text-dark)'
-  };
-  const activePageBtnStyle = {
-    ...pageBtnStyle, backgroundColor: 'var(--primary-navy)', color: 'white', border: '1px solid var(--primary-navy)'
-  };
+  useEffect(() => { setCurrentPage(1); }, [activeFilter]);
+
+  const filteredDocs = activeFilter === 'all'
+    ? infographics
+    : infographics.filter(doc => doc.category === activeFilter);
+
+  const totalPages = Math.ceil(filteredDocs.length / itemsPerPage);
+  const currentData = filteredDocs.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
-      
-      {/* Header Section */}
+    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
+
+      {/* HERO */}
       <FadeIn delay={0.1}>
-        <section className="section-full" style={{ paddingBottom: '2rem' }}>
+        <section className="infographics-hero">
           <div className="container">
-            <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
-              <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif' }}>
-                {t('infographicsPage.title')}
-              </h1>
-              <h2 style={{ fontSize: '1.2rem', color: 'var(--text-gray)', fontWeight: '400' }}>
-                {t('infographicsPage.subtitle')}
-              </h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+              <Icon name="image" size={16} color="rgba(255,255,255,0.5)" strokeWidth={1.8}/>
+              <span style={{
+                fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)'
+              }}>
+                Infographics
+              </span>
             </div>
+            <h1>{t('infographicsPage.title', 'อินโฟกราฟิก PDPA')}</h1>
+            <p>{t('infographicsPage.subtitle', 'สื่อความรู้เกี่ยวกับ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล ในรูปแบบที่เข้าใจง่าย')}</p>
           </div>
         </section>
       </FadeIn>
 
-      {/* Gallery Section */}
-      <section className="section-full" style={{ paddingTop: '0' }}>
+      {/* GALLERY */}
+      <section style={{ padding: '3.5rem 0' }}>
         <div className="container">
-          
-          {/* Filter Pills */}
+
+          {/* Filters */}
           <FadeIn delay={0.2}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '3rem' }}>
-              {['all', 'basics', 'roles', 'operations', 'it_security'].map(filterKey => (
-                <button 
-                  key={filterKey}
-                  onClick={() => setActiveFilter(filterKey)}
-                  style={{
-                    padding: '0.5rem 1.25rem',
-                    borderRadius: '20px',
-                    border: `1px solid ${activeFilter === filterKey ? 'var(--primary-navy)' : 'var(--border-color)'}`,
-                    backgroundColor: activeFilter === filterKey ? 'var(--bg-light)' : 'transparent',
-                    color: activeFilter === filterKey ? 'var(--primary-navy)' : 'var(--text-gray)',
-                    fontFamily: 'Prompt, sans-serif',
-                    fontWeight: activeFilter === filterKey ? '600' : '400',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
+            <div className="infographics-filters">
+              {FILTERS.map(key => (
+                <button
+                  key={key}
+                  className={`filter-pill ${activeFilter === key ? 'active' : ''}`}
+                  onClick={() => setActiveFilter(key)}
                 >
-                  {t(`infographicsPage.filters.${filterKey}`)}
+                  {t(`infographicsPage.filters.${key}`, key)}
                 </button>
               ))}
             </div>
           </FadeIn>
 
-          {/* The Grid & Loading State */}
+          {/* Grid */}
           <FadeIn delay={0.3}>
             {loading ? (
-              <p style={{ textAlign: 'center', fontFamily: 'Prompt, sans-serif' }}>{t('infographicsPage.loading')}</p>
+              <div className="infographics-empty">
+                <Icon name="search" size={40} color="#e2e8f0" strokeWidth={1.2}/>
+                <p>{t('infographicsPage.loading', 'กำลังโหลด...')}</p>
+              </div>
             ) : filteredDocs.length === 0 ? (
-              <p style={{ textAlign: 'center', color: 'var(--text-gray)' }}>{t('infographicsPage.empty')}</p>
+              <div className="infographics-empty">
+                <Icon name="image" size={40} color="#e2e8f0" strokeWidth={1.2}/>
+                <p>{t('infographicsPage.empty', 'ไม่พบอินโฟกราฟิกในหมวดหมู่นี้')}</p>
+              </div>
             ) : (
               <>
-                <div style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-                  gap: '2.5rem' 
-                }}>
+                <div className="infographics-grid">
                   {currentData.map((item) => (
-                    <div 
-                      key={item.id} 
+                    <div
+                      key={item.id}
+                      className="infographic-card"
                       onClick={() => setSelectedImage(item)}
-                      style={{ cursor: 'pointer', group: 'hover' }}
                     >
-                      {/* Image Card */}
-                      <div style={{
-                        width: '100%',
-                        aspectRatio: '1 / 1', 
-                        backgroundColor: '#f8fafc',
-                        border: '1px solid var(--border-color)',
-                        borderRadius: '8px',
-                        overflow: 'hidden',
-                        marginBottom: '1rem',
-                        boxShadow: 'var(--shadow-elegant)',
-                        transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-5px)';
-                        e.currentTarget.style.boxShadow = '0 12px 20px rgba(24, 35, 55, 0.1)';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'var(--shadow-elegant)';
-                      }}
-                      >
-                        <img 
-                          src={`http://localhost:5000${item.image_path}`} 
-                          alt={item.title} 
-                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      <div className="infographic-card-image">
+                        <img
+                          src={`http://localhost:5000${item.image_path}`}
+                          alt={item.title}
                         />
                       </div>
-                      <h4 style={{ textAlign: 'center', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: 0 }}>
-                        {item.title}
-                      </h4>
+                      <div className="infographic-card-body">
+                        {item.category && (
+                          <span className="infographic-card-category">
+                            {t(`infographicsPage.filters.${item.category}`, item.category)}
+                          </span>
+                        )}
+                        <h4 className="infographic-card-title">{item.title}</h4>
+                      </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
                 {totalPages > 1 && (
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', marginTop: '3.5rem' }}>
+                  <div className="pagination-wrapper">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
                       <button
                         key={pageNum}
-                        style={pageNum === currentPage ? activePageBtnStyle : pageBtnStyle}
+                        className={`page-btn ${pageNum === currentPage ? 'active' : ''}`}
                         onClick={() => setCurrentPage(pageNum)}
                       >
                         {pageNum}
@@ -186,35 +175,18 @@ export default function Infographics() {
         </div>
       </section>
 
-      {/* LIGHTBOX OVERLAY - Left without FadeIn so it triggers instantly */}
+      {/* LIGHTBOX */}
       {selectedImage && (
-        <div 
-          onClick={() => setSelectedImage(null)}
-          style={{
-            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-            backgroundColor: 'rgba(0, 0, 0, 0.85)', zIndex: 9999, display: 'flex',
-            justifyContent: 'center', alignItems: 'center', padding: '2rem', backdropFilter: 'blur(5px)'
-          }}
-        >
-          <button 
-            onClick={() => setSelectedImage(null)}
-            style={{ position: 'absolute', top: '20px', right: '30px', background: 'none', border: 'none', color: 'white', fontSize: '2rem', cursor: 'pointer', zIndex: 10000 }}
-          >
+        <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
+          <button className="lightbox-close" onClick={() => setSelectedImage(null)}>
             &times;
           </button>
-
-          <div 
-            onClick={(e) => e.stopPropagation()} 
-            style={{ position: 'relative', maxHeight: '90vh', maxWidth: '90vw' }}
-          >
-            <img 
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img
               src={`http://localhost:5000${selectedImage.image_path}`}
               alt={selectedImage.title}
-              style={{ maxHeight: '90vh', maxWidth: '100%', objectFit: 'contain', borderRadius: '4px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }} 
             />
-            <div style={{ position: 'absolute', bottom: '-40px', left: 0, width: '100%', textAlign: 'center', color: 'white', fontFamily: 'Prompt, sans-serif', fontSize: '1.2rem' }}>
-              {selectedImage.title}
-            </div>
+            <p className="lightbox-title">{selectedImage.title}</p>
           </div>
         </div>
       )}

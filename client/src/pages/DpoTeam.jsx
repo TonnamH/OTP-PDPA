@@ -97,20 +97,23 @@ export default function DpoTeam() {
   ];
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
 
       {/* 1. HERO */}
       <FadeIn delay={0.1}>
+        // REPLACE with:
         <section className="dpo-hero">
           <div className="container">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
-              <Icon name="shield" size={18} color="rgba(255,255,255,0.5)" strokeWidth={1.8} />
-              <span style={{ fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
-                Data Protection Officer
-              </span>
+            <div style={{ maxWidth: '700px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+                <Icon name="shield" size={18} color="rgba(255,255,255,0.5)" strokeWidth={1.8} />
+                <span style={{ fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
+                  Data Protection Officer
+                </span>
+              </div>
+              <h1>{t('dpo.title', 'ทีมเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล')}</h1>
+              <p>{t('dpo.subtitle', 'คณะทำงานเพื่อปฏิบัติหน้าที่เป็นเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของ สนข.')}</p>
             </div>
-            <h1>{t('dpo.title', 'ทีมเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล')}</h1>
-            <p>{t('dpo.subtitle', 'คณะทำงานเพื่อปฏิบัติหน้าที่เป็นเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของ สนข.')}</p>
           </div>
         </section>
       </FadeIn>

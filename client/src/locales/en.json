@@ -52,12 +52,39 @@
         "desc": "Get to know our Data Protection Officers and contact channels."
       }
     },
-    "updates": {
-      "label": "Updates",
-      "title": "Latest News",
-      "viewAll": "View All",
-      "loading": "Loading updates...",
-      "empty": "No news available at the moment."
+    "downloads": {
+      "label": "Downloads",
+      "title": "Recently Added Documents",
+      "viewAll": "Document Center",
+      "loading": "Loading documents...",
+      "empty": "No documents available at the moment."
+    },
+    "infographics": {
+      "label": "Basic Knowledge",
+      "title": "PDPA at a Glance",
+      "cards": {
+        "why": {
+          "title": "Why Protect Personal Data?",
+          "desc": "Understand the core reasons and importance of data privacy."
+        },
+        "dodont": {
+          "title": "Do & Don't for PDPA",
+          "desc": "Best practices and strict prohibitions when handling data."
+        },
+        "rights": {
+          "title": "Data Subject Rights",
+          "desc": "Know your 8 fundamental rights under the PDPA law."
+        },
+        "roles": {
+          "title": "Key Roles in PDPA",
+          "desc": "Controller, Processor, and Data Protection Officer (DPO)."
+        }
+      }
+    },
+    "infographicGallery": {
+      "label": "Public Relations",
+      "title": "PDPA Infographics Gallery",
+      "empty": "No infographics available at the moment."
     }
   },
   "dpo": {

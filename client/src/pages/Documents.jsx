@@ -1,28 +1,69 @@
 // src/pages/Documents.jsx
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../components/FadeIn'; // <-- 1. Import the FadeIn component
+import FadeIn from '../components/FadeIn';
 import '../css/Documents.css';
+import api from '../utils/api';
+
+const Icon = ({ name, size = 20, color = 'currentColor', strokeWidth = 1.6 }) => {
+  const icons = {
+    document: (
+      <>
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14,2 14,8 20,8"/>
+        <line x1="8" y1="13" x2="16" y2="13"/>
+        <line x1="8" y1="17" x2="13" y2="17"/>
+      </>
+    ),
+    download: (
+      <>
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </>
+    ),
+    calendar: (
+      <>
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </>
+    ),
+    filter: (
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+    ),
+    search: (
+      <>
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </>
+    ),
+  };
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+      {icons[name]}
+    </svg>
+  );
+};
+
+const FILTERS = ['all', 'law', 'order', 'policy', 'form'];
 
 export default function Documents() {
   const { t, i18n } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
-
-  // 1. Live Database & Pagination State
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Change this number to show more/less items per page!
+  const itemsPerPage = 10;
 
-  // 2. Fetch from Node Backend
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/documents');
-        if (response.ok) {
-          const data = await response.json();
-          setDocuments(data);
-        }
+        const response = await api.get('/documents'); 
+        setDocuments(response.data);
       } catch (error) {
         console.error('Failed to fetch documents:', error);
       } finally {
@@ -32,167 +73,157 @@ export default function Documents() {
     fetchDocuments();
   }, []);
 
-  // 3. Filter Logic
-  const filteredDocs = activeFilter === 'all' 
-    ? documents 
+  const filteredDocs = activeFilter === 'all'
+    ? documents
     : documents.filter(doc => doc.category === activeFilter);
 
-  // --- Reset to page 1 whenever the filter changes ---
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeFilter]);
+  useEffect(() => { setCurrentPage(1); }, [activeFilter]);
 
-  // --- Pagination Math ---
   const totalPages = Math.ceil(filteredDocs.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentData = filteredDocs.slice(startIndex, startIndex + itemsPerPage);
+  const currentData = filteredDocs.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-  // 4. Clean Date Formatter
   const formatDate = (dateString) => {
     if (!dateString) return '';
-    const date = new Date(dateString);
-    const locale = i18n.language === 'th' ? 'th-TH' : 'en-US';
-    return date.toLocaleDateString(locale, { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
-  };
-
-  // Pagination Styles (Matching the Admin Dashboard)
-  const pageBtnStyle = {
-    padding: '0.4rem 0.8rem', border: '1px solid var(--border-color)', borderRadius: '4px',
-    backgroundColor: 'white', cursor: 'pointer', fontFamily: 'Prompt, sans-serif', fontSize: '0.9rem',
-    transition: 'all 0.2s', color: 'var(--text-dark)'
-  };
-  const activePageBtnStyle = {
-    ...pageBtnStyle, backgroundColor: 'var(--primary-navy)', color: 'white', border: '1px solid var(--primary-navy)'
+    return new Date(dateString).toLocaleDateString(
+      i18n.language === 'th' ? 'th-TH' : 'en-US',
+      { year: 'numeric', month: 'short', day: 'numeric' }
+    );
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
-      
-      {/* 1. Header Section */}
+    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
+
+      {/* HERO */}
       <FadeIn delay={0.1}>
-        <section className="section-full" style={{ paddingBottom: '2rem' }}>
+        <section className="documents-hero">
           <div className="container">
-            <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
-              <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif' }}>
-                {t('documentsPage.title')}
-              </h1>
-              <h2 style={{ fontSize: '1.2rem', color: 'var(--text-gray)', fontWeight: '400' }}>
-                {t('documentsPage.subtitle')}
-              </h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+              <Icon name="document" size={16} color="rgba(255,255,255,0.5)" strokeWidth={1.8}/>
+              <span style={{
+                fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)'
+              }}>
+                Document Center
+              </span>
             </div>
+            <h1>{t('documentsPage.title', 'เอกสารและแบบฟอร์ม')}</h1>
+            <p>{t('documentsPage.subtitle', 'รวบรวมนโยบาย คู่มือ กฎหมาย และแบบฟอร์มที่เกี่ยวข้องกับการคุ้มครองข้อมูลส่วนบุคคล')}</p>
           </div>
         </section>
       </FadeIn>
 
-      {/* 2. Documents Section */}
-      <section className="section-full" style={{ paddingTop: '0' }}>
-        <div className="container">
-          
+      {/* MAIN CONTENT */}
+      <section style={{ padding: '3rem 0' }}>
+        <div className="container" style={{ maxWidth: '1400px' }}>
           <FadeIn delay={0.2}>
-            <h3 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>
-              {t('documentsPage.title')}
-            </h3>
-          </FadeIn>
+            <div className="documents-card">
 
-          {/* Filter Pills */}
-          <FadeIn delay={0.3}>
-            <div className="filter-container">
-              <button 
-                className={`filter-pill ${activeFilter === 'all' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('all')}
-              >
-                {t('infographicsPage.filters.all')}
-              </button>
-              
-              {['law', 'order', 'policy', 'form'].map(filterKey => (
-                <button 
-                  key={filterKey}
-                  className={`filter-pill ${activeFilter === filterKey ? 'active' : ''}`}
-                  onClick={() => setActiveFilter(filterKey)}
-                >
-                  {t(`documentsPage.categories.${filterKey}`)}
-                </button>
-              ))}
-            </div>
-          </FadeIn>
+              {/* Header + Filters */}
+              <div className="documents-card-header">
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  marginBottom: '1.2rem', color: 'var(--primary-navy)'
+                }}>
+                  <Icon name="filter" size={16} strokeWidth={2}/>
+                  <span style={{
+                    fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.08em',
+                    textTransform: 'uppercase', color: '#94a3b8'
+                  }}>
+                    หมวดหมู่
+                  </span>
+                </div>
 
-          {/* Data Table */}
-          <FadeIn delay={0.4}>
-            {loading ? (
-               <p style={{ textAlign: 'center', padding: '3rem', fontFamily: 'Prompt, sans-serif' }}>
-                 {t('documentsPage.loading')}
-               </p>
-            ) : (
-              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '0.5rem' }}>
-                <table className="doc-table" style={{ width: '100%', minWidth: '800px', tableLayout: 'fixed' }}>
-                  <thead>
-                    <tr>
-                      <th style={{ width: '60%' }}>{t('adminDashboard.table.title')}</th>
-                      <th style={{ width: '30%' }}>{t('adminDashboard.table.date')}</th>
-                      <th style={{ width: '10%', textAlign: 'center' }}>
-                        {i18n.language === 'th' ? 'ดาวน์โหลด' : 'Download'}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentData.map((doc) => (
-                      <tr key={doc.id} className="doc-row">
-                        <td style={{ 
-                          fontFamily: 'Sarabun, sans-serif', 
-                          fontWeight: '500',
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis' 
-                        }}>
-                          {doc.title}
-                        </td>
-                        <td style={{ color: 'var(--text-gray)' }}>{formatDate(doc.created_at)}</td>
-                        <td style={{ textAlign: 'center' }}>
-                          <a 
-                            href={`http://localhost:5000${doc.file_path}`} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            style={{ display: 'inline-block', color: 'var(--primary-navy)' }}
-                          >
-                            <svg className="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                
-                {/* Empty State */}
-                {filteredDocs.length === 0 && (
-                  <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-gray)' }}>
-                    {t('documentsPage.empty')}
+                <div className="filter-container">
+                  {FILTERS.map(key => (
+                    <button
+                      key={key}
+                      className={`filter-pill ${activeFilter === key ? 'active' : ''}`}
+                      onClick={() => setActiveFilter(key)}
+                    >
+                      {key === 'all'
+                        ? t('infographicsPage.filters.all', 'ทั้งหมด')
+                        : t(`documentsPage.categories.${key}`, key)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Table Body */}
+              <div className="documents-card-body">
+                {loading ? (
+                  <div className="doc-empty">
+                    <Icon name="search" size={36} color="#cbd5e1" strokeWidth={1.2}/>
+                    <p>{t('documentsPage.loading', 'กำลังโหลดเอกสาร...')}</p>
                   </div>
-                )}
+                ) : (
+                  <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                    <table className="doc-table">
+                      <thead>
+                        <tr>
+                          <th style={{ width: '60%' }}>{t('adminDashboard.table.title', 'ชื่อเอกสาร')}</th>
+                          <th style={{ width: '25%' }}>{t('adminDashboard.table.date', 'วันที่')}</th>
+                          <th style={{ width: '15%', textAlign: 'center' }}>
+                            {i18n.language === 'th' ? 'ดาวน์โหลด' : 'Download'}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {currentData.map((doc) => (
+                          <tr key={doc.id} className="doc-row">
+                            <td className="doc-title-cell">{doc.title}</td>
+                            <td className="doc-date-cell">
+                              <div className="doc-date-inner">
+                                <Icon name="calendar" size={13} color="#cbd5e1" strokeWidth={1.8}/>
+                                {formatDate(doc.created_at)}
+                              </div>
+                            </td>
+                            <td style={{ textAlign: 'center', padding: '1rem' }}>
+                              <a
+                                href={`http://localhost:5000${doc.file_path}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="download-btn"
+                                title="Download"
+                              >
+                                <Icon name="download" size={16} strokeWidth={2}/>
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
 
-                {/* Pagination Controls - Numbers Only */}
-                {totalPages > 1 && (
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
-                      <button
-                        key={pageNum}
-                        style={pageNum === currentPage ? activePageBtnStyle : pageBtnStyle}
-                        onClick={() => setCurrentPage(pageNum)}
-                      >
-                        {pageNum}
-                      </button>
-                    ))}
+                    {/* Empty state */}
+                    {filteredDocs.length === 0 && !loading && (
+                      <div className="doc-empty">
+                        <Icon name="document" size={40} color="#e2e8f0" strokeWidth={1}/>
+                        <p>{t('documentsPage.empty', 'ไม่พบเอกสารในหมวดหมู่นี้')}</p>
+                      </div>
+                    )}
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                      <div className="pagination-wrapper">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
+                          <button
+                            key={pageNum}
+                            className={`page-btn ${pageNum === currentPage ? 'active' : ''}`}
+                            onClick={() => setCurrentPage(pageNum)}
+                          >
+                            {pageNum}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
-          </FadeIn>
 
+            </div>
+          </FadeIn>
         </div>
       </section>
 

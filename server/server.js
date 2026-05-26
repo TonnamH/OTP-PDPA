@@ -6,8 +6,10 @@ const pool = require('./db');
 
 const documentsRoutes = require('./routes/documents');
 const infographicsRoutes = require('./routes/infographics');
+const ropaRoutes = require('./routes/ropa');
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
@@ -18,6 +20,7 @@ const authRoutes = require('./routes/auth');
 app.use('/api', authRoutes);
 app.use('/api/documents', documentsRoutes);
 app.use('/api/infographics', infographicsRoutes);
+app.use('/api/ropa', ropaRoutes);
 
 app.get('/api/visitors', async (req, res) => {
   try {

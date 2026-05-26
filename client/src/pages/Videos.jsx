@@ -2,237 +2,183 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
+import '../css/Videos.css';
+
+const Icon = ({ name, size = 20, color = 'currentColor', strokeWidth = 1.6 }) => {
+  const icons = {
+    video: (
+      <>
+        <polygon points="23 7 16 12 23 17 23 7"/>
+        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+      </>
+    ),
+    play: (
+      <path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/>
+    ),
+    external: (
+      <>
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </>
+    ),
+  };
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+      {icons[name]}
+    </svg>
+  );
+};
 
 export default function Videos() {
-    const { t } = useTranslation();
-    const [selectedVideo, setSelectedVideo] = useState(null);
+  const { t } = useTranslation();
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
-    const videoData = [
-        {
-            categoryKey: 'cat1',
-            videos: [
-                { id: 1, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.1', youtubeId: 'MBeK0KrHd5w' },
-                { id: 2, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.2', youtubeId: '7h72snD29Ls' },
-                { id: 3, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.3', youtubeId: 'lPbIiFC5L6I' }
-            ]
-        },
-        {
-            categoryKey: 'cat2',
-            videos: [
-                { id: 4, title: 'กลไกเพื่อให้เกิดการบังคับใช้กฎหมายคุ้มครองข้อมูลส่วนบุคคล', youtubeId: 'i6UWPL1DaoE' }
-            ]
-        },
-        {
-            categoryKey: 'cat3',
-            videos: [
-                { id: 5, title: 'สาระสำคัญ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562', youtubeId: '-Qejl-2F_Vk' }
-            ]
-        },
-        {
-            categoryKey: 'cat4',
-            videos: [
-                { id: 6, title: 'แนะนำ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 25622', youtubeId: '5siFs7qKBgU' }
-            ]
-        }
-    ];
+  const videoData = [
+    {
+      categoryKey: 'cat1',
+      videos: [
+        { id: 1, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.1', youtubeId: 'MBeK0KrHd5w' },
+        { id: 2, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.2', youtubeId: '7h72snD29Ls' },
+        { id: 3, title: 'หลักการสำคัญพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 EP.3', youtubeId: 'lPbIiFC5L6I' },
+      ],
+    },
+    {
+      categoryKey: 'cat2',
+      videos: [
+        { id: 4, title: 'กลไกเพื่อให้เกิดการบังคับใช้กฎหมายคุ้มครองข้อมูลส่วนบุคคล', youtubeId: 'i6UWPL1DaoE' },
+      ],
+    },
+    {
+      categoryKey: 'cat3',
+      videos: [
+        { id: 5, title: 'สาระสำคัญ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562', youtubeId: '-Qejl-2F_Vk' },
+      ],
+    },
+    {
+      categoryKey: 'cat4',
+      videos: [
+        { id: 6, title: 'แนะนำ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562', youtubeId: '5siFs7qKBgU' },
+      ],
+    },
+  ];
 
-    useEffect(() => {
-        const handleEsc = (e) => { if (e.key === 'Escape') setSelectedVideo(null); };
-        window.addEventListener('keydown', handleEsc);
-        return () => window.removeEventListener('keydown', handleEsc);
-    }, []);
+  useEffect(() => {
+    const handleEsc = (e) => { if (e.key === 'Escape') setSelectedVideo(null); };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
 
-    return (
-        <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
+  return (
+    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
 
-            <FadeIn delay={0.1}>
-                <section className="section-full" style={{ paddingBottom: '2rem' }}>
-                    <div className="container">
-                        <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
-                            <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif' }}>
-                                {t('videos.title')}
-                            </h1>
-                            <h2 style={{ fontSize: '1.2rem', color: 'var(--text-gray)', fontWeight: '400' }}>
-                                {t('videos.subtitle')}
-                            </h2>
-                        </div>
-                    </div>
-                </section>
-            </FadeIn>
+      {/* HERO */}
+      <FadeIn delay={0.1}>
+        <section className="videos-hero">
+          <div className="container">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+              <Icon name="video" size={16} color="rgba(255,255,255,0.5)" strokeWidth={1.8}/>
+              <span style={{
+                fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)'
+              }}>
+                Video Library
+              </span>
+            </div>
+            <h1>{t('videos.title', 'วิดีโอความรู้ PDPA')}</h1>
+            <p>{t('videos.subtitle', 'รวบรวมวิดีโออธิบายกฎหมายคุ้มครองข้อมูลส่วนบุคคลจากหน่วยงานที่เกี่ยวข้อง')}</p>
+          </div>
+        </section>
+      </FadeIn>
 
-            <section className="section-full" style={{ paddingTop: '0' }}>
-                <div className="container">
+      {/* VIDEO CATEGORIES */}
+      <section style={{ padding: '3.5rem 0' }}>
+        <div className="container">
 
-                    <FadeIn delay={0.2}>
-                        <h3 style={{ fontSize: '1.8rem', marginBottom: '2.5rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)' }}>
-                            {t('videos.sectionTitle')}
-                        </h3>
-                    </FadeIn>
+          {videoData.map((categoryGroup, index) => (
+            <FadeIn key={index} delay={0.15 + index * 0.1}>
+              <div className="video-category">
 
-                    {videoData.map((categoryGroup, index) => (
-                        <FadeIn key={index} delay={0.3 + (index * 0.15)}>
-                            <div style={{ marginBottom: '4rem' }}>
-
-                                <h4 style={{
-                                    fontSize: '1.2rem',
-                                    marginBottom: '1.5rem',
-                                    fontFamily: 'Sarabun, sans-serif',
-                                    fontWeight: '600',
-                                    borderLeft: '4px solid var(--primary-navy)',
-                                    paddingLeft: '1rem'
-                                }}>
-                                    {t(`videos.categories.${categoryGroup.categoryKey}`)}
-                                </h4>
-
-                                <div style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                                    gap: '2rem'
-                                }}>
-                                    {categoryGroup.videos.map((video) => (
-                                        <div key={video.id} onClick={() => setSelectedVideo(video)} style={{ cursor: 'pointer', group: 'hover' }}>
-
-                                            <div style={{
-                                                position: 'relative',
-                                                width: '100%',
-                                                aspectRatio: '16 / 9',
-                                                backgroundColor: '#182337',
-                                                borderRadius: '8px',
-                                                overflow: 'hidden',
-                                                marginBottom: '1rem',
-                                                boxShadow: 'var(--shadow-elegant)',
-                                            }}
-                                                onMouseOver={(e) => {
-                                                    e.currentTarget.querySelector('.play-btn').style.transform = 'translate(-50%, -50%) scale(1.1)';
-                                                    e.currentTarget.querySelector('.play-btn').style.backgroundColor = '#FF0000';
-                                                    e.currentTarget.querySelector('img').style.transform = 'scale(1.05)';
-                                                    e.currentTarget.querySelector('.overlay').style.backgroundColor = 'rgba(24, 35, 55, 0.4)';
-                                                }}
-                                                onMouseOut={(e) => {
-                                                    e.currentTarget.querySelector('.play-btn').style.transform = 'translate(-50%, -50%) scale(1)';
-                                                    e.currentTarget.querySelector('.play-btn').style.backgroundColor = 'rgba(24, 35, 55, 0.8)';
-                                                    e.currentTarget.querySelector('img').style.transform = 'scale(1)';
-                                                    e.currentTarget.querySelector('.overlay').style.backgroundColor = 'rgba(24, 35, 55, 0.2)';
-                                                }}
-                                            >
-                                                <img
-                                                    src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-                                                    alt={video.title}
-                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
-                                                    onError={(e) => {
-                                                        e.target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
-                                                    }}
-                                                />
-
-                                                <div className="overlay" style={{
-                                                    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-                                                    backgroundColor: 'rgba(24, 35, 55, 0.2)', transition: 'background-color 0.4s ease'
-                                                }}></div>
-
-                                                <div className="play-btn" style={{
-                                                    position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                                                    width: '60px', height: '60px', borderRadius: '50%',
-                                                    backgroundColor: 'rgba(24, 35, 55, 0.8)', color: 'white',
-                                                    display: 'flex', justifyContent: 'center', alignItems: 'center',
-                                                    transition: 'all 0.3s ease', backdropFilter: 'blur(4px)'
-                                                }}>
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M8 5v14l11-7z" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-
-                                            <h5 style={{ textAlign: 'center', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)', margin: 0 }}>
-                                                {video.title}
-                                            </h5>
-
-                                        </div>
-                                    ))}
-                                </div>
-
-                            </div>
-                        </FadeIn>
-                    ))}
-
-                    <FadeIn delay={0.9}>
-                        <div style={{ 
-                            marginTop: '2rem', 
-                            paddingTop: '2rem', 
-                            borderTop: '1px solid var(--border-color)',
-                            textAlign: 'center',
-                            fontSize: '1.1rem', 
-                            color: 'var(--text-gray)',
-                            fontFamily: 'Sarabun, sans-serif'
-                        }}>
-                            {t('videos.moreVideosText')} 
-                            <a 
-                                href="https://www.pdpc.or.th/pdpc-channel/" 
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ color: '#0ea5e9', textDecoration: 'none' }}
-                            >
-                                {t('videos.moreVideosLink')}
-                            </a>
-                        </div>
-                    </FadeIn>
-
+                <div className="video-category-label">
+                  <h4>{t(`videos.categories.${categoryGroup.categoryKey}`, categoryGroup.categoryKey)}</h4>
                 </div>
-            </section>
 
-            {selectedVideo && (
-                <div
-                    onClick={() => setSelectedVideo(null)}
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100vw',
-                        height: '100vh',
-                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                        zIndex: 9999,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: '2rem',
-                        backdropFilter: 'blur(5px)'
-                    }}
-                >
-                    <button
-                        onClick={() => setSelectedVideo(null)}
-                        style={{
-                            position: 'absolute', top: '20px', right: '30px', background: 'none', border: 'none',
-                            color: 'white', fontSize: '2.5rem', cursor: 'pointer', zIndex: 10000
-                        }}
-                    >
-                        &times;
-                    </button>
-
+                <div className="videos-grid">
+                  {categoryGroup.videos.map((video) => (
                     <div
-                        onClick={(e) => e.stopPropagation()}
-                        style={{
-                            position: 'relative',
-                            width: '100%',
-                            maxWidth: '1000px',
-                            aspectRatio: '16 / 9',
-                            backgroundColor: 'black',
-                            borderRadius: '8px',
-                            overflow: 'hidden',
-                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-                        }}
+                      key={video.id}
+                      className="video-card"
+                      onClick={() => setSelectedVideo(video)}
                     >
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0`}
-                            title={selectedVideo.title}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
+                      {/* Thumbnail */}
+                      <div className="video-thumbnail">
+                        <img
+                          src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                          alt={video.title}
+                          onError={(e) => {
+                            e.target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+                          }}
+                        />
+                        <div className="video-overlay"/>
+                        <div className="video-play-btn">
+                          <Icon name="play" size={20} color="white" strokeWidth={0}/>
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <div className="video-card-body">
+                        <h5 className="video-card-title">{video.title}</h5>
+                      </div>
                     </div>
+                  ))}
                 </div>
-            )}
+
+              </div>
+            </FadeIn>
+          ))}
+
+          {/* More Videos CTA */}
+          <FadeIn delay={0.6}>
+            <div className="videos-cta">
+              <p>
+                {t('videos.moreVideosText', 'ดูวิดีโอเพิ่มเติมได้ที่')}{' '}
+                <a
+                  href="https://www.pdpc.or.th/pdpc-channel/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('videos.moreVideosLink', 'ช่อง PDPC Thailand')}
+                  {' '}<Icon name="external" size={13} strokeWidth={2} style={{ verticalAlign: 'middle' }}/>
+                </a>
+              </p>
+            </div>
+          </FadeIn>
 
         </div>
-    );
+      </section>
+
+      {/* VIDEO MODAL */}
+      {selectedVideo && (
+        <div className="video-modal-overlay" onClick={() => setSelectedVideo(null)}>
+          <button className="video-modal-close" onClick={() => setSelectedVideo(null)}>
+            &times;
+          </button>
+
+          <div className="video-modal-frame" onClick={(e) => e.stopPropagation()}>
+            <iframe
+              src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0`}
+              title={selectedVideo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+
+          <p className="video-modal-title">{selectedVideo.title}</p>
+        </div>
+      )}
+
+    </div>
+  );
 }

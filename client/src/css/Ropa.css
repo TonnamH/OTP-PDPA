@@ -1,0 +1,247 @@
+/* ==========================================================================
+   ROPA DASHBOARD STYLES
+   ========================================================================== */
+
+/* --- 1. Hero Section --- */
+.ropa-hero {
+  background-color: var(--primary-navy);
+  padding: 5rem 0 4rem;
+  color: white;
+}
+
+.ropa-hero-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.ropa-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.8rem;
+  font-family: 'Prompt', sans-serif;
+}
+
+.ropa-hero p {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.75);
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 600px;
+  font-family: 'Sarabun', sans-serif;
+}
+
+/* --- Breadcrumb --- */
+.ropa-breadcrumb {
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
+}
+
+.ropa-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--primary-navy);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.ropa-back-btn:hover {
+  transform: translateX(-4px);
+}
+
+/* --- Level 0: Master Org Chart --- */
+.ropa-root-node {
+  background-color: var(--primary-navy);
+  color: white;
+  padding: 1.2rem 2.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.3rem;
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.bureau-card {
+  width: 100%;
+  height: 160px;
+  padding: 1.5rem 0.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bureau-card.has-data {
+  background: white;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.bureau-card.has-data:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary-navy);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.bureau-card.no-data {
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  opacity: 0.6;
+}
+
+.bureau-status-pulse {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  height: 10px;
+  width: 10px;
+}
+
+.bureau-status-pulse .ping {
+  animation: pulse 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #22c55e;
+  opacity: 0.7;
+}
+
+.bureau-status-pulse .dot {
+  position: relative;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  background-color: #16a34a;
+}
+
+/* --- Level 1: Department Cards --- */
+.dept-card {
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: left;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dept-card.has-acts {
+  background-color: white;
+  border: 3px solid var(--border-color);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.dept-card.has-acts:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  border-color: var(--dept-color); /* Uses CSS variable passed from React */
+}
+
+.dept-card.no-acts {
+  background-color: #f8fafc;
+  border: 3px dashed #cbd5e1;
+  opacity: 0.6;
+  filter: grayscale(0.8);
+  cursor: not-allowed;
+}
+
+/* --- Level 2: Sidebar & Activity List --- */
+.ropa-filter-sidebar {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  position: sticky;
+  top: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.ropa-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Prompt', sans-serif;
+  color: var(--text-dark);
+  transition: border-color 0.2s;
+  background-color: #f8fafc;
+}
+
+.ropa-input:focus {
+  outline: none;
+  border-color: var(--primary-navy);
+  background-color: white;
+}
+
+.activity-card {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.activity-card:hover {
+  border-color: var(--dept-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateX(4px);
+}
+
+/* --- Level 3: Modal (Reused Infographics Lightbox Logic) --- */
+.ropa-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+}
+
+.ropa-modal-content {
+  background-color: #f8fafc;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+}
+
+/* --- Utilities --- */
+.shadow-elegant {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}

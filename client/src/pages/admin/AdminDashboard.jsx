@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../../components/FadeIn'; // <-- 1. Import from relative path
+import FadeIn from '../../components/FadeIn';
+import adminApi from '../../utils/adminApi';
 
 // --- DataTable Component ---
 const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; 
+  const itemsPerPage = 10;
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -19,17 +20,17 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
   };
 
   const cardStyle = {
-    backgroundColor: 'white', padding: '2rem', borderRadius: '12px', 
+    backgroundColor: 'white', padding: '2rem', borderRadius: '12px',
     boxShadow: 'var(--shadow-elegant)', border: '1px solid var(--border-color)',
     marginBottom: '2rem'
   };
-  
-  const thStyle = { 
-    textAlign: 'left', padding: '1rem', borderBottom: '2px solid var(--border-color)', 
+
+  const thStyle = {
+    textAlign: 'left', padding: '1rem', borderBottom: '2px solid var(--border-color)',
     color: 'var(--text-gray)', backgroundColor: 'white', position: 'relative', zIndex: 10
   };
   const tdStyle = { padding: '1rem', borderBottom: '1px solid var(--border-color)' };
-  
+
   const pageBtnStyle = {
     padding: '0.4rem 0.8rem', border: '1px solid var(--border-color)', borderRadius: '4px',
     backgroundColor: 'white', cursor: 'pointer', fontFamily: 'Prompt, sans-serif', fontSize: '0.9rem',
@@ -71,8 +72,8 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
               <tbody>
                 {currentData.map((item) => (
                   <tr key={item.id}>
-                    <td style={{...tdStyle, fontWeight: '500', color: 'var(--text-dark)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-                        {item.title}
+                    <td style={{ ...tdStyle, fontWeight: '500', color: 'var(--text-dark)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {item.title}
                     </td>
                     <td style={tdStyle}>
                       <span style={{ backgroundColor: '#f1f5f9', padding: '4px 8px', borderRadius: '4px', fontSize: '0.85rem' }}>
@@ -82,25 +83,25 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
                     <td style={tdStyle}>{formatDate(item.created_at)}</td>
                     <td style={tdStyle}>
                       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <a 
-                          href={`http://localhost:5000${item.file_path || item.image_path}`} 
+                        <a
+                          href={`http://localhost:5000${item.file_path || item.image_path}`}
                           target="_blank" rel="noopener noreferrer"
                           style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '600' }}
                         >
                           {t('adminDashboard.table.view')}
                         </a>
-                        <Link 
-                          to={`${editBaseUrl}/${item.id}`} 
+                        <Link
+                          to={`${editBaseUrl}/${item.id}`}
                           style={{ color: '#f59e0b', textDecoration: 'none', fontWeight: '600' }}
                         >
                           {t('adminDashboard.table.edit', 'Edit')}
                         </Link>
-                        
+
                         {/* --- Delete Button --- */}
-                        <button 
+                        <button
                           onClick={() => handleDeleteClick(item.id)}
-                          style={{ 
-                            background: 'none', border: 'none', padding: 0, cursor: 'pointer', 
+                          style={{
+                            background: 'none', border: 'none', padding: 0, cursor: 'pointer',
                             color: '#ef4444', fontWeight: '600', fontFamily: 'Sarabun, sans-serif', fontSize: '0.95rem'
                           }}
                         >
@@ -145,16 +146,12 @@ export default function AdminDashboard() {
     const fetchData = async () => {
       try {
         const [docsRes, infoRes] = await Promise.all([
-          fetch('http://localhost:5000/api/documents'),
-          fetch('http://localhost:5000/api/infographics')
+          adminApi.get('/documents'),
+          adminApi.get('/infographics')
         ]);
-        
-        if (docsRes.ok && infoRes.ok) {
-          const docsData = await docsRes.json();
-          const infoData = await infoRes.json();
-          setDocuments(docsData);
-          setInfographics(infoData);
-        }
+
+        setDocuments(docsRes.data);
+        setInfographics(infoRes.data);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
@@ -166,27 +163,17 @@ export default function AdminDashboard() {
 
   // --- Delete Handlers ---
   const deleteItem = async (id, type) => {
-    const token = localStorage.getItem('adminToken');
-    const endpoint = type === 'document' 
-      ? `http://localhost:5000/api/documents/${id}`
-      : `http://localhost:5000/api/infographics/${id}`;
+    const endpoint = type === 'document' ? `/documents/${id}` : `/infographics/${id}`;
 
     try {
-      const response = await fetch(endpoint, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      await adminApi.delete(endpoint);
 
-      if (response.ok) {
-        if (type === 'document') {
-          setDocuments(prev => prev.filter(doc => doc.id !== id));
-        } else {
-          setInfographics(prev => prev.filter(info => info.id !== id));
-        }
-        alert(t('adminDashboard.messages.deleteSuccess'));
+      if (type === 'document') {
+        setDocuments(prev => prev.filter(doc => doc.id !== id));
       } else {
-        alert(t('adminDashboard.messages.deleteError'));
+        setInfographics(prev => prev.filter(info => info.id !== id));
       }
+      alert(t('adminDashboard.messages.deleteSuccess'));
     } catch (error) {
       console.error('Failed to delete:', error);
       alert(t('adminDashboard.messages.deleteError'));
@@ -194,8 +181,8 @@ export default function AdminDashboard() {
   };
 
   const btnStyle = {
-    display: 'inline-block', padding: '0.8rem 1.5rem', 
-    backgroundColor: 'var(--primary-navy)', color: 'white', 
+    display: 'inline-block', padding: '0.8rem 1.5rem',
+    backgroundColor: 'var(--primary-navy)', color: 'white',
     textDecoration: 'none', borderRadius: '6px', fontFamily: 'Prompt, sans-serif',
     fontWeight: '600', transition: 'background-color 0.2s', marginRight: '1rem'
   };
@@ -203,7 +190,7 @@ export default function AdminDashboard() {
   return (
     <div style={{ backgroundColor: 'var(--bg-light)', minHeight: '80vh', padding: '3rem 1rem' }}>
       <div className="container" style={{ maxWidth: '1200px' }}>
-        
+
         {/* Title Section */}
         <FadeIn delay={0.1}>
           <div style={{ marginBottom: '2rem' }}>
@@ -218,16 +205,16 @@ export default function AdminDashboard() {
 
         {/* Quick Actions Card */}
         <FadeIn delay={0.2}>
-          <div style={{ 
-              backgroundColor: '#f8fafc', padding: '2rem', borderRadius: '12px', 
-              boxShadow: 'var(--shadow-elegant)', border: '1px solid var(--border-color)',
-              borderLeft: '4px solid var(--primary-navy)', marginBottom: '2rem' 
+          <div style={{
+            backgroundColor: '#f8fafc', padding: '2rem', borderRadius: '12px',
+            boxShadow: 'var(--shadow-elegant)', border: '1px solid var(--border-color)',
+            borderLeft: '4px solid var(--primary-navy)', marginBottom: '2rem'
           }}>
             <h3 style={{ fontFamily: 'Prompt, sans-serif', marginTop: 0 }}>{t('adminDashboard.quickActions')}</h3>
             <Link to="/admin/documents/upload" style={btnStyle}>
               {t('adminDashboard.uploadDocBtn')}
             </Link>
-            <Link to="/admin/infographics/upload" style={{...btnStyle, backgroundColor: '#475569'}}>
+            <Link to="/admin/infographics/upload" style={{ ...btnStyle, backgroundColor: '#475569' }}>
               {t('adminDashboard.uploadInfoBtn')}
             </Link>
           </div>
@@ -243,22 +230,22 @@ export default function AdminDashboard() {
           <>
             {/* Documents Table */}
             <FadeIn delay={0.3}>
-              <DataTable 
-                data={documents} 
-                title={t('adminDashboard.recentDocs')} 
-                t={t} 
-                editBaseUrl="/admin/documents/edit" 
+              <DataTable
+                data={documents}
+                title={t('adminDashboard.recentDocs')}
+                t={t}
+                editBaseUrl="/admin/documents/edit"
                 onDelete={(id) => deleteItem(id, 'document')}
               />
             </FadeIn>
 
             {/* Infographics Table */}
             <FadeIn delay={0.4}>
-              <DataTable 
-                data={infographics} 
-                title={t('adminDashboard.recentInfo')} 
-                t={t} 
-                editBaseUrl="/admin/infographics/edit" 
+              <DataTable
+                data={infographics}
+                title={t('adminDashboard.recentInfo')}
+                t={t}
+                editBaseUrl="/admin/infographics/edit"
                 onDelete={(id) => deleteItem(id, 'infographic')}
               />
             </FadeIn>
