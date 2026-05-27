@@ -1,7 +1,7 @@
 // server/seedRopa.js
 const fs = require('fs');
 const path = require('path');
-const pool = require('./db'); // Ensure this points to your Postgres connection pool
+const pool = require('../db'); // Ensure this points to your Postgres connection pool
 
 async function seedDatabase() {
   try {
