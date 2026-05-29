@@ -23,8 +23,9 @@ router.post('/', async (req, res) => {
     const issueLabel = issueType === 'other' ? `อื่นๆ (${otherSpecify})` : issueType;
 
     const mailOptions = {
-      from: `"PDPA Portal" <no-reply@otp.go.th>`,
-      to: 'compliance@otp.go.th',
+      from: `"PDPA Portal System" <${process.env.SMTP_USER}>`, 
+      replyTo: email, 
+      to: 'compliance@otp.go.th', 
       subject: `[PDPA Portal] แจ้งเรื่องใหม่: ${issueLabel}`,
       html: `
         <div style="font-family: sans-serif; color: #333;">
