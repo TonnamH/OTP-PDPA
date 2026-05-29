@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../../components/FadeIn'; // <-- 1. Import from relative path
+import FadeIn from '../../components/FadeIn';
+import adminApi from '../../utils/adminApi';
 
 export default function DocumentUpload() {
     const { t } = useTranslation();
@@ -25,44 +26,28 @@ export default function DocumentUpload() {
         e.preventDefault();
         setStatus({ loading: true, error: '', success: '' });
 
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-            setStatus({ loading: false, error: t('adminUploadDoc.messages.errorAuth'), success: '' });
-            setTimeout(() => navigate('/admin/login'), 2000);
-            return;
-        }
-
         const formData = new FormData();
         formData.append('title', title);
         formData.append('category', category);
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:5000/api/documents/upload', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}` 
-                },
-                body: formData
-            });
+            // Let adminApi handle the token, the headers, and the 401 checks automatically!
+            const response = await adminApi.post('/documents/upload', formData);
 
-            if (response.ok) {
-                setStatus({ loading: false, error: '', success: t('adminUploadDoc.messages.success') });
-                setTitle('');
-                setCategory('law');
-                setFile(null);
-                document.getElementById('fileInput').value = ''; 
-            } else if (response.status === 401) {
-                setStatus({ loading: false, error: t('adminUploadDoc.messages.errorAuth'), success: '' });
-                localStorage.removeItem('adminToken');
-                setTimeout(() => navigate('/admin/login'), 2000);
-            } else {
-                const data = await response.json();
-                setStatus({ loading: false, error: data.error || t('adminUploadDoc.messages.errorGeneric'), success: '' });
-            }
+            // If we get here, the upload was a success
+            setStatus({ loading: false, error: '', success: t('adminUploadDoc.messages.success') });
+            setTitle('');
+            setCategory('law');
+            setFile(null);
+            document.getElementById('fileInput').value = '';
+
         } catch (error) {
             console.error('Upload Error:', error);
-            setStatus({ loading: false, error: 'Cannot connect to the server.', success: '' });
+            // If it's a 401 error, adminApi already kicked them to the login screen.
+            // For other errors (like file too large), we show the error message.
+            const errorMsg = error.response?.data?.error || t('adminUploadDoc.messages.errorGeneric') || 'Cannot connect to the server.';
+            setStatus({ loading: false, error: errorMsg, success: '' });
         }
     };
 
@@ -83,11 +68,11 @@ export default function DocumentUpload() {
                 {/* Header Section (Back button, Title, Subtitle, and Status) */}
                 <FadeIn delay={0.1}>
                     {/* Back Button */}
-                    <Link 
-                        to="/admin/dashboard" 
-                        style={{ 
-                            display: 'inline-flex', alignItems: 'center', gap: '0.5rem', 
-                            color: 'var(--text-gray)', textDecoration: 'none', 
+                    <Link
+                        to="/admin/dashboard"
+                        style={{
+                            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                            color: 'var(--text-gray)', textDecoration: 'none',
                             fontFamily: 'Prompt, sans-serif', fontSize: '0.9rem', marginBottom: '2rem',
                             transition: 'color 0.2s'
                         }}
@@ -150,7 +135,7 @@ export default function DocumentUpload() {
 
                         {/* Premium Custom File Upload Area */}
                         <label style={labelStyle}>{t('adminUploadDoc.form.fileLabel')} <span style={{ color: '#ef4444' }}>*</span></label>
-                        
+
                         <div style={{
                             marginTop: '0.5rem', marginBottom: '2rem',
                             border: file ? '2px solid #10b981' : '2px dashed #cbd5e1',
@@ -166,7 +151,7 @@ export default function DocumentUpload() {
                                 accept=".pdf,.doc,.docx"
                                 style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
                             />
-                            
+
                             {/* Visual UI */}
                             {file ? (
                                 <div style={{ color: '#059669', fontFamily: 'Sarabun, sans-serif' }}>
@@ -175,7 +160,7 @@ export default function DocumentUpload() {
                                     </svg>
                                     <p style={{ margin: 0, fontWeight: '600' }}>{t('adminUploadDoc.form.fileSelected')} {file.name}</p>
                                     <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#34d399' }}>{t('adminUploadDoc.form.clickToChange')}</p>
-                                </div>          
+                                </div>
                             ) : (
                                 <div style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
                                     <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ margin: '0 auto 1rem', color: '#94a3b8' }}>
@@ -191,10 +176,10 @@ export default function DocumentUpload() {
                         <button
                             type="submit" disabled={status.loading || !file}
                             style={{
-                                width: '100%', padding: '1.2rem', 
+                                width: '100%', padding: '1.2rem',
                                 backgroundColor: (status.loading || !file) ? '#94a3b8' : 'var(--primary-navy)',
-                                color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.1rem', 
-                                fontFamily: 'Prompt, sans-serif', cursor: (status.loading || !file) ? 'not-allowed' : 'pointer', 
+                                color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.1rem',
+                                fontFamily: 'Prompt, sans-serif', cursor: (status.loading || !file) ? 'not-allowed' : 'pointer',
                                 fontWeight: '600', transition: 'background-color 0.2s',
                                 boxShadow: (status.loading || !file) ? 'none' : '0 4px 12px rgba(24, 35, 55, 0.2)'
                             }}

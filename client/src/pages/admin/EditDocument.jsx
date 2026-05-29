@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../../components/FadeIn'; // <-- 1. Import from relative path
+import FadeIn from '../../components/FadeIn';
+import adminApi from '../../utils/adminApi';
 
 export default function EditDocument() {
     const { t } = useTranslation();
@@ -45,39 +46,25 @@ export default function EditDocument() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus({ loading: true, fetching: false, error: '', success: '' });
-
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-            navigate('/admin/login');
-            return;
-        }
+        setStatus({ loading: true, error: '', success: '' });
 
         const formData = new FormData();
         formData.append('title', title);
         formData.append('category', category);
-        // Only append a file if the admin actually selected a new one to replace the old one!
+
         if (newFile) {
             formData.append('file', newFile);
         }
 
         try {
-            // Note: We use PUT for editing! Make sure your backend route is router.put('/:id', ...)
-            const response = await fetch(`http://localhost:5000/api/documents/${id}`, {
-                method: 'PUT',
-                headers: { 'Authorization': `Bearer ${token}` },
-                body: formData
-            });
+            const response = await adminApi.put(`/documents/${id}`, formData);
 
-            if (response.ok) {
-                setStatus({ loading: false, fetching: false, error: '', success: t('adminEditDoc.messages.success') });
-                setTimeout(() => navigate('/admin/dashboard'), 1500); // Send them back to dashboard after success
-            } else {
-                const data = await response.json();
-                setStatus({ loading: false, fetching: false, error: data.error || 'Update failed', success: '' });
-            }
+            setStatus({ loading: false, error: '', success: t('adminEditDoc.messages.success') });
+
         } catch (error) {
-            setStatus({ loading: false, fetching: false, error: 'Cannot connect to server.', success: '' });
+            console.error('Update Error:', error);
+            const errorMsg = error.response?.data?.error || t('adminEditDoc.messages.errorGeneric') || 'Cannot connect to the server.';
+            setStatus({ loading: false, error: errorMsg, success: '' });
         }
     };
 
@@ -127,7 +114,7 @@ export default function EditDocument() {
                 {/* Form Section */}
                 <FadeIn delay={0.2}>
                     <form onSubmit={handleSubmit}>
-                        
+
                         <label style={labelStyle}>{t('adminUploadDoc.form.docTitleLabel')} <span style={{ color: '#ef4444' }}>*</span></label>
                         <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
 
@@ -148,7 +135,7 @@ export default function EditDocument() {
                             cursor: 'pointer', transition: 'all 0.2s ease', position: 'relative'
                         }}>
                             <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
-                            
+
                             {newFile ? (
                                 <div style={{ color: '#059669', fontFamily: 'Sarabun, sans-serif' }}>
                                     <p style={{ margin: 0, fontWeight: '600' }}>{t('adminUploadDoc.form.fileSelected')} {newFile.name}</p>
@@ -157,7 +144,7 @@ export default function EditDocument() {
                             ) : (
                                 <div style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
                                     <p style={{ margin: '0 0 0.5rem 0', fontWeight: '600', color: 'var(--primary-navy)' }}>
-                                        {t('adminEditDoc.form.currentFile')} <a href={`http://localhost:5000${currentFilePath}`} target="_blank" rel="noreferrer" style={{color: '#3b82f6'}}>View Current</a>
+                                        {t('adminEditDoc.form.currentFile')} <a href={`http://localhost:5000${currentFilePath}`} target="_blank" rel="noreferrer" style={{ color: '#3b82f6' }}>View Current</a>
                                     </p>
                                     <p style={{ margin: 0, fontSize: '0.95rem' }}>{t('adminEditDoc.form.uploadNew')}</p>
                                     <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: '#94a3b8' }}>{t('adminEditDoc.form.keepCurrent')}</p>

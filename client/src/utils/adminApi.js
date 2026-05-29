@@ -7,7 +7,7 @@ const adminApi = axios.create({
 
 // 2. Request Interceptor: Automatically show the wristband
 adminApi.interceptors.request.use((config) => {
-  const token = localStorage.getItem('adminToken');
+  const token = sessionStorage.getItem('adminToken');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -26,7 +26,7 @@ adminApi.interceptors.response.use(
     // If the server says "401 Unauthorized" (token missing or expired)
     if (error.response && error.response.status === 401) {
       console.warn("Admin session expired. Logging out.");
-      localStorage.removeItem('adminToken'); // Rip up the expired wristband
+      sessionStorage.removeItem('adminToken'); // Rip up the expired wristband
       window.location.href = '/admin/login'; // Escort out the front door
     }
     return Promise.reject(error);

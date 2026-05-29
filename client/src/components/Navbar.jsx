@@ -10,7 +10,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Check if the user is currently logged in as an admin
-  const isLoggedIn = Boolean(localStorage.getItem('adminToken'));
+  const isLoggedIn = Boolean(sessionStorage.getItem('adminToken'));
 
   // --- Handlers ---
   const toggleLanguage = () => {
@@ -27,7 +27,7 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
+    sessionStorage.removeItem('adminToken');
     navigate('/admin/login'); // Send back to login screen
   };
 

@@ -25,7 +25,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 // This checks if the user is ALREADY logged in.
 // If they have a token, send them to the dashboard. If not, let them see the login page.
 const AuthRedirect = ({ children }) => {
-  const token = localStorage.getItem('adminToken');
+  const token = sessionStorage.getItem('adminToken');
   if (token) {
     return <Navigate to="/admin/dashboard" replace />;
   }
@@ -33,6 +33,7 @@ const AuthRedirect = ({ children }) => {
 };
 
 function App() {
+  
   return (
     <BrowserRouter>
       <TitleManager />

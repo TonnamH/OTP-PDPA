@@ -33,7 +33,7 @@ export default function Login() {
 
       if (response.ok) {
         // Success! The teller gave us the wristband.
-        localStorage.setItem('adminToken', data.token); // Save the keycard
+        sessionStorage.setItem('adminToken', data.token); // Save the keycard
         navigate('/admin/dashboard'); // Walk through the door
       } else {
         // The teller rejected it.

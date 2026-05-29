@@ -7,6 +7,7 @@ const pool = require('./db');
 const documentsRoutes = require('./routes/documents');
 const infographicsRoutes = require('./routes/infographics');
 const ropaRoutes = require('./routes/ropa');
+const reportsRoutes = require('./routes/reports');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/api', authRoutes);
 app.use('/api/documents', documentsRoutes);
 app.use('/api/infographics', infographicsRoutes);
 app.use('/api/ropa', ropaRoutes);
+app.use('/api/reports', reportsRoutes);
 
 app.get('/api/visitors', async (req, res) => {
   try {

@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../../components/FadeIn'; // <-- 1. Import from relative path
+import FadeIn from '../../components/FadeIn';
+import adminApi from '../../utils/adminApi';
 
 export default function EditInfographic() {
     const { t } = useTranslation();
@@ -56,38 +57,24 @@ export default function EditInfographic() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus({ loading: true, fetching: false, error: '', success: '' });
-
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-            navigate('/admin/login');
-            return;
-        }
+        setStatus({ loading: true, error: '', success: '' });
 
         const formData = new FormData();
         formData.append('title', title);
         formData.append('category', category);
-        // Ensure this key ('image') matches your backend multer configuration!
         if (newImage) {
-            formData.append('image', newImage); 
+            formData.append('image', newImage);
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/infographics/${id}`, {
-                method: 'PUT',
-                headers: { 'Authorization': `Bearer ${token}` },
-                body: formData
-            });
+            const response = await adminApi.put(`/infographics/${id}`, formData);
 
-            if (response.ok) {
-                setStatus({ loading: false, fetching: false, error: '', success: t('adminEditInfo.messages.success') });
-                setTimeout(() => navigate('/admin/dashboard'), 1500);
-            } else {
-                const data = await response.json();
-                setStatus({ loading: false, fetching: false, error: data.error || 'Update failed', success: '' });
-            }
+            setStatus({ loading: false, error: '', success: t('adminEditInfo.messages.success') });
+
         } catch (error) {
-            setStatus({ loading: false, fetching: false, error: 'Cannot connect to server.', success: '' });
+            console.error('Update Error:', error);
+            const errorMsg = error.response?.data?.error || t('adminEditInfo.messages.errorGeneric') || 'Cannot connect to the server.';
+            setStatus({ loading: false, error: errorMsg, success: '' });
         }
     };
 
@@ -133,7 +120,7 @@ export default function EditInfographic() {
                 {/* Form Section */}
                 <FadeIn delay={0.2}>
                     <form onSubmit={handleSubmit}>
-                        
+
                         <label style={labelStyle}>{t('adminUploadInfo.form.titleLabel')} <span style={{ color: '#ef4444' }}>*</span></label>
                         <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} />
 
@@ -146,7 +133,7 @@ export default function EditInfographic() {
                         </select>
 
                         <label style={labelStyle}>{t('adminUploadInfo.form.fileLabel')}</label>
-                        
+
                         <div style={{
                             marginTop: '0.5rem', marginBottom: '2rem',
                             border: newImage ? '2px solid #10b981' : '2px dashed #cbd5e1',
@@ -155,7 +142,7 @@ export default function EditInfographic() {
                             cursor: 'pointer', transition: 'all 0.2s ease', position: 'relative'
                         }}>
                             <input type="file" onChange={handleImageChange} accept="image/png, image/jpeg, image/webp" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer', zIndex: 10 }} />
-                            
+
                             {previewUrl ? (
                                 <div style={{ color: '#059669', fontFamily: 'Sarabun, sans-serif' }}>
                                     <div style={{ backgroundColor: 'white', padding: '0.5rem', borderRadius: '8px', display: 'inline-block', marginBottom: '1rem', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
