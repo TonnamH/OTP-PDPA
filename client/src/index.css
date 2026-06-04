@@ -20,6 +20,22 @@
   --shadow-elegant: 0 10px 30px rgba(24, 35, 55, 0.04);
 }
 
+/* 1. Dark Mode Color Overrides */
+[data-theme='dark'] {
+  --bg-white: #121212;
+  --bg-light: #1e1e1e;
+  --text-dark: #f8fafc;
+  --text-gray: #cbd5e1;
+  --border-color: #333333;
+  --primary-navy: #60a5fa; /* A lighter blue so it pops on dark backgrounds */
+}
+
+/* 2. Global Font Size Scaling */
+/* Because your app uses 'rem' units, changing this base size scales everything instantly! */
+html[data-font-size='small'] { font-size: 14px; }
+html[data-font-size='medium'] { font-size: 16px; }
+html[data-font-size='large'] { font-size: 18px; }
+
 /* 3. CSS Reset */
 * {
   margin: 0;

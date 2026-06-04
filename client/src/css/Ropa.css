@@ -76,7 +76,7 @@
 
 .bureau-card {
   width: 100%;
-  height: 160px;
+  min-height: 160px;
   padding: 1.5rem 0.5rem;
   border-radius: 12px;
   display: flex;
@@ -241,3 +241,53 @@
   box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
 }
 
+/* ==========================================
+   ROPA RESPONSIVE BREAKPOINTS
+   ========================================== */
+
+/* 1. Master Org Chart Layout */
+.ropa-org-wrapper {
+  overflow-x: auto;
+  padding: 3rem 1rem 1rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.ropa-org-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1100px;
+  width: 100%;
+}
+
+/* 2. Activity List & Filter Layout */
+.ropa-activity-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* --- TABLET BREAKPOINT --- */
+@media (max-width: 1150px) {
+  /* Fixes the left-side cutoff! Allows scrolling from the true left edge */
+  .ropa-org-wrapper {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 992px) {
+  /* Stacks the Filter Sidebar on top of the Activity List for mobile/tablets */
+  .ropa-activity-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- MOBILE BREAKPOINT --- */
+@media (max-width: 768px) {
+  /* Gives the modal more breathing room on small phones */
+  .ropa-modal-content > div:nth-child(2) {
+    padding: 1.5rem !important;
+  }
+}

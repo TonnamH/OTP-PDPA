@@ -2,20 +2,23 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import FadeIn from '../components/FadeIn'; // <-- 1. Import the FadeIn component
+import FadeIn from '../components/FadeIn';
+import ReCAPTCHA from "react-google-recaptcha"; // <-- Import the library
 
 export default function ReportForm() {
   const { t } = useTranslation();
-  
+
   // State Management
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null); // <-- State for the token
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    issueType: 'website', // Default to the first radio option
+    issueType: 'website',
     otherSpecify: '',
     details: '',
     consent: false
@@ -31,6 +34,13 @@ export default function ReportForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Safety check: Make sure they clicked the reCAPTCHA
+    if (!recaptchaToken) {
+      alert("กรุณายืนยันว่าคุณไม่ใช่โปรแกรมอัตโนมัติ (reCAPTCHA)");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -39,7 +49,8 @@ export default function ReportForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        // Send the token along with the form data
+        body: JSON.stringify({ ...formData, recaptchaToken })
       });
 
       if (response.ok) {
@@ -47,9 +58,10 @@ export default function ReportForm() {
         setIsSubmitted(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        console.error('Server rejected the submission');
+        const errorData = await response.json();
+        console.error('Server rejected:', errorData);
         setIsSubmitting(false);
-        alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+        alert('เกิดข้อผิดพลาด: ' + (errorData.error || 'กรุณาลองใหม่อีกครั้ง'));
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -77,8 +89,7 @@ export default function ReportForm() {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
-      
-      {/* 1. Header Section */}
+
       <FadeIn delay={0.1}>
         <section className="section-full" style={{ paddingBottom: '2rem' }}>
           <div className="container">
@@ -94,13 +105,11 @@ export default function ReportForm() {
         </section>
       </FadeIn>
 
-      {/* 2. Form or Success Message Section */}
       <FadeIn delay={0.2}>
         <section className="section-full" style={{ paddingTop: '1rem' }}>
           <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
-            
+
             {isSubmitted ? (
-              // SUCCESS MESSAGE
               <div style={{ backgroundColor: 'var(--bg-light)', padding: '4rem 2rem', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(0, 150, 136, 0.2)' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: '#009688' }}>
                   <svg width="80" height="80" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -114,36 +123,32 @@ export default function ReportForm() {
                 </Link>
               </div>
             ) : (
-              // FORM
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                
-                {/* Grid for Inputs to match old layout somewhat (labels on left, inputs on right) */}
+
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', alignItems: 'center', gap: '1rem' }}>
-                  
-                  <label style={{...labelStyle, textAlign: 'right'}}>{t('reportPage.form.firstNameLabel')} <span style={{color: 'red'}}>*</span></label>
+                  <label style={{ ...labelStyle, textAlign: 'right' }}>{t('reportPage.form.firstNameLabel')} <span style={{ color: 'red' }}>*</span></label>
                   <input type="text" name="firstName" required value={formData.firstName} onChange={handleChange} placeholder={t('reportPage.form.firstNameLabel')} style={inputStyle} />
 
-                  <label style={{...labelStyle, textAlign: 'right'}}>{t('reportPage.form.lastNameLabel')} <span style={{color: 'red'}}>*</span></label>
+                  <label style={{ ...labelStyle, textAlign: 'right' }}>{t('reportPage.form.lastNameLabel')} <span style={{ color: 'red' }}>*</span></label>
                   <input type="text" name="lastName" required value={formData.lastName} onChange={handleChange} placeholder={t('reportPage.form.lastNameLabel')} style={inputStyle} />
 
-                  <label style={{...labelStyle, textAlign: 'right'}}>{t('reportPage.form.emailLabel')} <span style={{color: 'red'}}>*</span></label>
+                  <label style={{ ...labelStyle, textAlign: 'right' }}>{t('reportPage.form.emailLabel')} <span style={{ color: 'red' }}>*</span></label>
                   <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder={t('reportPage.form.emailPlaceholder')} style={inputStyle} />
 
-                  <label style={{...labelStyle, textAlign: 'right'}}>{t('reportPage.form.phoneLabel')}</label>
+                  <label style={{ ...labelStyle, textAlign: 'right' }}>{t('reportPage.form.phoneLabel')}</label>
                   <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder={t('reportPage.form.phonePlaceholder')} style={inputStyle} />
                 </div>
 
-                {/* Radio Buttons Section */}
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '1rem', marginTop: '1rem' }}>
-                  <label style={{...labelStyle, textAlign: 'right', paddingTop: '0.5rem'}}>{t('reportPage.form.issueLabel')}</label>
+                  <label style={{ ...labelStyle, textAlign: 'right', paddingTop: '0.5rem' }}>{t('reportPage.form.issueLabel')}</label>
                   <div>
                     {['website', 'inquiry', 'complaint', 'other'].map((type) => (
                       <label key={type} style={radioContainerStyle}>
-                        <input 
-                          type="radio" 
-                          name="issueType" 
-                          value={type} 
-                          checked={formData.issueType === type} 
+                        <input
+                          type="radio"
+                          name="issueType"
+                          value={type}
+                          checked={formData.issueType === type}
                           onChange={handleChange}
                           style={{ width: '18px', height: '18px', accentColor: 'var(--primary-navy)' }}
                         />
@@ -153,68 +158,65 @@ export default function ReportForm() {
                   </div>
                 </div>
 
-                {/* Other Specify Field */}
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', alignItems: 'center', gap: '1rem' }}>
-                  <label style={{...labelStyle, textAlign: 'right'}}>{t('reportPage.form.otherSpecifyLabel')}</label>
-                  <input 
-                    type="text" 
-                    name="otherSpecify" 
-                    value={formData.otherSpecify} 
-                    onChange={handleChange} 
-                    placeholder={t('reportPage.form.otherSpecifyPlaceholder')} 
-                    disabled={formData.issueType !== 'other'} // Disables if "Other" isn't selected!
-                    style={{...inputStyle, backgroundColor: formData.issueType !== 'other' ? '#f0f0f0' : '#fff' }} 
+                  <label style={{ ...labelStyle, textAlign: 'right' }}>{t('reportPage.form.otherSpecifyLabel')}</label>
+                  <input
+                    type="text"
+                    name="otherSpecify"
+                    value={formData.otherSpecify}
+                    onChange={handleChange}
+                    placeholder={t('reportPage.form.otherSpecifyPlaceholder')}
+                    disabled={formData.issueType !== 'other'}
+                    required={formData.issueType === 'other'} // Added required logic!
+                    style={{ ...inputStyle, backgroundColor: formData.issueType !== 'other' ? '#f0f0f0' : '#fff' }}
                   />
                 </div>
 
-                {/* Details Textarea */}
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '1rem', alignItems: 'start' }}>
-                  <label style={{...labelStyle, textAlign: 'right', paddingTop: '0.5rem'}}>{t('reportPage.form.detailLabel')}</label>
-                  <textarea 
-                    name="details" 
-                    value={formData.details} 
-                    onChange={handleChange} 
-                    placeholder={t('reportPage.form.detailPlaceholder')} 
-                    rows="6" 
-                    style={{...inputStyle, resize: 'vertical'}}
+                  <label style={{ ...labelStyle, textAlign: 'right', paddingTop: '0.5rem' }}>{t('reportPage.form.detailLabel')}</label>
+                  <textarea
+                    name="details"
+                    value={formData.details}
+                    onChange={handleChange}
+                    placeholder={t('reportPage.form.detailPlaceholder')}
+                    rows="6"
+                    style={{ ...inputStyle, resize: 'vertical' }}
                   ></textarea>
                 </div>
 
-                {/* Recaptcha Placeholder & Consent */}
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '1rem', marginTop: '1rem' }}>
                   <div style={{ textAlign: 'right', color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>Recaptcha</div>
                   <div>
-                    {/* Mock Recaptcha Box */}
-                    <div style={{ width: '300px', height: '78px', backgroundColor: '#f9f9f9', border: '1px solid #d3d3d3', borderRadius: '3px', display: 'flex', alignItems: 'center', padding: '0 1rem', marginBottom: '1.5rem' }}>
-                      <input type="checkbox" style={{ width: '28px', height: '28px', marginRight: '1rem' }} />
-                      <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: '14px', color: '#555', flex: 1 }}>I'm not a robot</span>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" width="32" />
-                        <span style={{ fontSize: '10px', color: '#999', marginTop: '2px' }}>reCAPTCHA</span>
-                      </div>
+
+                    {/* THE REAL RECAPTCHA WIDGET */}
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <ReCAPTCHA
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                        onChange={(token) => setRecaptchaToken(token)}
+                        onExpired={() => setRecaptchaToken(null)}
+                      />
                     </div>
 
-                    {/* Consent Checkbox */}
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Sarabun, sans-serif', color: 'var(--text-dark)', cursor: 'pointer', marginBottom: '1.5rem' }}>
-                      <input 
-                        type="checkbox" 
-                        name="consent" 
-                        required 
-                        checked={formData.consent} 
+                      <input
+                        type="checkbox"
+                        name="consent"
+                        required
+                        checked={formData.consent}
                         onChange={handleChange}
                         style={{ width: '18px', height: '18px', accentColor: 'var(--primary-navy)' }}
                       />
-                      {t('reportPage.form.consentLabel')} <span style={{color: 'red'}}>*</span>
+                      {t('reportPage.form.consentLabel')} <span style={{ color: 'red' }}>*</span>
                     </label>
 
-                    {/* Submit Button */}
-                    <button 
-                      type="submit" 
-                      disabled={isSubmitting || !formData.consent}
-                      style={{ 
-                        padding: '0.8rem 2rem', backgroundColor: (isSubmitting || !formData.consent) ? '#555' : '#333', 
+                    {/* Disable button if recaptcha isn't checked */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || !formData.consent || !recaptchaToken}
+                      style={{
+                        padding: '0.8rem 2rem', backgroundColor: (isSubmitting || !formData.consent || !recaptchaToken) ? '#555' : '#333',
                         color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', fontFamily: 'Prompt, sans-serif',
-                        cursor: (isSubmitting || !formData.consent) ? 'not-allowed' : 'pointer'
+                        cursor: (isSubmitting || !formData.consent || !recaptchaToken) ? 'not-allowed' : 'pointer'
                       }}
                     >
                       {isSubmitting ? t('reportPage.form.submitting') : t('reportPage.form.submitBtn')}

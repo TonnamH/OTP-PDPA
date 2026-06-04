@@ -62,46 +62,42 @@ const HeroIllustration = () => (
 // --- Main Component ---
 export default function Home() {
   const { t } = useTranslation();
-  
+
   const [latestUpdates, setLatestUpdates] = useState([]);
   const [recentInfographics, setRecentInfographics] = useState([]);
   const [loadingUpdates, setLoadingUpdates] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchLatest = async () => {
       try {
-        // Fire both requests at the same time cleanly
         const [docsRes, infoRes] = await Promise.all([
-          api.get('/documents'),
-          api.get('/infographics')
+          fetch('http://localhost:5000/api/documents'),
+          fetch('http://localhost:5000/api/infographics')
         ]);
-        
-        // Axios automatically parses the JSON into the .data property
-        const docs = docsRes.data;
-        const infos = infoRes.data;
+        if (docsRes.ok && infoRes.ok) {
+          const docs = await docsRes.json();
+          const infos = await infoRes.json();
 
-        // 1. Set the Mixed "Latest Updates/Downloads" at the bottom
-        const combined = [...docs, ...infos]
-          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-          .slice(0, 3);
-          
-        setLatestUpdates(combined);
-        
-        // 2. Set the Visual Infographics Gallery (Grabbing only items with images, max 4)
-        const validInfographics = infos
-          .filter(info => info.image_path)
-          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-          .slice(0, 4);
-          
-        setRecentInfographics(validInfographics);
-        
+          // Documents section: docs only, newest 3
+          const sortedDocs = docs
+            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            .slice(0, 3);
+          setLatestUpdates(sortedDocs);
+
+          // Infographics gallery: infographics only, newest 4
+          const sortedInfos = infos
+            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            .slice(0, 4);
+          setRecentInfographics(sortedInfos);
+        }
       } catch (err) {
         console.error('Could not fetch latest updates', err);
       } finally {
         setLoadingUpdates(false);
       }
     };
-    
+
     fetchLatest();
   }, []);
 
@@ -170,7 +166,7 @@ export default function Home() {
       </section>
 
       {/* 2. PDPA IN 60 SECONDS */}
-      <section className="section-full bg-light">
+      {/* <section className="section-full bg-light">
         <div className="container">
           <div className="split-layout">
             <FadeIn delay={0.15}>
@@ -205,6 +201,53 @@ export default function Home() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                />
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section> */}
+
+      <section className="section-full bg-light">
+        <div className="container">
+          <div className="split-layout">
+            <FadeIn delay={0.15}>
+              <div className="split-text">
+                <span className="section-label">{t('home.pdpa1min.label', 'PDPA คืออะไร')}</span>
+                <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('home.pdpa1min.title', 'กฎหมายที่คืนสิทธิ<br />ข้อมูลให้คุณ').replace('คืนสิทธิ', 'คืนสิทธิ<br />') }} />
+                <p>
+                  {t('home.pdpa1min.desc', 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) มอบสิทธิให้คุณเป็นเจ้าของข้อมูลของตัวเองอย่างแท้จริง สนข. มีหน้าที่ดูแลข้อมูลของคุณให้ปลอดภัย และใช้เท่าที่จำเป็นเท่านั้น')}
+                </p>
+                <ul className="check-list">
+                  {[
+                    t('home.pdpa1min.check1', 'ข้อมูลต้องถูกเก็บอย่างปลอดภัยสูงสุด'),
+                    t('home.pdpa1min.check2', 'นำไปใช้ตามวัตถุประสงค์ที่แจ้งไว้เท่านั้น'),
+                    t('home.pdpa1min.check3', 'คุณมีสิทธิขอดู แก้ไข หรือลบข้อมูลได้'),
+                  ].map((text, i) => (
+                    <li key={i}>
+                      <span className="check-icon">
+                        <Icon name="check" size={11} color="#15803d" strokeWidth={2.5} />
+                      </span>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              {/* You may want to rename 'video-wrapper' to 'image-wrapper' in your CSS if it has iframe-specific styling */}
+              <div className="video-wrapper">
+                <img
+                  src="slide3.png"
+                  alt="PDPA Video Placeholder"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    borderRadius: '12px',
+                    display: 'block',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+                  }}
                 />
               </div>
             </FadeIn>
@@ -268,11 +311,10 @@ export default function Home() {
             <div className="info-gallery-grid">
               {recentInfographics.map((info, idx) => (
                 <FadeIn key={info.id} delay={0.1 * idx}>
-                  <a
-                    href={`http://localhost:5000${info.image_path}`}
-                    target="_blank"
-                    rel="noreferrer"
+                  <div
                     className="info-gallery-card"
+                    onClick={() => setSelectedImage(info)}
+                    style={{ cursor: 'pointer' }}
                   >
                     <div className="info-gallery-img-wrapper">
                       <img
@@ -289,7 +331,7 @@ export default function Home() {
                       <span className="info-gallery-badge">{info.category || 'General'}</span>
                       <h4 className="info-gallery-title">{info.title}</h4>
                     </div>
-                  </a>
+                  </div>
                 </FadeIn>
               ))}
             </div>
@@ -321,7 +363,7 @@ export default function Home() {
             <div className="news-grid">
               {latestUpdates.map((item, idx) => {
                 const isPdf = item.file_path && item.file_path.endsWith('.pdf');
-                
+
                 return (
                   <FadeIn key={item.id} delay={0.1 * idx}>
                     <a
@@ -333,12 +375,12 @@ export default function Home() {
                     >
                       <div className="news-badge">{item.category}</div>
                       <h4 className="news-title" style={{ flexGrow: 1 }}>{item.title}</h4>
-                      
+
                       {/* Updated Footer to look like a file download action */}
-                      <div style={{ 
-                        display: 'flex', 
-                        justifyContent: 'space-between', 
-                        alignItems: 'center', 
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                         marginTop: '1.5rem',
                         paddingTop: '1rem',
                         borderTop: '1px solid #e2e8f0',
@@ -349,7 +391,7 @@ export default function Home() {
                           {formatDate(item.created_at)}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', fontWeight: '600' }}>
-                          {isPdf ? 'ดาวน์โหลด PDF' : 'เปิดดูไฟล์'}
+                          {isPdf ? t('home.downloads.downloadPdf') : t('home.downloads.openFile')}
                           <Icon name="download" size={16} strokeWidth={2} />
                         </div>
                       </div>
@@ -363,6 +405,21 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {selectedImage && (
+        <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
+          <button className="lightbox-close" onClick={() => setSelectedImage(null)}>
+            &times;
+          </button>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={`http://localhost:5000${selectedImage.image_path}`}
+              alt={selectedImage.title}
+            />
+            <p className="lightbox-title">{selectedImage.title}</p>
+          </div>
+        </div>
+      )}
 
     </div>
   );

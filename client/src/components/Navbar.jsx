@@ -1,18 +1,34 @@
-// src/components/Navbar.jsx
-import React, { useState } from 'react';
-import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom'; 
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../context/ThemeContext';
+import Icon from './Icon';
+import '../css/Navbar.css';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  const { theme, toggleTheme, fontSize, changeFontSize } = useTheme();
 
-  // Check if the user is currently logged in as an admin
+  // Settings Menu State
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const settingsRef = useRef(null);
+
   const isLoggedIn = Boolean(sessionStorage.getItem('adminToken'));
 
-  // --- Handlers ---
+  // Close settings menu if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setIsSettingsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const toggleLanguage = () => {
     const newLang = i18n.language === 'th' ? 'en' : 'th';
     i18n.changeLanguage(newLang);
@@ -23,15 +39,15 @@ export default function Navbar() {
     if (e.key === 'Enter' && searchQuery.trim() !== '') {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
       setSearchQuery('');
+      setIsSettingsOpen(false);
     }
   };
 
   const handleLogout = () => {
     sessionStorage.removeItem('adminToken');
-    navigate('/admin/login'); // Send back to login screen
+    navigate('/admin/login');
   };
 
-  // --- Styles ---
   const getLinkStyle = ({ isActive }) => ({
     fontFamily: 'Prompt, sans-serif',
     fontWeight: isActive ? '700' : '400',
@@ -41,52 +57,41 @@ export default function Navbar() {
     alignItems: 'center',
     gap: '4px',
     cursor: 'pointer',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    textDecoration: 'none',
   });
 
   const getTextStyle = (isActive) => ({
     textDecoration: isActive ? 'underline' : 'none',
-    textUnderlineOffset: '6px'
+    textUnderlineOffset: '6px',
   });
 
-  // --- Helper variables ---
   const isAboutActive = location.pathname.startsWith('/about');
   const isServicesActive = location.pathname.startsWith('/services');
   const isContactActive = location.pathname.startsWith('/contact');
   const isAdminActive = location.pathname.startsWith('/admin');
 
   return (
-    <header style={{ 
-      position: 'sticky', 
-      top: 0, 
-      zIndex: 100, 
-      backgroundColor: 'rgba(253, 252, 248, 0.85)',
-      backdropFilter: 'blur(12px)',
-      WebkitBackdropFilter: 'blur(12px)',
-      borderBottom: '1px solid var(--border-color)', 
-      padding: '1rem 0',
-      width: '100%'
-    }}>
-      <div className="container flex-between">
+    <header className="navbar-root">
+      <div className="container navbar-inner">
         
-        {/* Brand / Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+        {/* --- LEFT: Brand / Logo --- */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
           <img 
             src="/otplogo.png" 
             alt="OTP Logo" 
-            style={{ height: '45px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }} 
+            className="navbar-logo"
           />
         </Link>
 
-        <nav className="flex-gap">
-          
+        {/* --- CENTER: Nav Links --- */}
+        <nav className="navbar-links">
           <NavLink to="/" style={getLinkStyle}>
             {({ isActive }) => (
               <span style={getTextStyle(isActive)}>{t('nav.home')}</span>
             )}
           </NavLink>
 
-          {/* About Dropdown */}
           <div className="nav-dropdown">
             <div style={getLinkStyle({ isActive: isAboutActive })}>
               <span style={getTextStyle(isAboutActive)}>{t('nav.about')}</span> 
@@ -99,7 +104,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Services Dropdown */}
           <div className="nav-dropdown">
             <div style={getLinkStyle({ isActive: isServicesActive })}>
               <span style={getTextStyle(isServicesActive)}>{t('nav.services')}</span> 
@@ -114,7 +118,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Contact Dropdown */}
           <div className="nav-dropdown">
             <div style={getLinkStyle({ isActive: isContactActive })}>
               <span style={getTextStyle(isContactActive)}>{t('nav.contact')}</span> 
@@ -126,8 +129,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* --- NEW: Admin Dropdown --- */}
-          {/* Moved this next to the other text links so it flows perfectly */}
           {isLoggedIn && (
             <div className="nav-dropdown">
               <div style={getLinkStyle({ isActive: isAdminActive })}>
@@ -136,14 +137,9 @@ export default function Navbar() {
               </div>
               <div className="dropdown-content">
                 <Link to="/admin/dashboard">{t('nav.dashboard', 'Dashboard')}</Link>
-                
-                {/* We use an 'a' tag here so it automatically inherits your dropdown CSS styling! */}
                 <a 
                   href="#" 
-                  onClick={(e) => {
-                    e.preventDefault(); // Prevents the page from jumping to the top
-                    handleLogout();
-                  }}
+                  onClick={(e) => { e.preventDefault(); handleLogout(); }}
                   style={{ color: '#ef4444', fontWeight: '500' }}
                 >
                   {t('nav.logout', 'Log out')}
@@ -151,46 +147,90 @@ export default function Navbar() {
               </div>
             </div>
           )}
-          
-          {/* --- Action Group Wrapper (Search & Language) --- */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            
-            {/* Search Bar */}
-            <input 
-              type="text" 
-              placeholder={t('nav.search')} 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearch}
-              style={{ 
-                padding: '0.5rem 1rem', borderRadius: '20px', 
-                border: '1px solid var(--border-color)', outlineColor: 'var(--primary-navy)', 
-                fontFamily: 'Sarabun, sans-serif', backgroundColor: 'var(--bg-white)',
-                width: '180px', transition: 'all 0.2s ease'
-              }} 
-            />
-
-            {/* Language Toggle */}
-            <div 
-              onClick={toggleLanguage}
-              style={{
-                display: 'flex', alignItems: 'center', backgroundColor: 'rgba(24, 35, 55, 0.08)',
-                borderRadius: '20px', padding: '4px', cursor: 'pointer', width: '74px',
-                height: '34px', position: 'relative'
-              }}
-            >
-              <div style={{
-                position: 'absolute', top: '4px', left: i18n.language === 'th' ? '4px' : '38px',
-                width: '32px', height: '26px', backgroundColor: 'var(--bg-white)', borderRadius: '14px',
-                boxShadow: 'var(--shadow-elegant)', transition: 'left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)'
-              }}></div>
-              
-              <span style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem', fontWeight: '600', zIndex: 1, color: i18n.language === 'th' ? 'var(--primary-navy)' : 'var(--text-gray)', fontFamily: 'Prompt, sans-serif', transition: 'color 0.3s ease' }}>TH</span>
-              <span style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem', fontWeight: '600', zIndex: 1, color: i18n.language === 'en' ? 'var(--primary-navy)' : 'var(--text-gray)', fontFamily: 'Prompt, sans-serif', transition: 'color 0.3s ease' }}>EN</span>
-            </div>
-
-          </div>
         </nav>
+
+        {/* --- RIGHT: Actions (Search + Settings Gear) --- */}
+        <div className="navbar-actions">
+          
+          <input 
+            type="text" 
+            placeholder={t('nav.search')} 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+            className="navbar-search"
+          />
+
+          {/* Settings Menu Wrapper */}
+          <div className="settings-wrapper" ref={settingsRef}>
+            <button 
+              className={`settings-btn ${isSettingsOpen ? 'active' : ''}`} 
+              onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+              title={t('nav.settings.title', 'Display Settings')}
+            >
+              <Icon name="settings" size={22} />
+            </button>
+
+            {/* Dropdown Panel */}
+            <div className={`settings-menu ${isSettingsOpen ? 'open' : ''}`}>
+              <h4 className="settings-header">{t('nav.settings.title', 'Display Settings')}</h4>
+
+              {/* Language */}
+              <div className="settings-row">
+                <span className="settings-label">{t('nav.settings.language', 'Language')}</span>
+                <div className="pill-switch pill-switch-2" onClick={toggleLanguage}>
+                  <div className="pill-thumb" style={{ left: i18n.language === 'th' ? '3px' : '37px' }} />
+                  <div className={`pill-option ${i18n.language === 'th' ? 'active' : ''}`}>TH</div>
+                  <div className={`pill-option ${i18n.language === 'en' ? 'active' : ''}`}>EN</div>
+                </div>
+              </div>
+
+              {/* Theme */}
+              <div className="settings-row">
+                <span className="settings-label">{t('nav.settings.theme', 'Theme')}</span>
+                <div className="pill-switch pill-switch-2" onClick={toggleTheme}>
+                  <div className="pill-thumb" style={{ left: theme === 'light' ? '3px' : '37px' }} />
+                  <div className={`pill-option ${theme === 'light' ? 'active' : ''}`}><Icon name="sun" size={15} /></div>
+                  <div className={`pill-option ${theme === 'dark' ? 'active' : ''}`}><Icon name="moon" size={15} /></div>
+                </div>
+              </div>
+
+              {/* Font Size */}
+              <div className="settings-row">
+                <span className="settings-label">{t('nav.settings.textSize', 'Text Size')}</span>
+                <div className="pill-switch pill-switch-3">
+                  <div 
+                    className="pill-thumb" 
+                    style={{ left: fontSize === 'small' ? '3px' : fontSize === 'medium' ? '37px' : '71px' }} 
+                  />
+                  <div 
+                    className={`pill-option ${fontSize === 'small' ? 'active' : ''}`} 
+                    onClick={() => changeFontSize('small')}
+                    style={{ fontSize: '0.75rem' }}
+                  >
+                    A-
+                  </div>
+                  <div 
+                    className={`pill-option ${fontSize === 'medium' ? 'active' : ''}`} 
+                    onClick={() => changeFontSize('medium')}
+                    style={{ fontSize: '0.9rem' }}
+                  >
+                    A
+                  </div>
+                  <div 
+                    className={`pill-option ${fontSize === 'large' ? 'active' : ''}`} 
+                    onClick={() => changeFontSize('large')}
+                    style={{ fontSize: '1.05rem' }}
+                  >
+                    A+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
     </header>
   );

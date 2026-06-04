@@ -32,7 +32,6 @@ export default function Ropa() {
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [filters, setFilters] = useState({ hasSensitiveData: false, lawfulBasis: 'all', retention: 'all' });
   const [searchQuery, setSearchQuery] = useState('');
-  const [modalData, setModalData] = useState(null);
 
   const pdfFilePath = '/6.PDPA_ROPA_OTP-2568-10-30.pdf';
 
@@ -120,7 +119,7 @@ export default function Ropa() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8fafc' }}>
-        <p style={{ fontFamily: 'Prompt, sans-serif', color: 'var(--text-gray)' }}>กำลังโหลดข้อมูล ROPA...</p>
+        <p style={{ fontFamily: 'Prompt, sans-serif', color: 'var(--text-gray)' }}>{t('ropa.loading', 'กำลังโหลดข้อมูล ROPA...')}</p>
       </div>
     );
   }
@@ -172,31 +171,31 @@ export default function Ropa() {
             <FadeIn delay={0.2}>
               <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <h3 style={{ fontSize: '1.8rem', color: 'var(--primary-navy)', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif' }}>
-                  โครงสร้างองค์กร สนข.
+                  {t('ropa.orgChart.title', 'โครงสร้างองค์กร สนข.')}
                 </h3>
                 <p style={{ color: '#64748b', fontSize: '1.1rem', fontFamily: 'Sarabun, sans-serif' }}>
-                  คลิกที่สำนัก/กอง ที่มีสีเพื่อเข้าดูบันทึกกิจกรรม ROPA
+                  {t('ropa.orgChart.subtitle', 'คลิกที่สำนัก/กอง ที่มีสีเพื่อเข้าดูบันทึกกิจกรรม ROPA')}
                 </p>
 
-                <div style={{ overflowX: 'auto', padding: '3rem 1rem 1rem 1rem', display: 'flex', justifyContent: 'center' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '1100px', width: '100%' }}>
+                <div className="ropa-org-wrapper">
+                  <div className="ropa-org-inner">
 
                     {/* The Root Node */}
                     <div className="ropa-root-node">
-                      สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)
+                      {t('ropa.orgChart.rootNode', 'สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)')}
                     </div>
                     <div style={{ width: '4px', height: '45px', backgroundColor: '#94a3b8' }} />
 
                     {/* Check if database actually returned data */}
                     {ropaData.length > 0 ? (
                       <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        
+
                         {/* Dynamic Horizontal Line connecting all nodes */}
-                        <div style={{ 
-                          position: 'absolute', top: 0, 
-                          left: `calc(100% / (${ropaData.length} * 2))`, 
-                          right: `calc(100% / (${ropaData.length} * 2))`, 
-                          height: '4px', backgroundColor: '#94a3b8', borderRadius: '4px' 
+                        <div style={{
+                          position: 'absolute', top: 0,
+                          left: `calc(100% / (${ropaData.length} * 2))`,
+                          right: `calc(100% / (${ropaData.length} * 2))`,
+                          height: '4px', backgroundColor: '#94a3b8', borderRadius: '4px'
                         }} />
 
                         {ropaData.map((bureau) => {
@@ -224,12 +223,12 @@ export default function Ropa() {
 
                                 <div style={{ marginTop: 'auto', paddingTop: '0.8rem', width: '100%' }}>
                                   {hasData ? (
-                                    <span style={{ fontSize: '0.75rem', backgroundColor: '#eff6ff', color: '#1d4ed8', padding: '0.3rem 0.6rem', borderRadius: '20px', fontWeight: '600', border: '1px solid #bfdbfe' }}>
-                                      {bureau.subDepartments?.length || 0} กลุ่มงาน
+                                    <span style={{display: 'inline-block', fontSize: '0.75rem', backgroundColor: '#eff6ff', color: '#1d4ed8', padding: '0.3rem 0.6rem', borderRadius: '20px', fontWeight: '600', border: '1px solid #bfdbfe' }}>
+                                      {bureau.subDepartments?.length || 0} {t('ropa.orgChart.departmentCount', 'กลุ่มงาน')}
                                     </span>
                                   ) : (
                                     <span style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem' }}>
-                                      <Icon name="folder_off" size={14} /> ยังไม่มีข้อมูล
+                                      <Icon name="folder_off" size={14} /> {t('ropa.orgChart.noData', 'ยังไม่มีข้อมูล')}
                                     </span>
                                   )}
                                 </div>
@@ -240,7 +239,7 @@ export default function Ropa() {
                       </div>
                     ) : (
                       <div style={{ padding: '3rem', color: '#94a3b8', fontFamily: 'Prompt, sans-serif' }}>
-                        ไม่พบข้อมูลโครงสร้าง ROPA จากฐานข้อมูล
+                        {t('ropa.orgChart.notFound', 'ไม่พบข้อมูลโครงสร้าง ROPA จากฐานข้อมูล')}
                       </div>
                     )}
                   </div>
@@ -269,7 +268,7 @@ export default function Ropa() {
                   </div>
                   <div>
                     <h3 style={{ fontSize: '1.8rem', margin: 0, color: 'var(--primary-navy)', fontFamily: 'Prompt, sans-serif' }}>{currentBureau?.bureauName}</h3>
-                    <p style={{ color: '#64748b', margin: '0.3rem 0 0 0', fontSize: '1.1rem' }}>เลือกกลุ่มงาน/ฝ่าย เพื่อเข้าดูข้อมูล</p>
+                    <p style={{ color: '#64748b', margin: '0.3rem 0 0 0', fontSize: '1.1rem' }}>{t('ropa.deptSelect.subtitle', 'เลือกกลุ่มงาน/ฝ่าย เพื่อเข้าดูข้อมูล')}</p>
                   </div>
                 </div>
 
@@ -298,7 +297,7 @@ export default function Ropa() {
                           ) : (
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', fontSize: '0.95rem' }}>
                               <Icon name="folder_off" size={16} />
-                              <span>ยังไม่มีบันทึกกิจกรรม</span>
+                              <span>{t('ropa.deptSelect.noActivities', 'ยังไม่มีบันทึกกิจกรรม')}</span>
                             </div>
                           )}
 
@@ -320,8 +319,8 @@ export default function Ropa() {
 
           {/* LEVEL 2: ACTIVITY LIST VIEW & FILTERS */}
           {selectedDept && !selectedActivity && (
-            <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '2rem', alignItems: 'start' }}>
-              
+            <div className="ropa-activity-layout">
+
               {/* Left Sidebar Filters */}
               <FadeIn delay={0.2}>
                 <div className="ropa-filter-sidebar">
@@ -331,21 +330,21 @@ export default function Ropa() {
                   </div>
 
                   <div style={{ marginBottom: '1.5rem' }}>
-                    <input 
-                      type="text" 
-                      placeholder={t('ropa.filter.search', 'ค้นหากิจกรรม...')} 
-                      value={searchQuery} 
-                      onChange={(e) => setSearchQuery(e.target.value)} 
+                    <input
+                      type="text"
+                      placeholder={t('ropa.filter.search', 'ค้นหากิจกรรม...')}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                       className="ropa-input"
                     />
                   </div>
 
                   <div style={{ marginBottom: '1.5rem' }}>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.95rem', color: '#475569' }}>
-                      <input 
-                        type="checkbox" 
-                        checked={filters.hasSensitiveData} 
-                        onChange={(e) => setFilters({ ...filters, hasSensitiveData: e.target.checked })} 
+                      <input
+                        type="checkbox"
+                        checked={filters.hasSensitiveData}
+                        onChange={(e) => setFilters({ ...filters, hasSensitiveData: e.target.checked })}
                         style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                       />
                       <span>{t('ropa.filter.hasSensitive', 'มีข้อมูลอ่อนไหวเท่านั้น')}</span>
@@ -356,8 +355,8 @@ export default function Ropa() {
                     <label style={{ fontSize: '0.9rem', color: '#64748b', display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>{t('ropa.filter.basis', 'ฐานกฎหมาย')}</label>
                     <select value={filters.lawfulBasis} onChange={(e) => setFilters({ ...filters, lawfulBasis: e.target.value })} className="ropa-input">
                       <option value="all">{t('ropa.filter.all', 'ทั้งหมด')}</option>
-                      <option value="มาตรา 24">มาตรา 24</option>
-                      <option value="มาตรา 26">มาตรา 26</option>
+                      <option value="มาตรา 24">{t('ropa.filter.article24', 'มาตรา 24')}</option>
+                      <option value="มาตรา 26">{t('ropa.filter.article26', 'มาตรา 26')}</option>
                     </select>
                   </div>
 
@@ -374,12 +373,12 @@ export default function Ropa() {
                   <div style={{ marginBottom: '1.5rem' }}>
                     <button
                       onClick={exportToCSV} disabled={filteredActivities.length === 0}
-                      style={{ 
-                        width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', 
-                        padding: '0.8rem', backgroundColor: 'white', color: 'var(--primary-navy)', border: '1px solid var(--primary-navy)', 
-                        borderRadius: '8px', fontSize: '0.95rem', fontWeight: '600', 
-                        cursor: filteredActivities.length === 0 ? 'not-allowed' : 'pointer', 
-                        opacity: filteredActivities.length === 0 ? 0.5 : 1, transition: 'all 0.2s' 
+                      style={{
+                        width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                        padding: '0.8rem', backgroundColor: 'white', color: 'var(--primary-navy)', border: '1px solid var(--primary-navy)',
+                        borderRadius: '8px', fontSize: '0.95rem', fontWeight: '600',
+                        cursor: filteredActivities.length === 0 ? 'not-allowed' : 'pointer',
+                        opacity: filteredActivities.length === 0 ? 0.5 : 1, transition: 'all 0.2s'
                       }}
                       onMouseEnter={(e) => { if (filteredActivities.length > 0) e.currentTarget.style.backgroundColor = '#eff6ff' }}
                       onMouseLeave={(e) => { if (filteredActivities.length > 0) e.currentTarget.style.backgroundColor = 'white' }}
@@ -417,8 +416,8 @@ export default function Ropa() {
                     <div style={{ display: 'grid', gap: '1rem' }}>
                       {filteredActivities.map((activity, index) => (
                         <FadeIn key={activity.id} delay={0.05 * index}>
-                          <button 
-                            onClick={() => setSelectedActivity(activity.id)} 
+                          <button
+                            onClick={() => setSelectedActivity(activity.id)}
                             className="activity-card"
                             style={{ '--dept-color': currentDept?.color }}
                           >
@@ -453,26 +452,26 @@ export default function Ropa() {
           {selectedActivity && currentActivity && (
             <div className="ropa-modal-overlay" onClick={() => setSelectedActivity(null)}>
               <div className="ropa-modal-content" onClick={(e) => e.stopPropagation()}>
-                
+
                 <div style={{ position: 'sticky', top: 0, backgroundColor: 'white', padding: '1.5rem 2.5rem', borderBottom: `4px solid ${currentDept?.color}`, zIndex: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
                     <div style={{ display: 'inline-block', padding: '0.3rem 0.8rem', backgroundColor: currentDept?.color, color: 'white', borderRadius: '20px', fontSize: '0.85rem', marginBottom: '0.8rem', fontWeight: '600' }}>
                       {currentDept?.name}
                     </div>
                     <h2 style={{ fontSize: '1.8rem', color: 'var(--primary-navy)', margin: '0 0 0.5rem 0', fontFamily: 'Prompt, sans-serif' }}>{currentActivity.name}</h2>
-                    <p style={{ color: '#64748b', fontSize: '1rem', margin: 0 }}>{t('ropa.details.controller', 'ผู้ควบคุมข้อมูล')}: {currentActivity.dataController || '-'}</p>
+                    <p style={{ color: '#64748b', fontSize: '1rem', margin: 0 }}>{t('ropa.details.controller', 'ผู้ควบคุมข้อมูล:')} {currentActivity.dataController || '-'}</p>
                   </div>
                   <button onClick={() => setSelectedActivity(null)} style={{ background: '#f1f5f9', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#64748b', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.2s' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e2e8f0'} onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f1f5f9'}>×</button>
                 </div>
 
                 <div style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                  
+
                   <div style={{ backgroundColor: 'white', padding: '1.8rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
-                    <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="clipboard" size={20} /> ผู้รับผิดชอบและติดต่อ</h4>
+                    <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="clipboard" size={20} /> {t('ropa.details.responsible', 'ผู้รับผิดชอบและติดต่อ')}</h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', fontSize: '0.95rem' }}>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ผู้ควบคุมข้อมูล:</strong><span style={{ color: '#1e293b', fontWeight: '500' }}>{currentActivity.dataController || '-'}</span></div>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>DPO:</strong><span style={{ color: '#1e293b', fontWeight: '500' }}>{currentActivity.dpo || '-'}</span></div>
-                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ข้อมูลติดต่อ:</strong><span style={{ color: '#1e293b', fontWeight: '500' }}>{currentActivity.contactInfo?.address || '-'} | {currentActivity.contactInfo?.phone || '-'} | {currentActivity.contactInfo?.email || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.controller', 'ผู้ควบคุมข้อมูล:')}</strong><span style={{ color: '#1e293b', fontWeight: '500' }}>{currentActivity.dataController || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.dpo', 'DPO:')}</strong><span style={{ color: '#1e293b', fontWeight: '500' }}>{currentActivity.dpo || '-'}</span></div>
+                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.contactInfo', 'ข้อมูลติดต่อ:')}</strong><span style={{ color: '#1e293b', fontWeight: '500' }}>{currentActivity.contactInfo?.address || '-'} | {currentActivity.contactInfo?.phone || '-'} | {currentActivity.contactInfo?.email || '-'}</span></div>
                     </div>
                   </div>
 
@@ -490,48 +489,48 @@ export default function Ropa() {
                   </div>
 
                   <div style={{ backgroundColor: 'white', padding: '1.8rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
-                    <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', fontFamily: 'Prompt, sans-serif' }}>📌 A & C: ที่มาและวัตถุประสงค์</h4>
+                    <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', fontFamily: 'Prompt, sans-serif' }}>{t('ropa.details.sectionAC', '📌 A & C: ที่มาและวัตถุประสงค์')}</h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', fontSize: '0.95rem' }}>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ชื่อแบบฟอร์ม (A1):</strong><span style={{ color: '#1e293b' }}>{currentActivity.formNameA1 || '-'}</span></div>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ที่มาการได้ข้อมูล (A2):</strong><span style={{ color: '#1e293b' }}>{currentActivity.dataSourceA2 || '-'}</span></div>
-                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>วัตถุประสงค์ (C1):</strong><span style={{ color: '#1e293b' }}>{currentActivity.purposeOfCollectionC1 || '-'}</span></div>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ผู้ใช้ข้อมูล (C2):</strong><span style={{ color: '#1e293b' }}>{currentActivity.dataUserC2 || '-'}</span></div>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>รูปแบบนำเข้า (C3) / สื่อ (C4):</strong><span style={{ color: '#1e293b' }}>{currentActivity.collectionSourceC3 || '-'} | {currentActivity.collectionMediumC4 || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.formNameA1', 'ชื่อแบบฟอร์ม (A1):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.formNameA1 || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.dataSourceA2', 'ที่มาการได้ข้อมูล (A2):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.dataSourceA2 || '-'}</span></div>
+                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.purposeC1', 'วัตถุประสงค์ (C1):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.purposeOfCollectionC1 || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.dataUserC2', 'ผู้ใช้ข้อมูล (C2):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.dataUserC2 || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.collectionC3C4', 'รูปแบบนำเข้า (C3) / สื่อ (C4):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.collectionSourceC3 || '-'} | {currentActivity.collectionMediumC4 || '-'}</span></div>
                     </div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                     <div style={{ backgroundColor: 'white', padding: '1.8rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
-                      <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="database" size={20} /> D: สถานที่เก็บรวบรวม</h4>
+                      <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="database" size={20} /> {t('ropa.details.sectionD', 'D: สถานที่เก็บรวบรวม')}</h4>
                       <div style={{ display: 'grid', gap: '1rem', fontSize: '0.95rem' }}>
-                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>สถานที่กายภาพ (D1):</strong><span style={{ color: '#1e293b' }}>{currentActivity.physicalStorageD1 || '-'}</span></div>
-                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ทางอิเล็กทรอนิกส์ (D2):</strong><span style={{ color: '#1e293b' }}>{currentActivity.electronicStorageD2 || '-'}</span></div>
+                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.physicalD1', 'สถานที่กายภาพ (D1):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.physicalStorageD1 || '-'}</span></div>
+                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.electronicD2', 'ทางอิเล็กทรอนิกส์ (D2):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.electronicStorageD2 || '-'}</span></div>
                       </div>
                     </div>
 
                     <div style={{ backgroundColor: 'white', padding: '1.8rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
-                      <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="share" size={20} /> E & F: การใช้และเปิดเผย</h4>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.95rem' }}>
-                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>ฝ่ายอื่นที่ใช้ (E1):</strong><span style={{ color: '#1e293b' }}>{currentActivity.internalUsageE1 || '-'}</span></div>
-                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>การเข้าถึง (E2):</strong><span style={{ color: '#1e293b' }}>{currentActivity.internalAccessE2 || '-'}</span></div>
-                        <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>องค์กรที่เปิดเผย (F1):</strong><span style={{ color: '#1e293b' }}>{currentActivity.externalDisclosureF1 || currentActivity.dataDisclosedTo || '-'}</span></div>
+                      <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="share" size={20} /> {t('ropa.details.sectionEF', 'E & F: การใช้และเปิดเผย')}</h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', fontSize: '0.95rem' }}>
+                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.internalUsageE1', 'ฝ่ายอื่นที่ใช้ (E1):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.internalUsageE1 || '-'}</span></div>
+                        <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.internalAccessE2', 'การเข้าถึง (E2):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.internalAccessE2 || '-'}</span></div>
+                        <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.externalDisclosureF1', 'องค์กรที่เปิดเผย (F1):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.externalDisclosureF1 || currentActivity.dataDisclosedTo || '-'}</span></div>
                       </div>
                     </div>
                   </div>
 
                   <div style={{ backgroundColor: 'white', padding: '1.8rem', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
-                    <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="shield" size={20} /> G & H: ระยะเวลาและมาตรการ</h4>
+                    <h4 style={{ margin: '0 0 1.2rem 0', color: '#475569', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif' }}><Icon name="shield" size={20} /> {t('ropa.details.sectionGH', 'G & H: ระยะเวลาและมาตรการ')}</h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', fontSize: '0.95rem' }}>
-                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>วิธีทำลาย (G2):</strong><span style={{ color: '#1e293b' }}>{currentActivity.disposalMethodG2 || '-'}</span></div>
-                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>เชิงเทคนิค (H1):</strong><span style={{ color: '#1e293b' }}>{currentActivity.technicalMeasuresH1 || currentActivity.securityMeasures || '-'}</span></div>
-                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>เชิงองค์กร (H2):</strong><span style={{ color: '#1e293b' }}>{currentActivity.organizationalMeasuresH2 || '-'}</span></div>
+                      <div><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.disposalG2', 'วิธีทำลาย (G2):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.disposalMethodG2 || '-'}</span></div>
+                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.technicalH1', 'เชิงเทคนิค (H1):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.technicalMeasuresH1 || currentActivity.securityMeasures || '-'}</span></div>
+                      <div style={{ gridColumn: '1 / -1' }}><strong style={{ color: '#94a3b8', display: 'block', marginBottom: '0.3rem' }}>{t('ropa.details.organizationalH2', 'เชิงองค์กร (H2):')}</strong><span style={{ color: '#1e293b' }}>{currentActivity.organizationalMeasuresH2 || '-'}</span></div>
                     </div>
                   </div>
 
                   <div style={{ backgroundColor: '#f1f5f9', padding: '1.2rem 1.5rem', borderRadius: '12px', border: '1px dashed #cbd5e1', fontSize: '0.85rem', color: '#64748b', display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'space-between' }}>
-                    <span><strong style={{ color: '#475569' }}>สถานะ (I1):</strong> {currentActivity.activityStatusI1 || '-'}</span>
-                    <span><strong style={{ color: '#475569' }}>อัปเดตล่าสุด (I2):</strong> {currentActivity.lastUpdateI2 || '-'}</span>
-                    <span><strong style={{ color: '#475569' }}>การแก้ไข (I3):</strong> {currentActivity.revisionI3 || '-'}</span>
+                    <span><strong style={{ color: '#475569' }}>{t('ropa.details.statusI1', 'สถานะ (I1):')}</strong> {currentActivity.activityStatusI1 || '-'}</span>
+                    <span><strong style={{ color: '#475569' }}>{t('ropa.details.lastUpdateI2', 'อัปเดตล่าสุด (I2):')}</strong> {currentActivity.lastUpdateI2 || '-'}</span>
+                    <span><strong style={{ color: '#475569' }}>{t('ropa.details.revisionI3', 'การแก้ไข (I3):')}</strong> {currentActivity.revisionI3 || '-'}</span>
                   </div>
 
                 </div>

@@ -1,6 +1,6 @@
 // src/pages/DpoTeam.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // <-- Added Link import
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
 import '../css/DpoTeam.css';
@@ -33,14 +33,13 @@ export default function DpoTeam() {
 
       {/* 1. HERO */}
       <FadeIn delay={0.1}>
-        // REPLACE with:
         <section className="dpo-hero">
           <div className="container">
             <div style={{ maxWidth: '700px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
                 <Icon name="shield" size={18} color="rgba(255,255,255,0.5)" strokeWidth={1.8} />
                 <span style={{ fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
-                  Data Protection Officer
+                  {t('dpo.heroBadge', 'Data Protection Officer')}
                 </span>
               </div>
               <h1>{t('dpo.title', 'ทีมเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล')}</h1>
@@ -57,7 +56,7 @@ export default function DpoTeam() {
 
             <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#94a3b8' }}>
-                โครงสร้างคณะทำงาน
+                {t('dpo.orgChartSubTitle', 'โครงสร้างคณะทำงาน')}
               </span>
               <h2 style={{ fontSize: '2rem', color: 'var(--primary-navy)', marginTop: '0.5rem', letterSpacing: '-0.02em' }}>
                 {t('dpo.orgChartTitle', 'แผนผังองค์กร DPO')}
@@ -68,7 +67,7 @@ export default function DpoTeam() {
 
               {/* L1: Chairman */}
               <div className="org-level-1-card">
-                <span className="level-label">ประธาน</span>
+                <span className="level-label">{t('dpo.chairmanLabel', 'ประธาน')}</span>
                 <h4>{t('dpo.chairmanTitle', 'รองผู้อำนวยการ สนข.')}</h4>
                 <p>{t('dpo.chairmanRole', 'ที่ได้รับมอบหมาย')}</p>
               </div>
@@ -96,7 +95,7 @@ export default function DpoTeam() {
               {/* L3: Secretaries */}
               <div className="org-level-3-wrapper">
                 <div className="org-level-3-label">
-                  เลขานุการคณะทำงาน — ศูนย์เทคโนโลยีสารสนเทศการขนส่งและจราจร
+                  {t('dpo.secretariesLabel', 'เลขานุการคณะทำงาน — ศูนย์เทคโนโลยีสารสนเทศการขนส่งและจราจร')}
                 </div>
                 <div className="org-level-3-inner">
 
@@ -112,14 +111,14 @@ export default function DpoTeam() {
 
                   <div className="org-secretary-sub-grid">
                     {[
-                      { key: 'networkHead', role: 'networkRole', icon: 'server' },
-                      { key: 'infoPolicyHead', role: 'networkRole', icon: 'key' },
-                      { key: 'infoSystemHead', role: 'networkRole', icon: 'bell' },
-                    ].map(({ key, role, icon }) => (
+                      { key: 'networkHead', fallback: 'หัวหน้ากลุ่มพัฒนาระบบคอมพิวเตอร์และเครือข่าย', role: 'networkRole', icon: 'server' },
+                      { key: 'infoPolicyHead', fallback: 'หัวหน้ากลุ่มนโยบายและบริหารจัดการสารสนเทศ', role: 'networkRole', icon: 'key' },
+                      { key: 'infoSystemHead', fallback: 'หัวหน้ากลุ่มพัฒนาระบบสารสนเทศ', role: 'networkRole', icon: 'bell' },
+                    ].map(({ key, fallback, role, icon }) => (
                       <div key={key} className="org-secretary-sub-card">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                           <Icon name={icon} size={16} color="#15803d" strokeWidth={1.8} />
-                          <strong>{t(`dpo.secretaries.${key}`, key)}</strong>
+                          <strong>{t(`dpo.secretaries.${key}`, fallback)}</strong>
                         </div>
                         <span>{t(`dpo.secretaries.${role}`, 'ผู้ช่วยเลขานุการ')}</span>
                       </div>
@@ -141,7 +140,7 @@ export default function DpoTeam() {
 
             <div>
               <span style={{ fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#94a3b8' }}>
-                หน้าที่และอำนาจ
+                {t('dpo.dutiesSubTitle', 'หน้าที่และอำนาจ')}
               </span>
               <h2 style={{ fontSize: '2rem', color: 'var(--primary-navy)', marginTop: '0.5rem', letterSpacing: '-0.02em' }}>
                 {t('dpo.dutiesTitle', 'บทบาทหน้าที่ของ DPO')}
@@ -161,7 +160,7 @@ export default function DpoTeam() {
         </section>
       </FadeIn>
 
-      {/* 4. CONTACT CTA - UPDATED TO ROUTE TO REPORT PAGE */}
+      {/* 4. CONTACT CTA */}
       <FadeIn delay={0.4}>
         <section className="contact-cta">
           <div className="container">

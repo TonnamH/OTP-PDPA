@@ -3,6 +3,12 @@
     "title": "OTP PDPA",
     "home": "Home",
     "about": "About",
+    "settings": {
+      "title": "Display Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "textSize": "Text Size"
+    },
     "aboutDpo": "DPO Working Group",
     "aboutDocs": "Related Documents",
     "aboutRopa": "OTP Record of Processing Activities",
@@ -22,78 +28,86 @@
   "home": {
     "hero": {
       "badge": "Personal Data Command Center",
-      "title": "PDPA Portal: OTP Knowledge & Personal Data Hub",
-      "subtitle": "Transparent, secure, and prioritizing your rights. Understand how the Office of Transport and Traffic Policy and Planning protects your information.",
+      "title": "PDPA Portal: Knowledge and Data Management Center, OTP",
+      "subtitle": "Transparent, secure, and respectful of your rights. Understand how the Office of Transport and Traffic Policy and Planning protects your data.",
       "reportBtn": "Report Data Breach",
       "learnMoreBtn": "View ROPA Records"
     },
     "pdpa1min": {
       "label": "What is PDPA?",
       "title": "The Law That Returns Data Rights to You",
-      "desc": "The Personal Data Protection Act (PDPA) empowers you as the true owner of your data. OTP is obligated to keep your information highly secure and use it only as strictly necessary.",
-      "check1": "Data must be stored with maximum security",
-      "check2": "Used exclusively for clearly stated purposes",
-      "check3": "You have the right to access, edit, or delete your data"
+      "desc": "The Personal Data Protection Act (PDPA) empowers you as the true owner of your data. OTP is committed to keeping your data secure and using it only as necessary.",
+      "check1": "Data is stored with maximum security.",
+      "check2": "Data is used strictly for stated purposes.",
+      "check3": "You have the right to access, edit, or delete your data."
     },
     "quickLinks": {
       "label": "Services",
-      "title": "Essential Information & Services",
-      "readMore": "View Details",
+      "title": "Key Information & Services",
+      "readMore": "Read More",
       "ropa": {
-        "title": "ROPA (Record of Processing)",
-        "desc": "Check which activities and departments process your personal data."
+        "title": "ROPA Records",
+        "desc": "Check which activities OTP processes personal data for."
       },
       "docs": {
         "title": "Policy Documents",
-        "desc": "Download consent forms, manuals, and privacy policy declarations."
+        "desc": "Download forms, manuals, and privacy notices."
       },
       "dpo": {
         "title": "OTP DPO Team",
-        "desc": "Get to know our Data Protection Officers and contact channels."
+        "desc": "Meet our Data Protection Officers and find contact channels."
       }
     },
     "downloads": {
       "label": "Downloads",
-      "title": "Recently Added Documents",
-      "viewAll": "Document Center",
+      "title": "Latest Documents & Forms",
+      "viewAll": "All Documents",
       "loading": "Loading documents...",
-      "empty": "No documents available at the moment."
+      "empty": "No documents available at the moment.",
+      "downloadPdf": "Download PDF",
+      "openFile": "Open File"
     },
     "infographics": {
       "label": "Basic Knowledge",
-      "title": "PDPA at a Glance",
+      "title": "PDPA Summary",
       "cards": {
         "why": {
-          "title": "Why Protect Personal Data?",
-          "desc": "Understand the core reasons and importance of data privacy."
+          "title": "Why Protect Data?",
+          "desc": "The importance of personal data protection in the digital age."
         },
         "dodont": {
-          "title": "Do & Don't for PDPA",
-          "desc": "Best practices and strict prohibitions when handling data."
+          "title": "PDPA Do's & Don'ts",
+          "desc": "Best practices and strict prohibitions in data management."
         },
         "rights": {
           "title": "Data Subject Rights",
-          "desc": "Know your 8 fundamental rights under the PDPA law."
+          "desc": "Learn about your 8 fundamental rights under the PDPA."
         },
         "roles": {
           "title": "Key Roles in PDPA",
-          "desc": "Controller, Processor, and Data Protection Officer (DPO)."
+          "desc": "Data Controller, Data Processor, and the DPO."
         }
       }
     },
     "infographicGallery": {
       "label": "Public Relations",
       "title": "PDPA Infographics Gallery",
-      "empty": "No infographics available at the moment."
+      "empty": "No infographics available at the moment.",
+      "viewAll": "View All",
+      "loading": "Loading..."
     }
   },
   "dpo": {
     "title": "Data Protection Officer (DPO)",
     "subtitle": "Working Group for Personal Data Protection Officers of the Office of Transport and Traffic Policy and Planning (OTP)",
+    "heroBadge": "Data Protection Officer",
+    "orgChartSubTitle": "Working Group Structure",
     "orgChartTitle": "DPO Organizational Chart",
+    "chairmanLabel": "Chairman",
     "chairmanTitle": "Deputy Director-General of OTP (DCIO of OTP)",
     "chairmanRole": "Chairman of the Working Group",
-    "workingGroupLabel": "Working Group",
+    "workingGroupLabel": "Working Group — Representatives from Bureaus/Divisions",
+    "secretariesLabel": "Secretaries — Transport and Traffic Information Technology Center",
     "members": {
       "centralAdmin": "Director of Central Administration Bureau",
       "landTraffic": "Director of Land Traffic Management Division",
@@ -113,13 +127,14 @@
       "infoPolicyHead": "Head of Information Policy and Administration Group",
       "infoSystemHead": "Head of Information System Development Group"
     },
-    "dutiesTitle": "Duties and Powers",
+    "dutiesSubTitle": "Duties and Powers",
+    "dutiesTitle": "Roles and Responsibilities",
     "duty1": "Provide advice to the Data Controller or Data Processor, including their employees or contractors, regarding compliance with the Personal Data Protection Act.",
     "duty2": "Inspect the operations of the Data Controller or Data Processor, including their employees or contractors, regarding the collection, use, or disclosure of personal data to ensure compliance with the law.",
     "duty3": "Coordinate and cooperate with the Office of the Personal Data Protection Commission in cases of issues related to the collection, use, or disclosure of personal data.",
     "duty4": "Maintain strict confidentiality of any personal data known or acquired through the performance of duties, in accordance with the Personal Data Protection Act.",
     "contactTitle": "Have questions about personal data?",
-    "contactSub": "Contact the OTP DPO team directly via email"
+    "contactSub": "Report a data breach or contact the OTP DPO team"
   },
   "documentsPage": {
     "title": "Documents related to the PDPA of OTP",
@@ -134,16 +149,30 @@
     }
   },
   "ropa": {
-    "title": "Record of Processing Activities (ROPA)",
-    "subtitle": "Explore what data OTP collects, why, and how — ensuring transparency and protecting your rights.",
+    "title": "Record of Processing Activities",
+    "subtitle": "Explore what data OTP collects, why, and how — for your transparency and rights",
+    "loading": "Loading ROPA data...",
     "backToDept": "Back to Departments",
     "backToActivities": "Back to Activities",
+    "backToBureaus": "Back to Main Structure",
     "home": "Home",
-    "selectDept": "Select a Department to Explore",
+    "selectDept": "Select a department to explore",
     "totalActivities": "{{count}} Activities",
     "downloadPdf": "Download PDF",
     "pdfCtaTitle": "Need the full ROPA document?",
-    "pdfCtaSub": "Download the complete PDF containing all extensive regulatory details.",
+    "pdfCtaSub": "Download the complete PDF with all detailed records",
+    "orgChart": {
+      "title": "OTP Organizational Structure",
+      "subtitle": "Click on highlighted bureaus/divisions to view ROPA records",
+      "rootNode": "Office of Transport and Traffic Policy and Planning (OTP)",
+      "departmentCount": "Departments",
+      "noData": "No Data",
+      "notFound": "No ROPA structure data found from the database"
+    },
+    "deptSelect": {
+      "subtitle": "Select a department/division to view details",
+      "noActivities": "No recorded activities yet"
+    },
     "filter": {
       "title": "Filters",
       "reset": "Reset",
@@ -151,37 +180,50 @@
       "hasSensitive": "Contains Sensitive Data",
       "basis": "Lawful Basis",
       "all": "All",
+      "article24": "Article 24",
+      "article26": "Article 26",
       "retention": "Retention Period",
       "short": "< 1 Year",
       "medium": "1-5 Years",
       "long": "> 5 Years (or Lifetime)",
       "showing": "Showing {{count}} activities",
-      "notFound": "No activities match your current filters.",
+      "notFound": "No activities match the search criteria",
       "exportCsv": "Export to CSV"
     },
     "details": {
       "generalData": "General Data",
       "sensitiveData": "Sensitive Data",
-      "hasSensitiveTag": "Sensitive Data",
+      "hasSensitiveTag": "Contains Sensitive Data",
       "basis": "Lawful Basis",
       "retention": "Retention Period",
       "storage": "Storage Medium",
-      "disclosure": "Data Disclosure / Access",
+      "disclosure": "Data Disclosed To",
       "security": "Security Measures",
-      "viewFull": "View Full ROPA Details (A1 - I3)",
-      "controller": "Data Controller"
-    },
-    "rights": {
-      "title": "Your Rights Under the PDPA",
-      "access": "Right to Access:",
-      "accessDesc": "You have the right to access and request a copy of your personal data.",
-      "edit": "Right to Rectification:",
-      "editDesc": "If your data is inaccurate, you can request corrections.",
-      "delete": "Right to Erasure:",
-      "deleteDesc24": "As this data is collected under a legal obligation, erasure may not be possible, but you may request usage suspension in specific cases.",
-      "deleteDesc": "You may request the erasure or suspension of your data under certain conditions.",
-      "object": "Right to Object:",
-      "objectDesc": "You have the right to object to the processing of your data in specific circumstances."
+      "viewFull": "View Full ROPA (A1 - I3)",
+      "controller": "Data Controller:",
+      "responsible": "Responsible Parties & Contact",
+      "dpo": "DPO:",
+      "contactInfo": "Contact Info:",
+      "sectionAC": "📌 A & C: Source & Purpose",
+      "formNameA1": "Form Name (A1):",
+      "dataSourceA2": "Data Source (A2):",
+      "purposeC1": "Purpose (C1):",
+      "dataUserC2": "Data User (C2):",
+      "collectionC3C4": "Format (C3) / Medium (C4):",
+      "sectionD": "D: Collection Storage",
+      "physicalD1": "Physical Storage (D1):",
+      "electronicD2": "Electronic Storage (D2):",
+      "sectionEF": "E & F: Usage & Disclosure",
+      "internalUsageE1": "Internal Usage (E1):",
+      "internalAccessE2": "Access (E2):",
+      "externalDisclosureF1": "External Disclosure (F1):",
+      "sectionGH": "G & H: Retention & Security",
+      "disposalG2": "Disposal Method (G2):",
+      "technicalH1": "Technical Measures (H1):",
+      "organizationalH2": "Organizational Measures (H2):",
+      "statusI1": "Status (I1):",
+      "lastUpdateI2": "Last Update (I2):",
+      "revisionI3": "Revision (I3):"
     }
   },
   "search": {

@@ -2,14 +2,28 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
+const axios = require('axios'); // We use axios to talk to Google's API
 
 const dns = require('dns');
 dns.setDefaultResultOrder('ipv4first');
 
 router.post('/', async (req, res) => {
-  const { firstName, lastName, email, phone, issueType, otherSpecify, details } = req.body;
+  const { firstName, lastName, email, phone, issueType, otherSpecify, details, recaptchaToken } = req.body;
+
+  if (!recaptchaToken) {
+    return res.status(400).json({ error: 'Missing reCAPTCHA token.' });
+  }
 
   try {
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+    
+    const recaptchaResponse = await axios.post(verifyUrl);
+    
+    if (!recaptchaResponse.data.success) {
+      return res.status(400).json({ error: 'reCAPTCHA verification failed. Please try again.' });
+    }
+
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -23,10 +37,12 @@ router.post('/', async (req, res) => {
     const issueLabel = issueType === 'other' ? `อื่นๆ (${otherSpecify})` : issueType;
 
     const mailOptions = {
-      from: `"PDPA Portal System" <${process.env.SMTP_USER}>`, 
+      from: `"PDPA Portal" <${process.env.SMTP_USER}>`, 
       replyTo: email, 
       to: 'compliance@otp.go.th', 
-      subject: `[PDPA Portal] แจ้งเรื่องใหม่: ${issueLabel}`,
+      cc: process.env.SMTP_USER, 
+      subject: `แจ้งเรื่องใหม่ PDPA Portal: ${issueLabel}`, 
+      text: `มีการแจ้งเรื่องใหม่จากระบบ PDPA Portal\nชื่อ-นามสกุล: ${firstName} ${lastName}\nอีเมล: ${email}\nเบอร์โทรศัพท์: ${phone || '-'}\nประเภทการแจ้ง: ${issueLabel}\nรายละเอียด: ${details}`,
       html: `
         <div style="font-family: sans-serif; color: #333;">
             <h2>มีการแจ้งเรื่องใหม่จากระบบ PDPA Portal</h2>
@@ -45,8 +61,8 @@ router.post('/', async (req, res) => {
     res.status(200).json({ message: 'Report sent successfully' });
 
   } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ error: 'Failed to send report email' });
+    console.error('Error in report route:', error);
+    res.status(500).json({ error: 'Failed to process request.' });
   }
 });
 
