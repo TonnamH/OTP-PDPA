@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import FadeIn from '../components/FadeIn';
-import ReCAPTCHA from "react-google-recaptcha"; // <-- Import the library
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ReportForm() {
   const { t } = useTranslation();
@@ -11,7 +11,7 @@ export default function ReportForm() {
   // State Management
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState(null); // <-- State for the token
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -35,7 +35,6 @@ export default function ReportForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Safety check: Make sure they clicked the reCAPTCHA
     if (!recaptchaToken) {
       alert("กรุณายืนยันว่าคุณไม่ใช่โปรแกรมอัตโนมัติ (reCAPTCHA)");
       return;
@@ -49,7 +48,6 @@ export default function ReportForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        // Send the token along with the form data
         body: JSON.stringify({ ...formData, recaptchaToken })
       });
 
@@ -70,34 +68,35 @@ export default function ReportForm() {
     }
   };
 
-  // Styles
+  // Hardcoded Light Theme Styles
   const inputStyle = {
     width: '100%', padding: '0.8rem 1rem', borderRadius: '4px',
-    border: '1px solid var(--border-color)', fontFamily: 'Sarabun, sans-serif',
-    fontSize: '1rem', outlineColor: 'var(--primary-navy)', backgroundColor: '#fff',
-    marginTop: '0.3rem'
+    border: '1px solid #e2e8f0', fontFamily: 'Sarabun, sans-serif',
+    fontSize: '1rem', outlineColor: '#1e3a8a', backgroundColor: '#ffffff',
+    marginTop: '0.3rem', color: '#333333'
   };
 
   const labelStyle = {
-    fontFamily: 'Prompt, sans-serif', fontWeight: '500', color: 'var(--text-dark)'
+    fontFamily: 'Prompt, sans-serif', fontWeight: '500', color: '#1e293b'
   };
 
   const radioContainerStyle = {
     display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem',
-    fontFamily: 'Sarabun, sans-serif', color: 'var(--text-dark)', cursor: 'pointer'
+    fontFamily: 'Sarabun, sans-serif', color: '#1e293b', cursor: 'pointer'
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
+    // Added report-page-root and forced white background
+    <div className="report-page-root" style={{ backgroundColor: '#ffffff', minHeight: '100vh', paddingBottom: '5rem' }}>
 
       <FadeIn delay={0.1}>
         <section className="section-full" style={{ paddingBottom: '2rem' }}>
           <div className="container">
-            <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
-              <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)' }}>
+            <div style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '2rem' }}>
+              <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>
                 {t('reportPage.title')}
               </h1>
-              <h2 style={{ fontSize: '1rem', color: 'var(--text-gray)', fontWeight: '400', fontFamily: 'Sarabun, sans-serif' }}>
+              <h2 style={{ fontSize: '1rem', color: '#64748b', fontWeight: '400', fontFamily: 'Sarabun, sans-serif' }}>
                 {t('reportPage.subtitle')}
               </h2>
             </div>
@@ -110,14 +109,14 @@ export default function ReportForm() {
           <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
 
             {isSubmitted ? (
-              <div style={{ backgroundColor: 'var(--bg-light)', padding: '4rem 2rem', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(0, 150, 136, 0.2)' }}>
+              <div style={{ backgroundColor: '#f1f5f9', padding: '4rem 2rem', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(0, 150, 136, 0.2)' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', color: '#009688' }}>
                   <svg width="80" height="80" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <h3 style={{ fontSize: '2rem', color: 'var(--primary-navy)', fontFamily: 'Prompt, sans-serif', marginBottom: '1rem' }}>{t('reportPage.success.title')}</h3>
-                <p style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif', fontSize: '1.1rem', marginBottom: '2.5rem' }}>{t('reportPage.success.message')}</p>
+                <h3 style={{ fontSize: '2rem', color: '#1e3a8a', fontFamily: 'Prompt, sans-serif', marginBottom: '1rem' }}>{t('reportPage.success.title')}</h3>
+                <p style={{ color: '#64748b', fontFamily: 'Sarabun, sans-serif', fontSize: '1.1rem', marginBottom: '2.5rem' }}>{t('reportPage.success.message')}</p>
                 <Link to="/">
-                  <button style={{ padding: '0.8rem 2rem', backgroundColor: 'var(--primary-navy)', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', fontFamily: 'Prompt, sans-serif', cursor: 'pointer' }}>
+                  <button style={{ padding: '0.8rem 2rem', backgroundColor: '#1e3a8a', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', fontFamily: 'Prompt, sans-serif', cursor: 'pointer' }}>
                     {t('reportPage.success.backBtn')}
                   </button>
                 </Link>
@@ -150,7 +149,7 @@ export default function ReportForm() {
                           value={type}
                           checked={formData.issueType === type}
                           onChange={handleChange}
-                          style={{ width: '18px', height: '18px', accentColor: 'var(--primary-navy)' }}
+                          style={{ width: '18px', height: '18px', accentColor: '#1e3a8a' }}
                         />
                         {t(`reportPage.form.typeOptions.${type}`)}
                       </label>
@@ -167,8 +166,8 @@ export default function ReportForm() {
                     onChange={handleChange}
                     placeholder={t('reportPage.form.otherSpecifyPlaceholder')}
                     disabled={formData.issueType !== 'other'}
-                    required={formData.issueType === 'other'} // Added required logic!
-                    style={{ ...inputStyle, backgroundColor: formData.issueType !== 'other' ? '#f0f0f0' : '#fff' }}
+                    required={formData.issueType === 'other'}
+                    style={{ ...inputStyle, backgroundColor: formData.issueType !== 'other' ? '#f0f0f0' : '#ffffff' }}
                   />
                 </div>
 
@@ -185,10 +184,8 @@ export default function ReportForm() {
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '1rem', marginTop: '1rem' }}>
-                  <div style={{ textAlign: 'right', color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>Recaptcha</div>
+                  <div style={{ textAlign: 'right', color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>Recaptcha</div>
                   <div>
-
-                    {/* THE REAL RECAPTCHA WIDGET */}
                     <div style={{ marginBottom: '1.5rem' }}>
                       <ReCAPTCHA
                         sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
@@ -197,24 +194,23 @@ export default function ReportForm() {
                       />
                     </div>
 
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Sarabun, sans-serif', color: 'var(--text-dark)', cursor: 'pointer', marginBottom: '1.5rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Sarabun, sans-serif', color: '#1e293b', cursor: 'pointer', marginBottom: '1.5rem' }}>
                       <input
                         type="checkbox"
                         name="consent"
                         required
                         checked={formData.consent}
                         onChange={handleChange}
-                        style={{ width: '18px', height: '18px', accentColor: 'var(--primary-navy)' }}
+                        style={{ width: '18px', height: '18px', accentColor: '#1e3a8a' }}
                       />
                       {t('reportPage.form.consentLabel')} <span style={{ color: 'red' }}>*</span>
                     </label>
 
-                    {/* Disable button if recaptcha isn't checked */}
                     <button
                       type="submit"
                       disabled={isSubmitting || !formData.consent || !recaptchaToken}
                       style={{
-                        padding: '0.8rem 2rem', backgroundColor: (isSubmitting || !formData.consent || !recaptchaToken) ? '#555' : '#333',
+                        padding: '0.8rem 2rem', backgroundColor: (isSubmitting || !formData.consent || !recaptchaToken) ? '#555555' : '#333333',
                         color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', fontFamily: 'Prompt, sans-serif',
                         cursor: (isSubmitting || !formData.consent || !recaptchaToken) ? 'not-allowed' : 'pointer'
                       }}

@@ -29,7 +29,7 @@ export default function Training() {
         <section className="training-hero">
           <div className="container">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
-              <Icon name="graduation" size={16} color="rgba(255,255,255,0.5)" strokeWidth={1.8}/>
+              <Icon name="graduation" size={16} color="rgba(255,255,255,0.5)" strokeWidth={1.8} />
               <span style={{
                 fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em',
                 textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)'
@@ -50,7 +50,7 @@ export default function Training() {
           <FadeIn delay={0.2}>
             <div className="training-session-card">
               <div className="training-session-icon">
-                <Icon name="calendar" size={22} color="var(--primary-navy)" strokeWidth={1.8}/>
+                <Icon name="calendar" size={22} color="var(--primary-navy)" strokeWidth={1.8} />
               </div>
               <div>
                 <h3>{t('training.sectionTitle', 'หัวข้อการอบรม')}</h3>
@@ -83,10 +83,10 @@ export default function Training() {
                         e.target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
                       }}
                     />
-                    <div className="video-overlay"/>
+                    <div className="video-overlay" />
                     <div className="video-play-btn">
-                      <Icon name="play" size={20} color="white" strokeWidth={0}/>
-                    </div>
+                          <Icon name="play" size={20} color="white" strokeWidth={0}/>
+                        </div>
                   </div>
                   <div className="video-card-body">
                     <h5 className="video-card-title">{t(video.titleKey)}</h5>
@@ -105,12 +105,12 @@ export default function Training() {
                   borderRadius: '10px', background: '#f1f5f9',
                   display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}>
-                  <Icon name="document" size={18} color="#64748b" strokeWidth={1.8}/>
+                  <Icon name="document" size={18} color="#64748b" strokeWidth={1.8} />
                 </div>
                 <p>{t('training.downloadDoc', 'เอกสารประกอบการอบรม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล')}</p>
               </div>
               <a href="/training_docs.pdf" download className="training-download-btn">
-                <Icon name="download" size={16} color="white" strokeWidth={2}/>
+                <Icon name="download" size={16} color="white" strokeWidth={2} />
                 {t('training.downloadBtn', 'ดาวน์โหลดเอกสาร')}
               </a>
             </div>

@@ -7,34 +7,79 @@
 :root {
   --primary-navy: #182337;
   /* Softening the backgrounds to feel like high-quality paper rather than a glowing screen */
-  --bg-paper: #FDFCF8; 
-  --bg-light: #F4F4F5; 
+  --bg-paper: #FDFCF8;
+  --bg-light: #F4F4F5;
   --bg-white: #FFFFFF;
-  
+
   /* Softer text colors to reduce eye strain */
-  --text-dark: #2C3545; 
+  --text-dark: #2C3545;
   --text-gray: #6B7280;
   --border-color: #E5E7EB;
-  
+
   /* A very delicate, airy shadow for cards */
   --shadow-elegant: 0 10px 30px rgba(24, 35, 55, 0.04);
+
+  --navbar-bg: rgba(253, 252, 248, 0.9);
+  --footer-bg: var(--primary-navy); 
+  --footer-text: #ffffff;
 }
 
 /* 1. Dark Mode Color Overrides */
 [data-theme='dark'] {
   --bg-white: #121212;
-  --bg-light: #1e1e1e;
+  /* Deep black background */
+  --bg-light: #242424;
+  /* Dark gray for panels/cards */
   --text-dark: #f8fafc;
-  --text-gray: #cbd5e1;
+  /* Crisp white text */
+  --text-gray: #a3a3a3;
+  /* Muted gray secondary text */
   --border-color: #333333;
-  --primary-navy: #60a5fa; /* A lighter blue so it pops on dark backgrounds */
+  /* Dark gray borders */
+
+  /* Replace the blue/navy accent with a stylish, neutral gray */
+  --primary-navy: #737373;
+
+  /* Monochrome navbar background */
+  --navbar-bg: rgba(18, 18, 18, 0.9);
+  --footer-bg: #000000;
+  --footer-text: #ffffff;
+  
+}
+
+[data-theme='dark'] img,
+[data-theme='dark'] svg,
+[data-theme='dark'] iframe, /* <--- Catches all embedded maps and videos */
+[data-theme='dark'] .dept-card,
+[data-theme='dark'] .bureau-card,
+[data-theme='dark'] .activity-card,
+[data-theme='dark'] .ropa-modal-content,
+[data-theme='dark'] .bureau-status-pulse,
+[data-theme='dark'] .contact-page-root,
+[data-theme='dark'] .report-page-root,
+[data-theme='dark'] .cookie-policy-root,
+[data-theme='dark'] .privacy-policy-root,
+[data-theme='dark'] .ropa-page-root,
+[data-theme='dark'] .dpo-page-root,
+[data-theme='dark'] .login-page-root,
+[data-theme='dark'] .admin-dashboard-root
+ { /* <--- Grayscales the entire contact page */
+  filter: grayscale(100%) !important;
 }
 
 /* 2. Global Font Size Scaling */
 /* Because your app uses 'rem' units, changing this base size scales everything instantly! */
-html[data-font-size='small'] { font-size: 14px; }
-html[data-font-size='medium'] { font-size: 16px; }
-html[data-font-size='large'] { font-size: 18px; }
+html[data-font-size='small'] {
+  font-size: 14px;
+}
+
+html[data-font-size='medium'] {
+  font-size: 16px;
+}
+
+html[data-font-size='large'] {
+  font-size: 18px;
+}
 
 /* 3. CSS Reset */
 * {
@@ -47,17 +92,23 @@ body {
   font-family: 'Sarabun', sans-serif;
   color: var(--text-dark);
   background-color: var(--bg-paper);
-  
+
   /* The Secret to Elegance: Smaller base font, massive line height */
-  font-size: 15px; 
-  line-height: 1.8; 
+  font-size: 15px;
+  line-height: 1.8;
   font-weight: 300;
-  -webkit-font-smoothing: antialiased; /* Makes the font render thinner and sharper */
-  overflow-x: hidden; 
+  -webkit-font-smoothing: antialiased;
+  /* Makes the font render thinner and sharper */
+  overflow-x: hidden;
   width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Prompt', sans-serif;
   color: var(--primary-navy);
   line-height: 1.4;
@@ -65,15 +116,23 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.01em;
 }
 
-h1 { font-size: 2.2rem; }
-h2 { font-size: 1.6rem; }
-h3 { font-size: 1.2rem; }
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
 
 a {
   text-decoration: none;
   color: var(--text-dark);
   /* A slower, softer transition, like a fading memory */
-  transition: all 0.4s ease-in-out; 
+  transition: all 0.4s ease-in-out;
 }
 
 a:hover {
@@ -85,11 +144,12 @@ a:hover {
 .section-full {
   width: 100%;
   /* Increased padding to give the content a lot more room to breathe */
-  padding: 6rem 1rem; 
+  padding: 6rem 1rem;
 }
 
 .container {
-  max-width: 1400px; /* Shrunk slightly to make the text lines shorter and easier to read */
+  max-width: 1400px;
+  /* Shrunk slightly to make the text lines shorter and easier to read */
   margin: 0 auto;
   width: 100%;
   padding: 0 2rem;
@@ -103,7 +163,8 @@ a:hover {
 
 .flex-gap {
   display: flex;
-  gap: 3rem; /* Pushed the nav links further apart */
+  gap: 3rem;
+  /* Pushed the nav links further apart */
   align-items: center;
 }
 
@@ -112,7 +173,7 @@ a:hover {
   background-color: var(--bg-white);
   border-radius: 4px;
   box-shadow: var(--shadow-elegant);
-  border: 1px solid rgba(0,0,0,0.02);
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 /* --- Dropdown Menu Styles --- */
@@ -120,7 +181,7 @@ a:hover {
   position: relative;
   display: inline-block;
   /* Adds a small invisible padding bridge so the mouse doesn't fall off when moving down */
-  padding-bottom: 0.5rem; 
+  padding-bottom: 0.5rem;
   margin-bottom: -0.5rem;
 }
 
@@ -128,14 +189,15 @@ a:hover {
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(10px); /* Centers the menu and pushes it down slightly */
+  transform: translateX(-50%) translateY(10px);
+  /* Centers the menu and pushes it down slightly */
   background-color: var(--bg-white);
   min-width: 220px;
   box-shadow: var(--shadow-elegant);
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
   padding: 0.5rem 0;
-  
+
   /* The elegant invisible-to-visible transition */
   opacity: 0;
   visibility: hidden;
@@ -164,21 +226,24 @@ a:hover {
 .dropdown-content a:hover {
   background-color: var(--bg-light);
   color: var(--primary-navy);
-  padding-left: 1.8rem; /* A premium little indentation effect on hover */
+  padding-left: 1.8rem;
+  /* A premium little indentation effect on hover */
 }
 
 /* --- Responsive Breakpoints (Mobile & Tablet) --- */
 
 /* TABLET (Screens smaller than 992px) */
 @media (max-width: 992px) {
+
   /* 1. Fold the side-by-side layouts into a vertical stack */
   .flex-between {
     flex-direction: column;
-    gap: 3rem !important; /* Overrides inline styles */
+    gap: 3rem !important;
+    /* Overrides inline styles */
   }
 
   /* 2. Reset the text alignment so staggered rows don't look weird when stacked */
-  .flex-between > div {
+  .flex-between>div {
     text-align: left !important;
     width: 100%;
   }
@@ -186,20 +251,29 @@ a:hover {
   /* 3. Shrink the massive placeholder images */
   .elegant-card {
     width: 100%;
-    height: 250px !important; 
+    height: 250px !important;
   }
 }
 
 /* MOBILE (Screens smaller than 768px) */
 @media (max-width: 768px) {
+
   /* 1. Shrink the giant headers */
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.3rem; }
-  h3 { font-size: 1.2rem; }
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
 
   /* 2. Reduce the massive padding so content fits on the screen */
-  .section-full { 
-    padding: 3rem 1rem; 
+  .section-full {
+    padding: 3rem 1rem;
   }
 
   /* 3. Stack the Navbar and center the links */
@@ -207,7 +281,7 @@ a:hover {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .flex-gap {
     flex-wrap: wrap;
     justify-content: center;
@@ -220,9 +294,9 @@ a:hover {
     text-align: center;
     gap: 2rem;
   }
-  
+
   /* Centers the search bar and copyright text in the footer */
-  footer .flex-between > div {
+  footer .flex-between>div {
     align-items: center !important;
     margin-left: 0 !important;
   }
@@ -337,8 +411,8 @@ a:hover {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: white;
   font-size: 1.8rem;
   cursor: pointer;
@@ -350,7 +424,7 @@ a:hover {
 }
 
 .lightbox-close:hover {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* --- Utilities --- */

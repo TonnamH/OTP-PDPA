@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   const linkStyle = { 
-    color: 'var(--bg-white)', 
+    color: 'var(--footer-text)', 
     textDecoration: 'none',
     opacity: 0.9,
     transition: 'opacity 0.2s ease',
@@ -22,7 +22,7 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ backgroundColor: 'var(--primary-navy)', color: 'var(--bg-white)', padding: '1.5rem 0' }}>
+    <footer style={{ backgroundColor: 'var(--footer-bg)', color: 'var(--footer-text)', padding: '1.5rem 0' }}>
       
       {/* THE FIX: Changed to a horizontal flex row with space-between */}
       <div 

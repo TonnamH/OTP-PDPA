@@ -125,7 +125,7 @@ export default function Ropa() {
   }
 
   return (
-    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
+    <div className="ropa-page-root" style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
 
       {/* HERO SECTION */}
       <FadeIn delay={0.1}>

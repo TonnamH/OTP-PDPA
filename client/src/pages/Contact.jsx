@@ -1,7 +1,7 @@
 // src/pages/Contact.jsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FadeIn from '../components/FadeIn'; // <-- Import the new animation component
+import FadeIn from '../components/FadeIn';
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -9,8 +9,8 @@ export default function Contact() {
   // Helper for rendering SVG Icons
   const IconWrapper = ({ children }) => (
     <div style={{ 
-      backgroundColor: 'var(--bg-light)', 
-      color: 'var(--primary-navy)', 
+      backgroundColor: '#f1f5f9', // Forced light gray
+      color: '#1e3a8a',           // Forced navy blue
       width: '50px', height: '50px', 
       borderRadius: '50%', 
       display: 'flex', justifyContent: 'center', alignItems: 'center',
@@ -21,17 +21,17 @@ export default function Contact() {
   );
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-white)', minHeight: '100vh', paddingBottom: '5rem' }}>
+    <div className="contact-page-root" style={{ backgroundColor: '#ffffff', color: '#333333', minHeight: '100vh', paddingBottom: '5rem' }}>
       
       {/* 1. Header Section */}
       <FadeIn delay={0.1}>
         <section className="section-full" style={{ paddingBottom: '2rem' }}>
           <div className="container">
-            <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
-              <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif' }}>
+            <div style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '2rem' }}>
+              <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>
                 {t('contactPage.title')}
               </h1>
-              <h2 style={{ fontSize: '1.2rem', color: 'var(--text-gray)', fontWeight: '400' }}>
+              <h2 style={{ fontSize: '1.2rem', color: '#64748b', fontWeight: '400' }}>
                 {t('contactPage.subtitle')}
               </h2>
             </div>
@@ -51,7 +51,7 @@ export default function Contact() {
             {/* LEFT COLUMN: Contact Information */}
             <FadeIn delay={0.2}>
               <div>
-                <h3 style={{ fontSize: '1.8rem', marginBottom: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)' }}>
+                <h3 style={{ fontSize: '1.8rem', marginBottom: '2rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a' }}>
                   {t('contactPage.infoTitle')}
                 </h3>
 
@@ -63,8 +63,8 @@ export default function Contact() {
                       <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 7.2c0 7.3-8 11.8-8 11.8z"></path><circle cx="12" cy="9" r="3"></circle></svg>
                     </IconWrapper>
                     <div>
-                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)' }}>{t('contactPage.addressLabel')}</h4>
-                      <p style={{ margin: 0, color: 'var(--text-gray)', whiteSpace: 'pre-line', lineHeight: '1.6' }}>
+                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>{t('contactPage.addressLabel')}</h4>
+                      <p style={{ margin: 0, color: '#475569', whiteSpace: 'pre-line', lineHeight: '1.6' }}>
                         {t('contactPage.address')}
                       </p>
                     </div>
@@ -76,8 +76,8 @@ export default function Contact() {
                       <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                     </IconWrapper>
                     <div>
-                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)' }}>{t('contactPage.phoneLabel')}</h4>
-                      <p style={{ margin: 0, color: 'var(--text-gray)' }}>{t('contactPage.phone')}</p>
+                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>{t('contactPage.phoneLabel')}</h4>
+                      <p style={{ margin: 0, color: '#475569' }}>{t('contactPage.phone')}</p>
                     </div>
                   </div>
 
@@ -87,8 +87,8 @@ export default function Contact() {
                       <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </IconWrapper>
                     <div>
-                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)' }}>{t('contactPage.emailLabel')}</h4>
-                      <a href={`mailto:${t('contactPage.email')}`} style={{ margin: 0, color: 'var(--primary-navy)', textDecoration: 'none', fontWeight: '600' }}>
+                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>{t('contactPage.emailLabel')}</h4>
+                      <a href={`mailto:${t('contactPage.email')}`} style={{ margin: 0, color: '#1d4ed8', textDecoration: 'none', fontWeight: '600' }}>
                         {t('contactPage.email')}
                       </a>
                     </div>
@@ -100,8 +100,8 @@ export default function Contact() {
                       <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                     </IconWrapper>
                     <div>
-                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)' }}>{t('contactPage.websiteLabel')}</h4>
-                      <a href={t('contactPage.website')} target="_blank" rel="noopener noreferrer" style={{ margin: 0, color: 'var(--primary-navy)', textDecoration: 'none', fontWeight: '600' }}>
+                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>{t('contactPage.websiteLabel')}</h4>
+                      <a href={t('contactPage.website')} target="_blank" rel="noopener noreferrer" style={{ margin: 0, color: '#1d4ed8', textDecoration: 'none', fontWeight: '600' }}>
                         {t('contactPage.website')}
                       </a>
                     </div>
@@ -113,8 +113,8 @@ export default function Contact() {
                       <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </IconWrapper>
                     <div>
-                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: 'var(--text-dark)' }}>{t('contactPage.hoursLabel')}</h4>
-                      <p style={{ margin: 0, color: 'var(--text-gray)' }}>{t('contactPage.hours')}</p>
+                      <h4 style={{ margin: '0 0 0.3rem 0', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>{t('contactPage.hoursLabel')}</h4>
+                      <p style={{ margin: 0, color: '#475569' }}>{t('contactPage.hours')}</p>
                     </div>
                   </div>
 
@@ -125,7 +125,7 @@ export default function Contact() {
             {/* RIGHT COLUMN: Google Map */}
             <FadeIn delay={0.3}>
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <h3 style={{ fontSize: '1.8rem', marginBottom: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)' }}>
+                <h3 style={{ fontSize: '1.8rem', marginBottom: '2rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a' }}>
                   {t('contactPage.mapTitle')}
                 </h3>
                 
@@ -135,8 +135,8 @@ export default function Contact() {
                   minHeight: '400px', 
                   borderRadius: '8px', 
                   overflow: 'hidden',
-                  boxShadow: 'var(--shadow-elegant)',
-                  border: '1px solid var(--border-color)'
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                  border: '1px solid #e2e8f0'
                 }}>
                   <iframe 
                     title="OTP Location Map"

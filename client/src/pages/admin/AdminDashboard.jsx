@@ -19,24 +19,25 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  // Hardcoded colors to protect from dark mode overrides
   const cardStyle = {
-    backgroundColor: 'white', padding: '2rem', borderRadius: '12px',
-    boxShadow: 'var(--shadow-elegant)', border: '1px solid var(--border-color)',
-    marginBottom: '2rem'
+    backgroundColor: '#ffffff', padding: '2rem', borderRadius: '12px',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', 
+    border: '1px solid #e2e8f0', marginBottom: '2rem'
   };
 
   const thStyle = {
-    textAlign: 'left', padding: '1rem', borderBottom: '2px solid var(--border-color)',
-    color: 'var(--text-gray)', backgroundColor: 'white', position: 'relative', zIndex: 10
+    textAlign: 'left', padding: '1rem', borderBottom: '2px solid #e2e8f0',
+    color: '#64748b', backgroundColor: '#ffffff', position: 'relative', zIndex: 10
   };
-  const tdStyle = { padding: '1rem', borderBottom: '1px solid var(--border-color)' };
+  const tdStyle = { padding: '1rem', borderBottom: '1px solid #e2e8f0' };
 
   const pageBtnStyle = {
-    padding: '0.4rem 0.8rem', border: '1px solid var(--border-color)', borderRadius: '4px',
-    backgroundColor: 'white', cursor: 'pointer', fontFamily: 'Prompt, sans-serif', fontSize: '0.9rem',
-    transition: 'all 0.2s', color: 'var(--text-dark)'
+    padding: '0.4rem 0.8rem', border: '1px solid #e2e8f0', borderRadius: '4px',
+    backgroundColor: '#ffffff', cursor: 'pointer', fontFamily: 'Prompt, sans-serif', fontSize: '0.9rem',
+    transition: 'all 0.2s', color: '#1e293b'
   };
-  const activePageBtnStyle = { ...pageBtnStyle, backgroundColor: 'var(--primary-navy)', color: 'white', border: '1px solid var(--primary-navy)' };
+  const activePageBtnStyle = { ...pageBtnStyle, backgroundColor: '#1e3a8a', color: '#ffffff', border: '1px solid #1e3a8a' };
 
   useEffect(() => { setCurrentPage(1); }, [data]);
 
@@ -49,14 +50,14 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
   return (
     <div style={cardStyle}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-        <h2 style={{ fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: 0 }}>{title}</h2>
-        <span style={{ fontSize: '0.9rem', color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
+        <h2 style={{ fontFamily: 'Prompt, sans-serif', color: '#1e3a8a', margin: 0 }}>{title}</h2>
+        <span style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>
           {data.length} items total
         </span>
       </div>
 
       {data.length === 0 ? (
-        <p style={{ color: 'var(--text-gray)' }}>{t('adminDashboard.empty')}</p>
+        <p style={{ color: '#64748b' }}>{t('adminDashboard.empty')}</p>
       ) : (
         <>
           <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '0.5rem' }}>
@@ -72,15 +73,15 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
               <tbody>
                 {currentData.map((item) => (
                   <tr key={item.id}>
-                    <td style={{ ...tdStyle, fontWeight: '500', color: 'var(--text-dark)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <td style={{ ...tdStyle, fontWeight: '500', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {item.title}
                     </td>
                     <td style={tdStyle}>
-                      <span style={{ backgroundColor: '#f1f5f9', padding: '4px 8px', borderRadius: '4px', fontSize: '0.85rem' }}>
+                      <span style={{ backgroundColor: '#f1f5f9', color: '#475569', padding: '4px 8px', borderRadius: '4px', fontSize: '0.85rem' }}>
                         {item.category}
                       </span>
                     </td>
-                    <td style={tdStyle}>{formatDate(item.created_at)}</td>
+                    <td style={{ ...tdStyle, color: '#475569' }}>{formatDate(item.created_at)}</td>
                     <td style={tdStyle}>
                       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                         <a
@@ -182,22 +183,23 @@ export default function AdminDashboard() {
 
   const btnStyle = {
     display: 'inline-block', padding: '0.8rem 1.5rem',
-    backgroundColor: 'var(--primary-navy)', color: 'white',
+    backgroundColor: '#1e3a8a', color: '#ffffff',
     textDecoration: 'none', borderRadius: '6px', fontFamily: 'Prompt, sans-serif',
     fontWeight: '600', transition: 'background-color 0.2s', marginRight: '1rem'
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-light)', minHeight: '80vh', padding: '3rem 1rem' }}>
+    // Added admin-dashboard-root and forced light gray background
+    <div className="admin-dashboard-root" style={{ backgroundColor: '#f1f5f9', minHeight: '80vh', padding: '3rem 1rem' }}>
       <div className="container" style={{ maxWidth: '1200px' }}>
 
         {/* Title Section */}
         <FadeIn delay={0.1}>
           <div style={{ marginBottom: '2rem' }}>
-            <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: '0 0 0.5rem 0' }}>
+            <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a', margin: '0 0 0.5rem 0' }}>
               {t('adminDashboard.title')}
             </h1>
-            <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
+            <p style={{ margin: 0, color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>
               {t('adminDashboard.subtitle')}
             </p>
           </div>
@@ -206,11 +208,11 @@ export default function AdminDashboard() {
         {/* Quick Actions Card */}
         <FadeIn delay={0.2}>
           <div style={{
-            backgroundColor: '#f8fafc', padding: '2rem', borderRadius: '12px',
-            boxShadow: 'var(--shadow-elegant)', border: '1px solid var(--border-color)',
-            borderLeft: '4px solid var(--primary-navy)', marginBottom: '2rem'
+            backgroundColor: '#ffffff', padding: '2rem', borderRadius: '12px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', border: '1px solid #e2e8f0',
+            borderLeft: '4px solid #1e3a8a', marginBottom: '2rem'
           }}>
-            <h3 style={{ fontFamily: 'Prompt, sans-serif', marginTop: 0 }}>{t('adminDashboard.quickActions')}</h3>
+            <h3 style={{ fontFamily: 'Prompt, sans-serif', marginTop: 0, color: '#1e293b' }}>{t('adminDashboard.quickActions')}</h3>
             <Link to="/admin/documents/upload" style={btnStyle}>
               {t('adminDashboard.uploadDocBtn')}
             </Link>
@@ -222,7 +224,7 @@ export default function AdminDashboard() {
 
         {loading ? (
           <FadeIn delay={0.3}>
-            <p style={{ textAlign: 'center', color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif' }}>
+            <p style={{ textAlign: 'center', color: '#64748b', fontFamily: 'Prompt, sans-serif' }}>
               {t('adminDashboard.loading')}
             </p>
           </FadeIn>

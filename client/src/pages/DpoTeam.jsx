@@ -29,7 +29,7 @@ export default function DpoTeam() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="dpo-page-root" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
 
       {/* 1. HERO */}
       <FadeIn delay={0.1}>

@@ -5,24 +5,25 @@ import { useTranslation } from 'react-i18next';
 export default function CookiePolicy() {
   const { t, i18n } = useTranslation();
 
-  // Reusing your clean legal document styles!
-  const pageStyle = { backgroundColor: 'var(--bg-light)', minHeight: '100vh', padding: '4rem 1rem' };
-  const containerStyle = { maxWidth: '1400px', margin: '0 auto', backgroundColor: 'white', padding: '3rem', borderRadius: '12px', boxShadow: 'var(--shadow-elegant)' };
-  const h2Style = { fontSize: '1.4rem', color: 'var(--primary-navy)', fontFamily: 'Prompt, sans-serif', marginTop: '2rem', marginBottom: '1rem', borderBottom: '2px solid var(--bg-light)', paddingBottom: '0.5rem' };
-  const pStyle = { fontSize: '1rem', color: 'var(--text-dark)', fontFamily: 'Sarabun, sans-serif', lineHeight: '1.8', marginBottom: '1rem' };
+  // Hardcoded light theme styles to protect readability
+  const pageStyle = { backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '4rem 1rem' };
+  const containerStyle = { maxWidth: '1400px', margin: '0 auto', backgroundColor: '#ffffff', padding: '3rem', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' };
+  const h2Style = { fontSize: '1.4rem', color: '#1e3a8a', fontFamily: 'Prompt, sans-serif', marginTop: '2rem', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' };
+  const pStyle = { fontSize: '1rem', color: '#1e293b', fontFamily: 'Sarabun, sans-serif', lineHeight: '1.8', marginBottom: '1rem' };
   const ulStyle = { ...pStyle, paddingLeft: '2rem', marginBottom: '1.5rem' };
   const liStyle = { marginBottom: '0.5rem' };
 
   return (
-    <div style={pageStyle}>
+    // Added the root class here for the CSS grayscale filter
+    <div className="cookie-policy-root" style={pageStyle}>
       <div style={containerStyle}>
         
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)' }}>
+          <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a' }}>
             {t('cookiePolicyPage.title')}
           </h1>
-          <p style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
+          <p style={{ color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>
             {t('cookiePolicyPage.lastUpdated')}
           </p>
         </div>
@@ -81,7 +82,7 @@ export default function CookiePolicy() {
               <li style={liStyle}><strong>อีเมล:</strong> compliance@otp.go.th</li>
               <li style={liStyle}><strong>เบอร์โทรศัพท์:</strong> 02 215 1515</li>
             </ul>
-            <p style={{ ...pStyle, marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-gray)' }}>
+            <p style={{ ...pStyle, marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: '#64748b' }}>
               จัดทำนโยบายโดย PDPA-OTP (pdpa.otp.go.th)
             </p>
           </div>
@@ -141,7 +142,7 @@ export default function CookiePolicy() {
               <li style={liStyle}><strong>Email:</strong> compliance@otp.go.th</li>
               <li style={liStyle}><strong>Phone:</strong> 02 215 1515</li>
             </ul>
-            <p style={{ ...pStyle, marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-gray)' }}>
+            <p style={{ ...pStyle, marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: '#64748b' }}>
               Policy prepared by PDPA-OTP (pdpa.otp.go.th)
             </p>
           </div>

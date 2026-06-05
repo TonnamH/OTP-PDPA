@@ -111,7 +111,7 @@ const Icon = ({ name, className = '', size = 20, color = 'currentColor', strokeW
       </>
     ),
     play: (
-      <polygon points="5 3 19 12 5 21 5 3" />
+      <path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/>
     ),
     mail: (
       <>
