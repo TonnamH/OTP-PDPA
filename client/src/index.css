@@ -70,15 +70,15 @@
 /* 2. Global Font Size Scaling */
 /* Because your app uses 'rem' units, changing this base size scales everything instantly! */
 html[data-font-size='small'] {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 html[data-font-size='medium'] {
-  font-size: 16px;
+  font-size: 17px;
 }
 
 html[data-font-size='large'] {
-  font-size: 18px;
+  font-size: 19px;
 }
 
 /* 3. CSS Reset */
@@ -94,7 +94,7 @@ body {
   background-color: var(--bg-paper);
 
   /* The Secret to Elegance: Smaller base font, massive line height */
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.8;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
@@ -144,11 +144,11 @@ a:hover {
 .section-full {
   width: 100%;
   /* Increased padding to give the content a lot more room to breathe */
-  padding: 6rem 1rem;
+  padding: 4rem 1rem;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1500px;
   /* Shrunk slightly to make the text lines shorter and easier to read */
   margin: 0 auto;
   width: 100%;
@@ -272,9 +272,6 @@ a:hover {
   }
 
   /* 2. Reduce the massive padding so content fits on the screen */
-  .section-full {
-    padding: 3rem 1rem;
-  }
 
   /* 3. Stack the Navbar and center the links */
   header .container {
@@ -307,15 +304,7 @@ a:hover {
    ========================================================================== */
 
 /* --- Layout --- */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
 
-.section-full {
-  padding: 4rem 0;
-}
 
 /* --- Filter Pills --- */
 .filter-container {

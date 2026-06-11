@@ -22,7 +22,7 @@
 }
 
 .navbar-logo {
-  height: 42px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   border-radius: 4px;
@@ -265,7 +265,7 @@
 /* Mobile: Tighten up the remaining links so they fit on one line */
 @media (max-width: 650px) {
   .navbar-logo {
-    height: 36px; /* Shrink logo slightly */
+    height: 60px; /* Shrink logo slightly */
   }
   
   .navbar-links {

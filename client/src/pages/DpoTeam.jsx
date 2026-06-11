@@ -54,8 +54,8 @@ export default function DpoTeam() {
         <section className="org-chart-section">
           <div className="container" style={{ maxWidth: '1100px' }}>
 
-            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#94a3b8' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}> {/* Reduced gap from 3.5rem to 1.5rem */}
+              <span style={{ fontSize: '0.95rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#94a3b8' }}> {/* Increased font from 0.75rem */}
                 {t('dpo.orgChartSubTitle', 'โครงสร้างคณะทำงาน')}
               </span>
               <h2 style={{ fontSize: '2rem', color: 'var(--primary-navy)', marginTop: '0.5rem', letterSpacing: '-0.02em' }}>
@@ -77,15 +77,18 @@ export default function DpoTeam() {
 
               {/* L2: Working Group */}
               <div className="org-level-2-wrapper">
-                <div className="org-level-2-label">
-                  {t('dpo.workingGroupLabel', 'คณะทำงาน — ผู้แทนจากแต่ละสำนัก/กอง')}
-                </div>
-                <div className="org-level-2-rail">
-                  {workingGroupMembers.map((member, i) => (
-                    <div key={i} className="org-level-2-col">
-                      <div className="org-member-card">{member}</div>
-                    </div>
-                  ))}
+                <div className="org-committee-box">
+                  <div className="org-committee-header">
+                    <Icon name="users" size={20} color="var(--primary-navy)" strokeWidth={2} />
+                    <h3>{t('dpo.workingGroupLabel', 'คณะทำงาน — ผู้แทนจากแต่ละสำนัก/กอง')}</h3>
+                  </div>
+                  <div className="org-committee-grid">
+                    {workingGroupMembers.map((member, i) => (
+                      <div key={i} className="org-member-card">
+                        {member}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -139,7 +142,7 @@ export default function DpoTeam() {
           <div className="container" style={{ maxWidth: '1000px' }}>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#94a3b8' }}>
+              <span style={{ fontSize: '0.92rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#94a3b8' }}>
                 {t('dpo.dutiesSubTitle', 'หน้าที่และอำนาจ')}
               </span>
               <h2 style={{ fontSize: '2rem', color: 'var(--primary-navy)', marginTop: '0.5rem', letterSpacing: '-0.02em' }}>
