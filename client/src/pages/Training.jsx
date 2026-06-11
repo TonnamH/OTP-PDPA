@@ -44,7 +44,7 @@ export default function Training() {
       </FadeIn>
 
       <section style={{ padding: '3.5rem 0' }}>
-        <div className="container" style={{ maxWidth: '960px' }}>
+        <div className="container">
 
           {/* Session Info Card */}
           <FadeIn delay={0.2}>
@@ -68,7 +68,7 @@ export default function Training() {
 
           {/* Video Grid — reuses Videos.css card classes */}
           <FadeIn delay={0.3}>
-            <div className="videos-grid" style={{ maxWidth: '760px', marginBottom: '1rem' }}>
+            <div className="videos-grid" style={{ marginBottom: '1rem', justifyContent: 'flex-start' }}>
               {trainingVideos.map((video) => (
                 <div
                   key={video.id}
@@ -85,8 +85,8 @@ export default function Training() {
                     />
                     <div className="video-overlay" />
                     <div className="video-play-btn">
-                          <Icon name="play" size={20} color="white" strokeWidth={0}/>
-                        </div>
+                      <Icon name="play" size={20} color="white" strokeWidth={0} />
+                    </div>
                   </div>
                   <div className="video-card-body">
                     <h5 className="video-card-title">{t(video.titleKey)}</h5>
