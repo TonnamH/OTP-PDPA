@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
 
           <div style={{ 
-            fontFamily: 'Sarabun, sans-serif',
+            fontFamily: 'Prompt, sans-serif',
             fontSize: '0.8rem',
             opacity: 0.7
           }}>

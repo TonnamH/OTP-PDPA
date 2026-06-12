@@ -24,7 +24,7 @@
   line-height: 1.75;
   margin: 0;
   max-width: 580px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: 'Prompt', sans-serif;
 }
 
 /* --- Category Section --- */
@@ -167,7 +167,7 @@
 .videos-cta p {
   font-size: 1rem;
   color: #64748b;
-  font-family: 'Sarabun', sans-serif;
+  font-family: 'Prompt', sans-serif;
   margin: 0;
 }
 

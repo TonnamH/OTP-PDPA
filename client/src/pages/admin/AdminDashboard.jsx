@@ -51,7 +51,7 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
     <div style={cardStyle}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h2 style={{ fontFamily: 'Prompt, sans-serif', color: '#1e3a8a', margin: 0 }}>{title}</h2>
-        <span style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>
+        <span style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'Prompt, sans-serif' }}>
           {data.length} items total
         </span>
       </div>
@@ -61,7 +61,7 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
       ) : (
         <>
           <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '0.5rem' }}>
-            <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', fontFamily: 'Sarabun, sans-serif', fontSize: '0.95rem', tableLayout: 'fixed' }}>
+            <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', fontFamily: 'Prompt, sans-serif', fontSize: '0.95rem', tableLayout: 'fixed' }}>
               <thead>
                 <tr>
                   <th style={{ ...thStyle, width: '45%' }}>{t('adminDashboard.table.title')}</th>
@@ -103,7 +103,7 @@ const DataTable = ({ data, title, t, editBaseUrl, onDelete }) => {
                           onClick={() => handleDeleteClick(item.id)}
                           style={{
                             background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                            color: '#ef4444', fontWeight: '600', fontFamily: 'Sarabun, sans-serif', fontSize: '0.95rem'
+                            color: '#ef4444', fontWeight: '600', fontFamily: 'Prompt, sans-serif', fontSize: '0.95rem'
                           }}
                         >
                           {t('adminDashboard.table.delete', 'Delete')}
@@ -199,7 +199,7 @@ export default function AdminDashboard() {
             <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a', margin: '0 0 0.5rem 0' }}>
               {t('adminDashboard.title')}
             </h1>
-            <p style={{ margin: 0, color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>
+            <p style={{ margin: 0, color: '#64748b', fontFamily: 'Prompt, sans-serif' }}>
               {t('adminDashboard.subtitle')}
             </p>
           </div>

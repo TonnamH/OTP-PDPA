@@ -81,7 +81,7 @@ export default function EditInfographic() {
     // UI Styles
     const inputStyle = {
         width: '100%', padding: '0.9rem 1rem', borderRadius: '8px',
-        border: '1px solid var(--border-color)', fontFamily: 'Sarabun, sans-serif',
+        border: '1px solid var(--border-color)', fontFamily: 'Prompt, sans-serif',
         fontSize: '1rem', outlineColor: 'var(--primary-navy)', backgroundColor: '#f8fafc',
         marginTop: '0.5rem', marginBottom: '1.5rem', transition: 'border-color 0.2s'
     };
@@ -108,13 +108,13 @@ export default function EditInfographic() {
                         <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: '0 0 0.5rem 0' }}>
                             {t('adminEditInfo.title')}
                         </h1>
-                        <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif', fontSize: '1.1rem' }}>
+                        <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif', fontSize: '1.1rem' }}>
                             {t('adminEditInfo.subtitle')}
                         </p>
                     </div>
 
-                    {status.error && <div style={{ backgroundColor: '#fef2f2', borderLeft: '4px solid #ef4444', color: '#b91c1c', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif' }}>{status.error}</div>}
-                    {status.success && <div style={{ backgroundColor: '#f0fdf4', borderLeft: '4px solid #22c55e', color: '#15803d', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif' }}>{status.success}</div>}
+                    {status.error && <div style={{ backgroundColor: '#fef2f2', borderLeft: '4px solid #ef4444', color: '#b91c1c', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>{status.error}</div>}
+                    {status.success && <div style={{ backgroundColor: '#f0fdf4', borderLeft: '4px solid #22c55e', color: '#15803d', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>{status.success}</div>}
                 </FadeIn>
 
                 {/* Form Section */}
@@ -144,7 +144,7 @@ export default function EditInfographic() {
                             <input type="file" onChange={handleImageChange} accept="image/png, image/jpeg, image/webp" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer', zIndex: 10 }} />
 
                             {previewUrl ? (
-                                <div style={{ color: '#059669', fontFamily: 'Sarabun, sans-serif' }}>
+                                <div style={{ color: '#059669', fontFamily: 'Prompt, sans-serif' }}>
                                     <div style={{ backgroundColor: 'white', padding: '0.5rem', borderRadius: '8px', display: 'inline-block', marginBottom: '1rem', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
                                         <img src={previewUrl} alt="New Preview" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain', borderRadius: '4px' }} />
                                     </div>
@@ -152,7 +152,7 @@ export default function EditInfographic() {
                                     <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#34d399' }}>{t('adminUploadInfo.form.clickToChange')}</p>
                                 </div>
                             ) : (
-                                <div style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
+                                <div style={{ color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif' }}>
                                     <p style={{ margin: '0 0 0.5rem 0', fontWeight: '600', color: 'var(--primary-navy)' }}>
                                         {t('adminEditInfo.form.currentImage')}
                                     </p>

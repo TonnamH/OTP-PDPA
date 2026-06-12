@@ -49,7 +49,7 @@
   border-radius: 20px;
   border: 1px solid var(--border-color);
   outline-color: var(--primary-navy);
-  font-family: 'Sarabun', sans-serif;
+  font-family: 'Prompt', sans-serif;
   font-size: 0.9rem;
   background-color: var(--bg-white);
   width: 160px;
@@ -132,7 +132,7 @@
 }
 
 .settings-label {
-  font-family: 'Sarabun', sans-serif;
+  font-family: 'Prompt', sans-serif;
   font-size: 0.95rem;
   color: var(--text-dark);
   font-weight: 500;

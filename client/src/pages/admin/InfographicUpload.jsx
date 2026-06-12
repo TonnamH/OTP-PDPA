@@ -65,7 +65,7 @@ export default function InfographicUpload() {
     // --- Premium UI Styles (Matched with DocumentUpload) ---
     const inputStyle = {
         width: '100%', padding: '0.9rem 1rem', borderRadius: '8px',
-        border: '1px solid var(--border-color)', fontFamily: 'Sarabun, sans-serif',
+        border: '1px solid var(--border-color)', fontFamily: 'Prompt, sans-serif',
         fontSize: '1rem', outlineColor: 'var(--primary-navy)', backgroundColor: '#f8fafc',
         marginTop: '0.5rem', marginBottom: '1.5rem', transition: 'border-color 0.2s'
     };
@@ -101,19 +101,19 @@ export default function InfographicUpload() {
                         <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: '0 0 0.5rem 0' }}>
                             {t('adminUploadInfo.title')}
                         </h1>
-                        <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif', fontSize: '1.1rem' }}>
+                        <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif', fontSize: '1.1rem' }}>
                             {t('adminUploadInfo.subtitle')}
                         </p>
                     </div>
 
                     {/* Status Messages */}
                     {status.error && (
-                        <div style={{ backgroundColor: '#fef2f2', borderLeft: '4px solid #ef4444', color: '#b91c1c', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif' }}>
+                        <div style={{ backgroundColor: '#fef2f2', borderLeft: '4px solid #ef4444', color: '#b91c1c', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>
                             {status.error}
                         </div>
                     )}
                     {status.success && (
-                        <div style={{ backgroundColor: '#f0fdf4', borderLeft: '4px solid #22c55e', color: '#15803d', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif' }}>
+                        <div style={{ backgroundColor: '#f0fdf4', borderLeft: '4px solid #22c55e', color: '#15803d', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>
                             {status.success}
                         </div>
                     )}
@@ -163,7 +163,7 @@ export default function InfographicUpload() {
 
                             {/* Visual UI (Shows Preview if file is selected) */}
                             {previewUrl ? (
-                                <div style={{ color: '#059669', fontFamily: 'Sarabun, sans-serif' }}>
+                                <div style={{ color: '#059669', fontFamily: 'Prompt, sans-serif' }}>
                                     <div style={{ backgroundColor: 'white', padding: '0.5rem', borderRadius: '8px', display: 'inline-block', marginBottom: '1rem', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
                                         <img
                                             src={previewUrl}
@@ -175,7 +175,7 @@ export default function InfographicUpload() {
                                     <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#34d399' }}>{t('adminUploadInfo.form.clickToChange')}</p>
                                 </div>
                             ) : (
-                                <div style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
+                                <div style={{ color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif' }}>
                                     <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ margin: '0 auto 1rem', color: '#94a3b8' }}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>

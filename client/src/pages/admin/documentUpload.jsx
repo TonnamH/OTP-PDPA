@@ -54,7 +54,7 @@ export default function DocumentUpload() {
     // --- Premium UI Styles ---
     const inputStyle = {
         width: '100%', padding: '0.9rem 1rem', borderRadius: '8px',
-        border: '1px solid var(--border-color)', fontFamily: 'Sarabun, sans-serif',
+        border: '1px solid var(--border-color)', fontFamily: 'Prompt, sans-serif',
         fontSize: '1rem', outlineColor: 'var(--primary-navy)', backgroundColor: '#f8fafc',
         marginTop: '0.5rem', marginBottom: '1.5rem', transition: 'border-color 0.2s'
     };
@@ -90,19 +90,19 @@ export default function DocumentUpload() {
                         <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: 'var(--primary-navy)', margin: '0 0 0.5rem 0' }}>
                             {t('adminUploadDoc.title')}
                         </h1>
-                        <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif', fontSize: '1.1rem' }}>
+                        <p style={{ margin: 0, color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif', fontSize: '1.1rem' }}>
                             {t('adminUploadDoc.subtitle')}
                         </p>
                     </div>
 
                     {/* Status Messages */}
                     {status.error && (
-                        <div style={{ backgroundColor: '#fef2f2', borderLeft: '4px solid #ef4444', color: '#b91c1c', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif' }}>
+                        <div style={{ backgroundColor: '#fef2f2', borderLeft: '4px solid #ef4444', color: '#b91c1c', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>
                             {status.error}
                         </div>
                     )}
                     {status.success && (
-                        <div style={{ backgroundColor: '#f0fdf4', borderLeft: '4px solid #22c55e', color: '#15803d', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif' }}>
+                        <div style={{ backgroundColor: '#f0fdf4', borderLeft: '4px solid #22c55e', color: '#15803d', padding: '1rem', borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif' }}>
                             {status.success}
                         </div>
                     )}
@@ -154,7 +154,7 @@ export default function DocumentUpload() {
 
                             {/* Visual UI */}
                             {file ? (
-                                <div style={{ color: '#059669', fontFamily: 'Sarabun, sans-serif' }}>
+                                <div style={{ color: '#059669', fontFamily: 'Prompt, sans-serif' }}>
                                     <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ margin: '0 auto 0.5rem' }}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -162,7 +162,7 @@ export default function DocumentUpload() {
                                     <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#34d399' }}>{t('adminUploadDoc.form.clickToChange')}</p>
                                 </div>
                             ) : (
-                                <div style={{ color: 'var(--text-gray)', fontFamily: 'Sarabun, sans-serif' }}>
+                                <div style={{ color: 'var(--text-gray)', fontFamily: 'Prompt, sans-serif' }}>
                                     <svg width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ margin: '0 auto 1rem', color: '#94a3b8' }}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                                     </svg>

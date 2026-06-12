@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 export default function Layout() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'sans-serif', color: '#333' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'Prompt', color: '#333' }}>
       <Navbar />
 
       <main style={{ flex: 1 }}>

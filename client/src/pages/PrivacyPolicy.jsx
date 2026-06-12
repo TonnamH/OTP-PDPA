@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
   const pageStyle = { backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '4rem 1rem' };
   const containerStyle = { maxWidth: '1400px', margin: '0 auto', backgroundColor: '#ffffff', padding: '3rem', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' };
   const h2Style = { fontSize: '1.4rem', color: '#1e3a8a', fontFamily: 'Prompt, sans-serif', marginTop: '2rem', marginBottom: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '0.5rem' };
-  const pStyle = { fontSize: '1rem', color: '#1e293b', fontFamily: 'Sarabun, sans-serif', lineHeight: '1.8', marginBottom: '1rem' };
+  const pStyle = { fontSize: '1rem', color: '#1e293b', fontFamily: 'Prompt, sans-serif', lineHeight: '1.8', marginBottom: '1rem' };
   const ulStyle = { ...pStyle, paddingLeft: '2rem', marginBottom: '1.5rem' };
   const liStyle = { marginBottom: '0.5rem' };
 
@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
           <h1 style={{ fontSize: '2rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a' }}>
             {t('privacyPolicyPage.title')}
           </h1>
-          <p style={{ color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>
+          <p style={{ color: '#64748b', fontFamily: 'Prompt, sans-serif' }}>
             {t('privacyPolicyPage.lastUpdated')}
           </p>
         </div>

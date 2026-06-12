@@ -173,7 +173,7 @@ export default function Ropa() {
                 <h3 style={{ fontSize: '1.8rem', color: 'var(--primary-navy)', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif' }}>
                   {t('ropa.orgChart.title', 'โครงสร้างองค์กร สนข.')}
                 </h3>
-                <p style={{ color: '#64748b', fontSize: '1.1rem', fontFamily: 'Sarabun, sans-serif' }}>
+                <p style={{ color: '#64748b', fontSize: '1.1rem', fontFamily: 'Prompt, sans-serif' }}>
                   {t('ropa.orgChart.subtitle', 'คลิกที่สำนัก/กอง ที่มีสีเพื่อเข้าดูบันทึกกิจกรรม ROPA')}
                 </p>
 

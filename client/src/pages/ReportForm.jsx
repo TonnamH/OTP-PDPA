@@ -71,7 +71,7 @@ export default function ReportForm() {
   // Hardcoded Light Theme Styles
   const inputStyle = {
     width: '100%', padding: '0.8rem 1rem', borderRadius: '4px',
-    border: '1px solid #e2e8f0', fontFamily: 'Sarabun, sans-serif',
+    border: '1px solid #e2e8f0', fontFamily: 'Prompt, sans-serif',
     fontSize: '1rem', outlineColor: '#1e3a8a', backgroundColor: '#ffffff',
     marginTop: '0.3rem', color: '#333333'
   };
@@ -82,7 +82,7 @@ export default function ReportForm() {
 
   const radioContainerStyle = {
     display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem',
-    fontFamily: 'Sarabun, sans-serif', color: '#1e293b', cursor: 'pointer'
+    fontFamily: 'Prompt, sans-serif', color: '#1e293b', cursor: 'pointer'
   };
 
   return (
@@ -96,7 +96,7 @@ export default function ReportForm() {
               <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', fontFamily: 'Prompt, sans-serif', color: '#1e293b' }}>
                 {t('reportPage.title')}
               </h1>
-              <h2 style={{ fontSize: '1rem', color: '#64748b', fontWeight: '400', fontFamily: 'Sarabun, sans-serif' }}>
+              <h2 style={{ fontSize: '1rem', color: '#64748b', fontWeight: '400', fontFamily: 'Prompt, sans-serif' }}>
                 {t('reportPage.subtitle')}
               </h2>
             </div>
@@ -114,7 +114,7 @@ export default function ReportForm() {
                   <svg width="80" height="80" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h3 style={{ fontSize: '2rem', color: '#1e3a8a', fontFamily: 'Prompt, sans-serif', marginBottom: '1rem' }}>{t('reportPage.success.title')}</h3>
-                <p style={{ color: '#64748b', fontFamily: 'Sarabun, sans-serif', fontSize: '1.1rem', marginBottom: '2.5rem' }}>{t('reportPage.success.message')}</p>
+                <p style={{ color: '#64748b', fontFamily: 'Prompt, sans-serif', fontSize: '1.1rem', marginBottom: '2.5rem' }}>{t('reportPage.success.message')}</p>
                 <Link to="/">
                   <button style={{ padding: '0.8rem 2rem', backgroundColor: '#1e3a8a', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', fontFamily: 'Prompt, sans-serif', cursor: 'pointer' }}>
                     {t('reportPage.success.backBtn')}
@@ -184,7 +184,7 @@ export default function ReportForm() {
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '1rem', marginTop: '1rem' }}>
-                  <div style={{ textAlign: 'right', color: '#64748b', fontFamily: 'Sarabun, sans-serif' }}>Recaptcha</div>
+                  <div style={{ textAlign: 'right', color: '#64748b', fontFamily: 'Prompt, sans-serif' }}>Recaptcha</div>
                   <div>
                     <div style={{ marginBottom: '1.5rem' }}>
                       <ReCAPTCHA
@@ -194,7 +194,7 @@ export default function ReportForm() {
                       />
                     </div>
 
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Sarabun, sans-serif', color: '#1e293b', cursor: 'pointer', marginBottom: '1.5rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Prompt, sans-serif', color: '#1e293b', cursor: 'pointer', marginBottom: '1.5rem' }}>
                       <input
                         type="checkbox"
                         name="consent"

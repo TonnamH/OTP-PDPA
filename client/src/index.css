@@ -89,7 +89,7 @@ html[data-font-size='large'] {
 }
 
 body {
-  font-family: 'Sarabun', sans-serif;
+  font-family: 'Prompt', sans-serif;
   color: var(--text-dark);
   background-color: var(--bg-paper);
 
@@ -217,7 +217,7 @@ a:hover {
   display: block;
   padding: 0.6rem 1.5rem;
   color: var(--text-dark);
-  font-family: 'Sarabun', sans-serif;
+  font-family: 'Prompt', sans-serif;
   font-size: 0.95rem;
   text-decoration: none;
   transition: all 0.2s ease;

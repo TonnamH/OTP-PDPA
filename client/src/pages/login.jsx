@@ -50,7 +50,7 @@ export default function Login() {
   // Hardcoded Light Theme Styles
   const inputStyle = {
     width: '100%', padding: '0.8rem 1rem', borderRadius: '4px',
-    border: '1px solid #e2e8f0', fontFamily: 'Sarabun, sans-serif',
+    border: '1px solid #e2e8f0', fontFamily: 'Prompt, sans-serif',
     fontSize: '1rem', outlineColor: '#1e3a8a', backgroundColor: '#ffffff',
     marginTop: '0.5rem', marginBottom: '1.5rem', color: '#1e293b'
   };
@@ -74,7 +74,7 @@ export default function Login() {
           <h1 style={{ fontSize: '1.8rem', fontFamily: 'Prompt, sans-serif', color: '#1e3a8a', margin: '0 0 0.5rem 0' }}>
             {t('loginPage.title')}
           </h1>
-          <p style={{ fontFamily: 'Sarabun, sans-serif', color: '#64748b', fontSize: '0.95rem', margin: 0 }}>
+          <p style={{ fontFamily: 'Prompt, sans-serif', color: '#64748b', fontSize: '0.95rem', margin: 0 }}>
             {t('loginPage.subtitle')}
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function Login() {
         {errorMsg && (
           <div style={{ 
             backgroundColor: '#fee2e2', color: '#b91c1c', padding: '1rem', 
-            borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Sarabun, sans-serif',
+            borderRadius: '4px', marginBottom: '1.5rem', fontFamily: 'Prompt, sans-serif',
             fontSize: '0.9rem', textAlign: 'center', border: '1px solid #f87171'
           }}>
             {errorMsg}
