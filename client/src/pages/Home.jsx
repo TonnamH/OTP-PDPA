@@ -72,6 +72,8 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [ropaChartData, setRopaChartData] = useState([]);
   const [ropaTableData, setRopaTableData] = useState([]);
+  const [hoveredBar, setHoveredBar] = useState(null);
+  const [hoveredPie, setHoveredPie] = useState(null);
 
   // Translates full department names into standard short acronyms
   const getDeptAbbr = (name) => {
@@ -135,7 +137,7 @@ export default function Home() {
         if (docsRes.ok && infoRes.ok) {
           const docs = await docsRes.json();
           const infos = await infoRes.json();
-          setLatestUpdates(docs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 2));
+          setLatestUpdates(docs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 5));
           setRecentInfographics(infos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 4));
         }
 
@@ -164,7 +166,7 @@ export default function Home() {
               if (deptCount > 0) {
                 // Strip out common prefixes to keep the graph labels clean
                 let shortDeptName = getDeptAbbr(dept.name);
-                chartStats.push({ department: shortDeptName, count: deptCount });
+                chartStats.push({ department: shortDeptName, fullName: dept.name, count: deptCount });
               }
             });
           });
@@ -210,47 +212,9 @@ export default function Home() {
     },
   ];
 
-
-
-
   return (
     <div className="home-page">
 
-      {/* 1. HERO */}
-      {/* <section className="hero-section">
-        <div className="container hero-container">
-          <FadeIn delay={0.1}>
-            <div className="hero-content">
-              <span className="hero-badge">
-                <Icon name="shield" size={13} color="rgba(255,255,255,0.8)" strokeWidth={2} />
-                {t('home.hero.badge', 'ศูนย์บัญชาการข้อมูลส่วนบุคคล')}
-              </span>
-              <h1 className="hero-title">
-                {t('home.hero.title', 'PDPA Portal ศูนย์กลางความรู้และการจัดการข้อมูลส่วนบุคคล สนข.')}
-              </h1>
-              <p className="hero-subtitle">
-                {t('home.hero.subtitle', 'โปร่งใส ปลอดภัย และให้ความสำคัญกับสิทธิของคุณ ทำความเข้าใจว่าสำนักงานนโยบายและแผนการขนส่งและจราจรปกป้องข้อมูลของคุณอย่างไร')}
-              </p>
-              <div className="hero-buttons">
-                <Link to="/contact/report" className="btn btn-primary shadow-glow">
-                  {t('home.hero.reportBtn', 'แจ้งเหตุละเมิดข้อมูล')}
-                </Link>
-                <Link to="/about/ropa" className="btn btn-secondary glass-effect">
-                  {t('home.hero.learnMoreBtn', 'ดูบันทึกกิจกรรม ROPA')}
-                  <Icon name="arrow" size={15} color="rgba(255,255,255,0.8)" strokeWidth={2} />
-                </Link>
-              </div>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.35}>
-            <div className="hero-image-wrapper">
-              <HeroIllustration />
-            </div>
-          </FadeIn>
-        </div>
-      </section> */}
-  
       {/* 1. HERO SLIDESHOW */}
       <section style={{ width: '100%', position: 'relative' }}>
         <Swiper
@@ -337,13 +301,18 @@ export default function Home() {
         </div>
       </FadeIn>
 
-      <section className="section-full bg-light">
+      <section className="section-full bg-light" style={{ padding: '3rem 0 2rem' }}>
         <div className="container">
           <div className="split-layout">
             <FadeIn delay={0.15}>
               <div className="split-text">
-                <span className="section-label">{t('home.pdpa1min.label', 'PDPA คืออะไร')}</span>
-                <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('home.pdpa1min.title', 'กฎหมายที่คืนสิทธิ<br />ข้อมูลให้คุณ').replace('คืนสิทธิ', 'คืนสิทธิ<br />') }} />
+                <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem', marginBottom: '1.5rem' }}>
+                  <div style={{ width: '6px', backgroundColor: '#4f46e5', borderRadius: '4px' }}></div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <span className="section-label" style={{ marginBottom: '0.3rem', display: 'block' }}>{t('home.pdpa1min.label', 'PDPA คืออะไร')}</span>
+                    <h2 className="section-title" style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: t('home.pdpa1min.title', 'กฎหมายที่คืนสิทธิ<br />ข้อมูลให้คุณ').replace('คืนสิทธิ', 'คืนสิทธิ<br />') }} />
+                  </div>
+                </div>
                 <p>
                   {t('home.pdpa1min.desc', 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) มอบสิทธิให้คุณเป็นเจ้าของข้อมูลของตัวเองอย่างแท้จริง สนข. มีหน้าที่ดูแลข้อมูลของคุณให้ปลอดภัย และใช้เท่าที่จำเป็นเท่านั้น')}
                 </p>
@@ -385,16 +354,20 @@ export default function Home() {
       </section>
 
       {/* ROPA DASHBOARD SECTION (TTIC Style) */}
-      <section style={{ padding: '3rem 0', backgroundColor: '#f8fafc' }}>
+      <section style={{ padding: '0.7rem 0', backgroundColor: '#f8fafc' }}>
         <div className="container">
           <FadeIn delay={0.2}>
             <div style={{ background: '#ffffff', padding: '2rem', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
 
               {/* Card Header */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', margin: 0 }}>
-                  จำนวน ROPA ต่อกลุ่ม/ฝ่าย
-                </h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                  {/* Indigo Color Strip */}
+                  <div style={{ width: '5px', height: '26px', backgroundColor: '#4f46e5', borderRadius: '4px' }}></div>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', margin: 0, fontFamily: 'Prompt' }}>
+                    จำนวน ROPA ต่อกลุ่ม/ฝ่าย
+                  </h3>
+                </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <button style={{ border: 'none', cursor: 'pointer', fontSize: '0.75rem', padding: '0.4rem 0.8rem', background: '#f1f5f9', color: '#64748b', borderRadius: '6px', fontWeight: '500', fontFamily: 'Prompt' }}>
                     ใช้งาน
@@ -410,187 +383,219 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* The Graph OR Loading State */}
-              <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-                
-                {/* LEFT SIDE: Bar Chart (Takes up 65% of the space) */}
-                <div style={{ flex: '1 1 60%', minWidth: '350px' }}>
+              {/* Dashboard Split Layout (Compact / กระชับ Version) */}
+              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+
+                {/* LEFT SIDE: Bar Chart (Fully Elastic "กระชับ" Version) */}
+                <div style={{ flex: '1 1 60%', minWidth: '350px', display: 'flex', flexDirection: 'column' }}> {/* Added flex-column so it can stretch */}
                   {ropaChartData && ropaChartData.length > 0 ? (
-                    <div style={{ display: 'flex', width: '100%', height: '400px', position: 'relative' }}>
-                      
-                      {/* Y-Axis Labels Column */}
-                      <div style={{ 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        justifyContent: 'space-between', 
-                        alignItems: 'flex-end', 
-                        paddingRight: '12px', 
-                        height: '100%', 
-                        color: '#64748b', 
-                        fontSize: '0.85rem', 
-                        fontWeight: '600',
-                        fontFamily: 'Prompt',
-                        userSelect: 'none',
-                        width: '30px'
-                      }}>
-                        <span>20</span>
-                        <span>15</span>
-                        <span>10</span>
-                        <span>5</span>
-                        <span>0</span>
-                      </div>
+                    (() => {
+                      const maxCount = Math.max(...ropaChartData.map(d => d.count), 1);
+                      const chartMax = Math.max(Math.ceil(maxCount / 4) * 4, 4);
+                      const step = chartMax / 4;
 
-                      {/* Main Chart Area */}
-                      <div style={{ flex: 1, position: 'relative', height: '100%' }}>
-                        
-                        {/* Background Grid Lines (Aligned perfectly with Y-Axis) */}
-                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: 0, pointerEvents: 'none' }}>
-                          <div style={{ borderTop: '1px dashed #cbd5e1', width: '100%' }}></div> {/* 20 */}
-                          <div style={{ borderTop: '1px dashed #e2e8f0', width: '100%' }}></div> {/* 15 */}
-                          <div style={{ borderTop: '1px dashed #e2e8f0', width: '100%' }}></div> {/* 10 */}
-                          <div style={{ borderTop: '1px dashed #e2e8f0', width: '100%' }}></div> {/* 5 */}
-                          <div style={{ borderTop: '2px solid #cbd5e1', width: '100%' }}></div> {/* 0 (Base) */}
-                        </div>
+                      return (
+                        /* CHANGED: Removed height: 280px. Added flex: 1 to fill empty space, and bottom padding for the text labels */
+                        <div style={{ display: 'flex', width: '100%', flex: 1, minHeight: '280px', position: 'relative', paddingBottom: '32px', marginTop: '1rem' }}>
 
-                        {/* The Bars Container */}
-                        <div style={{ position: 'relative', zIndex: 1, display: 'flex', height: '100%', alignItems: 'flex-end', justifyContent: 'flex-start', gap: '1.5rem', paddingLeft: '1rem' }}>
-                          {(() => {
-                            // Scale height relative to a maximum of 20 units
-                            const chartMax = 20;
-                            
-                            return ropaChartData.map((item, idx) => {
-                              // Calculate height as a Percentage instead of Pixels
-                              const barHeightPercent = Math.min((item.count / chartMax) * 100, 100); 
-                              
-                              return (
-                                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '40px', height: '100%', justifyContent: 'flex-end' }}>
-                                  
-                                  {/* Count Number */}
-                                  {item.count > 0 && (
-                                    <span style={{ position: 'absolute', bottom: `${barHeightPercent}%`, marginBottom: '8px', fontSize: '0.95rem', color: '#1e293b', fontWeight: '700', fontFamily: 'Prompt' }}>
-                                      {item.count}
+                          {/* Y-Axis Labels Column */}
+                          <div style={{
+                            display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end',
+                            paddingRight: '12px', height: '100%', color: '#64748b', fontSize: '0.85rem',
+                            fontWeight: '600', fontFamily: 'Prompt', userSelect: 'none', width: '30px'
+                          }}>
+                            <span>{chartMax}</span>
+                            <span>{chartMax - step}</span>
+                            <span>{chartMax - step * 2}</span>
+                            <span>{chartMax - step * 3}</span>
+                            <span>0</span>
+                          </div>
+
+                          {/* Main Chart Area */}
+                          <div style={{ flex: 1, position: 'relative', height: '100%' }}>
+
+                            {/* Background Grid Lines */}
+                            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', zIndex: 0, pointerEvents: 'none' }}>
+                              <div style={{ borderTop: '1px dashed #cbd5e1', width: '100%' }}></div>
+                              <div style={{ borderTop: '1px dashed #e2e8f0', width: '100%' }}></div>
+                              <div style={{ borderTop: '1px dashed #e2e8f0', width: '100%' }}></div>
+                              <div style={{ borderTop: '1px dashed #e2e8f0', width: '100%' }}></div>
+                              <div style={{ borderTop: '2px solid #cbd5e1', width: '100%' }}></div>
+                            </div>
+
+                            {/* The Bars Container */}
+                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', height: '100%', alignItems: 'flex-end', justifyContent: 'flex-start', gap: '1.5rem', paddingLeft: '1rem' }}>
+                              {ropaChartData.map((item, idx) => {
+                                const barHeightPercent = Math.min((item.count / chartMax) * 100, 100);
+                                const isHovered = hoveredBar === idx;
+
+                                return (
+                                  <div
+                                    key={idx}
+                                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '40px', height: '100%', justifyContent: 'flex-end', cursor: 'pointer' }}
+                                    onMouseEnter={() => setHoveredBar(idx)}
+                                    onMouseLeave={() => setHoveredBar(null)}
+                                  >
+                                    {/* TTIC Dark Tooltip */}
+                                    {isHovered && (
+                                      <div style={{
+                                        position: 'absolute', bottom: `calc(${barHeightPercent}% + 12px)`,
+                                        backgroundColor: '#1e293b', color: '#ffffff', padding: '0.4rem 0.8rem',
+                                        borderRadius: '6px', fontSize: '0.85rem', fontWeight: '500',
+                                        fontFamily: 'Prompt', whiteSpace: 'nowrap', zIndex: 50,
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)', pointerEvents: 'none'
+                                      }}>
+                                        {item.fullName || item.department} : {item.count}
+                                        <div style={{
+                                          position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                                          borderWidth: '5px', borderStyle: 'solid', borderColor: '#1e293b transparent transparent transparent'
+                                        }} />
+                                      </div>
+                                    )}
+
+                                    {/* Gradient Bar */}
+                                    <div style={{
+                                      height: `${barHeightPercent}%`, width: '100%',
+                                      background: 'linear-gradient(180deg, #818cf8 0%, #4f46e5 100%)',
+                                      borderRadius: barHeightPercent > 2 ? '6px 6px 0 0' : '2px 2px 0 0',
+                                      boxShadow: isHovered ? '0 0 15px rgba(79, 70, 229, 0.6)' : (item.count > 0 ? '0 -4px 12px rgba(79, 70, 229, 0.25)' : 'none'),
+                                      opacity: hoveredBar !== null && !isHovered ? 0.5 : 1, transition: 'all 0.2s ease-out'
+                                    }} />
+
+                                    {/* Acronym Text */}
+                                    <span style={{
+                                      position: 'absolute', top: '100%', marginTop: '8px',
+                                      fontSize: '0.85rem', color: isHovered ? '#1e293b' : '#64748b',
+                                      fontWeight: isHovered ? '700' : '600', fontFamily: 'Prompt',
+                                      whiteSpace: 'nowrap', transition: 'color 0.2s'
+                                    }}>
+                                      {item.department}
                                     </span>
-                                  )}
-                                  
-                                  {/* Gradient Bar */}
-                                  <div style={{ 
-                                    height: `${barHeightPercent}%`, 
-                                    width: '100%', 
-                                    background: 'linear-gradient(180deg, #818cf8 0%, #4f46e5 100%)',
-                                    borderRadius: barHeightPercent > 2 ? '6px 6px 0 0' : '2px 2px 0 0',
-                                    boxShadow: item.count > 0 ? '0 -4px 12px rgba(79, 70, 229, 0.25)' : 'none',
-                                    transition: 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                                  }} />
-                                  
-                                  {/* Horizontal Acronym Text */}
-                                  <span style={{ 
-                                    position: 'absolute', top: '100%', marginTop: '12px',
-                                    fontSize: '0.85rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt',
-                                    whiteSpace: 'nowrap'
-                                  }}>
-                                    {item.department}
-                                  </span>
-                                  
-                                </div>
-                              );
-                            });
-                          })()}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
-
-                      </div>
-                    </div>
+                      );
+                    })()
                   ) : (
-                    <div style={{ width: '100%', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontFamily: 'Prompt' }}>
+                    <div style={{ width: '100%', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontFamily: 'Prompt' }}>
                       กำลังโหลดข้อมูล...
                     </div>
                   )}
                 </div>
 
-                {/* RIGHT SIDE: Donut Chart (Takes up 35% of the space) */}
-                <div style={{ flex: '1 1 30%', minWidth: '280px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem 0' }}>
-                  
+                {/* RIGHT SIDE: Interactive SVG Donut Chart */}
+                <div style={{ flex: '1 1 30%', minWidth: '280px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.5rem 0' }}> {/* Reduced padding */}
+
                   {ropaChartData && ropaChartData.length > 0 ? (
                     (() => {
-                      // 1. Process Data: Top 4 + Others to keep the chart clean
                       const totalCount = ropaChartData.reduce((sum, item) => sum + item.count, 0);
                       let pieData = [];
                       if (ropaChartData.length > 5) {
                         pieData = ropaChartData.slice(0, 4);
                         const othersCount = ropaChartData.slice(4).reduce((sum, item) => sum + item.count, 0);
-                        pieData.push({ department: 'อื่นๆ', count: othersCount });
+                        pieData.push({ department: 'อื่นๆ', fullName: 'กลุ่ม/ฝ่าย อื่นๆ', count: othersCount });
                       } else {
                         pieData = [...ropaChartData];
                       }
 
-                      // 2. Premium TTIC Colors (Indigo, Sky, Emerald, Amber, Slate)
                       const colors = ['#4f46e5', '#0ea5e9', '#10b981', '#f59e0b', '#94a3b8'];
-                      
-                      // 3. Generate the CSS Conic Gradient string dynamically
-                      let currentAngle = 0;
-                      const conicStops = pieData.map((item, i) => {
-                        const percentage = (item.count / totalCount) * 100;
-                        const stop = `${colors[i % colors.length]} ${currentAngle}% ${currentAngle + percentage}%`;
-                        currentAngle += percentage;
-                        return stop;
-                      }).join(', ');
+
+                      let cumulativePercent = 0;
+                      const slices = pieData.map((item, i) => {
+                        const percent = item.count / totalCount;
+                        const slice = { ...item, color: colors[i % colors.length], percent: percent, cumulativePercent: cumulativePercent };
+                        cumulativePercent += percent;
+                        return slice;
+                      });
 
                       return (
                         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1rem' }}>
-                          
-                          {/* Title */}
-                          <h4 style={{ fontSize: '1.05rem', fontWeight: '600', color: '#1e293b', marginBottom: '2rem', fontFamily: 'Prompt', width: '100%', textAlign: 'left' }}>
-                            สัดส่วน ROPA (Top 5)
-                          </h4>
+                          {/* Subheader with Accent Strip */}
+                          <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem' }}>
+                            <div style={{ width: '4px', height: '20px', backgroundColor: '#0ea5e9', borderRadius: '4px' }}></div>
+                            <h4 style={{ fontSize: '1.05rem', fontWeight: '600', color: '#1e293b', margin: 0, fontFamily: 'Prompt' }}>
+                              สัดส่วน ROPA (Top 5)
+                            </h4>
+                          </div>
 
-                          {/* The Donut Chart Graphic */}
-                          <div style={{ 
-                            position: 'relative', width: '200px', height: '200px', borderRadius: '50%', 
-                            background: `conic-gradient(${conicStops})`,
-                            boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
-                            marginBottom: '2.5rem'
-                          }}>
-                            {/* The Inner Cutout (Makes it a Donut instead of a Pie) */}
-                            <div style={{ 
-                              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 
-                              width: '130px', height: '130px', backgroundColor: '#ffffff', borderRadius: '50%', 
-                              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                              boxShadow: 'inset 0 4px 10px rgba(0,0,0,0.04)'
-                            }}>
-                              <span style={{ fontSize: '2.2rem', fontWeight: '700', color: '#1e293b', lineHeight: '1' }}>{totalCount}</span>
-                              <span style={{ fontSize: '0.8rem', color: '#64748b', fontFamily: 'Prompt', marginTop: '0.3rem' }}>รายการทั้งหมด</span>
+                          <div style={{ position: 'relative', width: '180px', height: '180px', marginBottom: '1.5rem' }}> {/* Smaller Donut */}
+
+                            {hoveredPie !== null && (
+                              <div style={{
+                                position: 'absolute', top: '-35px', left: '50%', transform: 'translateX(-50%)',
+                                backgroundColor: '#1e293b', color: '#ffffff', padding: '0.4rem 0.8rem', borderRadius: '6px',
+                                fontSize: '0.85rem', fontWeight: '500', fontFamily: 'Prompt', whiteSpace: 'nowrap',
+                                zIndex: 50, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', pointerEvents: 'none', animation: 'fadeIn 0.2s ease-out'
+                              }}>
+                                {slices[hoveredPie].fullName} : {slices[hoveredPie].count}
+                                <div style={{
+                                  position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                                  borderWidth: '5px', borderStyle: 'solid', borderColor: '#1e293b transparent transparent transparent'
+                                }} />
+                              </div>
+                            )}
+
+                            <svg width="100%" height="100%" viewBox="0 0 42 42" style={{ transform: 'rotate(-90deg)', overflow: 'visible', dropShadow: '0 10px 20px rgba(0,0,0,0.05)' }}>
+                              <circle cx="21" cy="21" r="15.91549431" fill="transparent" stroke="#f1f5f9" strokeWidth="8" />
+                              {slices.map((slice, idx) => {
+                                const dashArray = `${slice.percent * 100} ${100 - slice.percent * 100}`;
+                                const dashOffset = -(slice.cumulativePercent * 100);
+                                const isHovered = hoveredPie === idx;
+
+                                return (
+                                  <circle
+                                    key={idx} cx="21" cy="21" r="15.91549431" fill="transparent"
+                                    stroke={slice.color} strokeWidth={isHovered ? "9" : "8"}
+                                    strokeDasharray={dashArray} strokeDashoffset={dashOffset}
+                                    onMouseEnter={() => setHoveredPie(idx)} onMouseLeave={() => setHoveredPie(null)}
+                                    style={{ transition: 'all 0.2s ease-out', cursor: 'pointer', opacity: hoveredPie !== null && !isHovered ? 0.3 : 1 }}
+                                  />
+                                );
+                              })}
+                            </svg>
+
+                            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+                              <span style={{ fontSize: '2rem', fontWeight: '700', color: '#1e293b', lineHeight: '1' }}>{totalCount}</span>
+                              <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: 'Prompt', marginTop: '0.2rem' }}>ทั้งหมด</span>
                             </div>
                           </div>
 
-                          {/* The Legend / Details Table */}
-                          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                            {pieData.map((item, idx) => (
-                              <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.9rem', fontFamily: 'Prompt' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                                  {/* Color Dot */}
-                                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: colors[idx % colors.length] }}></div>
-                                  <span style={{ color: '#475569', fontWeight: '500' }}>{item.department}</span>
+                          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}> {/* Tighter legend */}
+                            {slices.map((item, idx) => (
+                              <div
+                                key={idx}
+                                style={{
+                                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                                  fontSize: '0.85rem', fontFamily: 'Prompt', padding: '0.3rem 0.6rem', borderRadius: '6px',
+                                  backgroundColor: hoveredPie === idx ? '#f8fafc' : 'transparent', transition: 'background-color 0.2s', cursor: 'pointer'
+                                }}
+                                onMouseEnter={() => setHoveredPie(idx)} onMouseLeave={() => setHoveredPie(null)}
+                              >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flex: 1 }}>
+                                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: item.color, flexShrink: 0 }}></div>
+                                  <span style={{ color: '#475569', fontWeight: '500', lineHeight: '1.2' }}>{item.fullName}</span>
                                 </div>
-                                <div style={{ display: 'flex', gap: '1rem', color: '#1e293b', fontWeight: '600' }}>
+                                <div style={{ display: 'flex', gap: '1rem', color: '#1e293b', fontWeight: '600', marginLeft: '0.5rem' }}>
                                   <span>{item.count}</span>
-                                  {/* Percentage calculation */}
-                                  <span style={{ color: '#94a3b8', width: '35px', textAlign: 'right', fontWeight: '500' }}>
-                                    {Math.round((item.count / totalCount) * 100)}%
+                                  <span style={{ color: '#94a3b8', width: '30px', textAlign: 'right', fontWeight: '500' }}>
+                                    {Math.round(item.percent * 100)}%
                                   </span>
                                 </div>
                               </div>
                             ))}
                           </div>
-
                         </div>
                       );
                     })()
                   ) : (
-                    <div style={{ width: '100%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontFamily: 'Prompt' }}>
+                    <div style={{ width: '100%', height: '280px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontFamily: 'Prompt' }}>
                       กำลังคำนวณสัดส่วน...
                     </div>
                   )}
                 </div>
-
               </div>
 
             </div>
@@ -599,20 +604,23 @@ export default function Home() {
       </section>
 
       {/* ROPA PREVIEW TABLE */}
-      <section style={{ padding: '2rem 0 5rem', backgroundColor: '#f8fafc' }}>
+      <section style={{ padding: '1rem 0 2rem', backgroundColor: '#f8fafc' }}>
         <div className="container">
           <FadeIn delay={0.3}>
             <div style={{ background: '#ffffff', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', overflow: 'hidden' }}>
 
               {/* Table Header Area */}
               <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', margin: '0 0 0.3rem' }}>
-                    {t('home.ropaTableTitle', 'บันทึกกิจกรรมล่าสุด (ROPA)')}
-                  </h3>
-                  <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0 }}>
-                    {t('home.ropaTableSub', 'ตัวอย่างรายการประมวลผลข้อมูลส่วนบุคคลล่าสุดภายในหน่วยงาน')}
-                  </p>
+                <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem' }}>
+                  <div style={{ width: '5px', backgroundColor: '#8b5cf6', borderRadius: '4px' }}></div>
+                  <div>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', margin: '0 0 0.3rem', fontFamily: 'Prompt' }}>
+                      {t('home.ropaTableTitle', 'บันทึกกิจกรรมล่าสุด (ROPA)')}
+                    </h3>
+                    <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0, fontFamily: 'Prompt' }}>
+                      {t('home.ropaTableSub', 'ตัวอย่างรายการประมวลผลข้อมูลส่วนบุคคลล่าสุดภายในหน่วยงาน')}
+                    </p>
+                  </div>
                 </div>
                 <Link to="/about/ropa" className="btn" style={{ background: '#f1f5f9', color: 'var(--primary-navy)', fontSize: '0.9rem', padding: '0.5rem 1rem' }}>
                   {t('home.viewAll', 'ดูทั้งหมด')} &rarr;
@@ -664,62 +672,18 @@ export default function Home() {
         </div>
       </section>
 
-
-
-      {/* 2. PDPA IN 60 SECONDS */}
-      {/* <section className="section-full bg-light">
-        <div className="container">
-          <div className="split-layout">
-            <FadeIn delay={0.15}>
-              <div className="split-text">
-                <span className="section-label">{t('home.pdpa1min.label', 'PDPA คืออะไร')}</span>
-                <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('home.pdpa1min.title', 'กฎหมายที่คืนสิทธิ<br />ข้อมูลให้คุณ').replace('คืนสิทธิ', 'คืนสิทธิ<br />') }} />
-                <p>
-                  {t('home.pdpa1min.desc', 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) มอบสิทธิให้คุณเป็นเจ้าของข้อมูลของตัวเองอย่างแท้จริง สนข. มีหน้าที่ดูแลข้อมูลของคุณให้ปลอดภัย และใช้เท่าที่จำเป็นเท่านั้น')}
-                </p>
-                <ul className="check-list">
-                  {[
-                    t('home.pdpa1min.check1', 'ข้อมูลต้องถูกเก็บอย่างปลอดภัยสูงสุด'),
-                    t('home.pdpa1min.check2', 'นำไปใช้ตามวัตถุประสงค์ที่แจ้งไว้เท่านั้น'),
-                    t('home.pdpa1min.check3', 'คุณมีสิทธิขอดู แก้ไข หรือลบข้อมูลได้'),
-                  ].map((text, i) => (
-                    <li key={i}>
-                      <span className="check-icon">
-                        <Icon name="check" size={11} color="#15803d" strokeWidth={2.5} />
-                      </span>
-                      {text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.3}>
-              <div className="video-wrapper">
-                <iframe
-                  src="https://www.youtube.com/embed/n3WydT0L41w"
-                  title="PDPA Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section> */}
-
-      
-
       {/* 3. QUICK LINKS */}
-      <section className="section-full bg-white">
+      <section className="section-full bg-white" style={{ padding: '2.5rem 0' }}>
         <div className="container">
           <FadeIn delay={0.1}>
-            <div style={{ marginBottom: '3rem' }}>
-              <span className="section-label">{t('home.quickLinks.label', 'บริการ')}</span>
-              <h2 className="section-title">
-                {t('home.quickLinks.title', 'ข้อมูลและบริการสำคัญ')}
-              </h2>
+            <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div style={{ width: '6px', backgroundColor: '#3b82f6', borderRadius: '4px' }}></div>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <span className="section-label" style={{ marginBottom: '0.3rem', display: 'block' }}>{t('home.quickLinks.label', 'บริการ')}</span>
+                <h2 className="section-title" style={{ margin: 0 }}>
+                  {t('home.quickLinks.title', 'ข้อมูลและบริการสำคัญ')}
+                </h2>
+              </div>
             </div>
           </FadeIn>
 
@@ -744,15 +708,18 @@ export default function Home() {
       </section>
 
       {/* 4. DYNAMIC INFOGRAPHICS PREVIEW GALLERY */}
-      <section className="section-full bg-light">
+      <section className="section-full bg-light" style={{ padding: '2.5rem 0' }}>
         <div className="container">
           <FadeIn delay={0.1}>
-            <div className="updates-header">
-              <div>
-                <span className="section-label">{t('home.infographicGallery.label', 'สื่อประชาสัมพันธ์')}</span>
-                <h2 className="section-title" style={{ marginBottom: 0 }}>
-                  {t('home.infographicGallery.title', 'คลังภาพความรู้ PDPA')}
-                </h2>
+            <div className="updates-header" style={{ alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem' }}>
+                <div style={{ width: '6px', backgroundColor: '#f43f5e', borderRadius: '4px' }}></div>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <span className="section-label" style={{ marginBottom: '0.3rem', display: 'block' }}>{t('home.infographicGallery.label', 'สื่อประชาสัมพันธ์')}</span>
+                  <h2 className="section-title" style={{ margin: 0, lineHeight: '1.2' }}>
+                    {t('home.infographicGallery.title', 'คลังภาพความรู้ PDPA')}
+                  </h2>
+                </div>
               </div>
               <Link to="/services/infographics" className="updates-link">
                 {t('home.quickLinks.readMore', 'ดูทั้งหมด')}
@@ -798,13 +765,21 @@ export default function Home() {
       </section>
 
       {/* 5. LATEST DOCUMENTS (Table Format) */}
-      <section className="section-full bg-white">
+      <section className="section-full bg-white" style={{ padding: '2.5rem 0' }}>
         <div className="container">
           <FadeIn delay={0.1}>
             <div className="updates-header" style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <div>
-                <span className="section-label">{t('home.downloads.label', 'ดาวน์โหลด')}</span>
-                <h2 className="section-title" style={{ marginBottom: 0 }}>{t('home.downloads.title', 'เอกสารและแบบฟอร์มล่าสุด')}</h2>
+              <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem' }}>
+                {/* Emerald Green Color Strip (Stretches to fit both lines of text) */}
+                <div style={{ width: '6px', backgroundColor: '#10b981', borderRadius: '4px' }}></div>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <span className="section-label" style={{ display: 'block', marginBottom: '0.3rem', fontSize: '0.85rem', color: '#64748b', fontWeight: '600' }}>
+                    {t('home.downloads.label', 'ดาวน์โหลด')}
+                  </span>
+                  <h2 className="section-title" style={{ margin: 0, fontSize: '1.5rem', color: '#1e293b', fontFamily: 'Prompt', lineHeight: '1.2' }}>
+                    {t('home.downloads.title', 'เอกสารและแบบฟอร์มล่าสุด')}
+                  </h2>
+                </div>
               </div>
               <Link to="/about/documents" className="btn" style={{ background: '#f1f5f9', color: 'var(--primary-navy)', fontSize: '0.9rem', padding: '0.5rem 1rem' }}>
                 {t('home.downloads.viewAll', 'คลังเอกสารทั้งหมด')} &rarr;
@@ -833,13 +808,13 @@ export default function Home() {
                       {latestUpdates.map((item, idx) => {
                         const isPdf = item.file_path && item.file_path.endsWith('.pdf');
                         // Use relative paths to avoid the localhost Nginx bug
-                        const fileUrl = item.file_path || item.image_path; 
+                        const fileUrl = item.file_path || item.image_path;
 
                         return (
-                          <tr 
-                            key={item.id || idx} 
-                            style={{ borderBottom: '1px solid #f1f5f9', transition: 'background 0.2s' }} 
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'} 
+                          <tr
+                            key={item.id || idx}
+                            style={{ borderBottom: '1px solid #f1f5f9', transition: 'background 0.2s' }}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'}
                             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                           >
                             <td style={{ padding: '1.2rem 2rem', color: '#1e293b', fontWeight: '500' }}>
@@ -857,20 +832,20 @@ export default function Home() {
                               </div>
                             </td>
                             <td style={{ padding: '1.2rem 2rem', textAlign: 'right' }}>
-                              <a 
-                                href={fileUrl} 
-                                target="_blank" 
-                                rel="noreferrer" 
-                                style={{ 
-                                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem', 
-                                  color: 'var(--primary-navy)', fontWeight: '600', textDecoration: 'none', 
-                                  background: '#f1f5f9', padding: '0.5rem 1rem', borderRadius: '8px', 
-                                  transition: 'all 0.2s', fontSize: '0.85rem' 
+                              <a
+                                href={fileUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{
+                                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                                  color: 'var(--primary-navy)', fontWeight: '600', textDecoration: 'none',
+                                  background: '#f1f5f9', padding: '0.5rem 1rem', borderRadius: '8px',
+                                  transition: 'all 0.2s', fontSize: '0.85rem'
                                 }}
                                 onMouseOver={(e) => { e.currentTarget.style.background = 'var(--primary-navy)'; e.currentTarget.style.color = 'white'; }}
                                 onMouseOut={(e) => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = 'var(--primary-navy)'; }}
                               >
-                                {isPdf ? 'PDF' : 'เปิดดู'} 
+                                {isPdf ? 'PDF' : 'เปิดดู'}
                                 <Icon name="download" size={14} strokeWidth={2} />
                               </a>
                             </td>
@@ -904,6 +879,95 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* 6. QUICK CONTACT & MAP SECTION */}
+      <section style={{ padding: '2rem 0 3rem', backgroundColor: '#f8fafc' }}>
+        <div className="container">
+          <FadeIn delay={0.2}>
+
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              background: '#ffffff',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
+              border: '1px solid #e2e8f0'
+            }}>
+
+              {/* LEFT SIDE: Contact Information */}
+              <div style={{ flex: '1 1 450px', padding: '3.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.4rem 1rem', background: '#ecfdf5', borderRadius: '50px', color: '#10b981', fontWeight: '600', fontSize: '0.85rem', fontFamily: 'Prompt' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
+                  ช่องทางการติดต่อ
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem', margin: '0 0 1.5rem' }}>
+                  <div style={{ width: '6px', backgroundColor: '#4f46e5', borderRadius: '4px' }}></div>
+                  <h3 style={{ fontSize: '1.8rem', fontWeight: '700', color: '#1e293b', margin: 0, fontFamily: 'Prompt', lineHeight: '1.3' }}>
+                    ศูนย์บัญชาการข้อมูลส่วนบุคคล <br /><span style={{ color: '#4f46e5' }}>(PDPA OTP)</span>
+                  </h3>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+                  {/* Address */}
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                    <div style={{ color: '#64748b', marginTop: '0.2rem' }}>
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>ที่ตั้งสำนักงาน</div>
+                      <div style={{ fontSize: '0.95rem', color: '#1e293b', fontFamily: 'Prompt', lineHeight: '1.5' }}>
+                        สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)<br />
+                        35 ถนนเพชรบุรี แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพฯ 10400
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                    <div style={{ color: '#64748b', marginTop: '0.2rem' }}>
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>เบอร์โทรศัพท์</div>
+                      <div style={{ fontSize: '1.05rem', color: '#1e293b', fontWeight: '600', fontFamily: 'Prompt' }}>0 2215 1515 ต่อ 4081</div>
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                    <div style={{ color: '#64748b', marginTop: '0.2rem' }}>
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>อีเมล</div>
+                      <div style={{ fontSize: '1.05rem', color: '#1e293b', fontWeight: '600', fontFamily: 'Prompt' }}>compliance@otp.go.th</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* RIGHT SIDE: Interactive Map */}
+              <div style={{ flex: '1 1 400px', minHeight: '350px', position: 'relative' }}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.353183639069!2d100.52247130000002!3d13.757562400000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29936222fb455%3A0x1a0d35f71b7ac2f5!2sOffice%20of%20Transport%20and%20Traffic%20Policy%20and%20Planning%20(OTP)!5e0!3m2!1sen!2sth!4v1781250030984!5m2!1sen!2sth"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, position: 'absolute', top: 0, left: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="OTP Map Location"
+                ></iframe>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
     </div>
+
   );
 }

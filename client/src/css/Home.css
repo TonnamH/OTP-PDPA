@@ -464,9 +464,9 @@
 /* --- DYNAMIC INFOGRAPHIC GALLERY --- */
 .info-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
   justify-content: center; 
-  gap: 2rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
