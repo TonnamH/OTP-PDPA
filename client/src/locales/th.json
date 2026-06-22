@@ -103,14 +103,23 @@
       "title": "ระบบบันทึก ROPA",
       "subtitle": "สถิติและภาพรวมการบันทึกกิจกรรมการประมวลผลข้อมูลส่วนบุคคล",
       "barChartTitle": "จำนวน ROPA ต่อกลุ่ม/ฝ่าย",
-      "pieChartTitle": "สัดส่วน ROPA (Top 5)",
+      "pieChartTitle": "สัดส่วน ROPA",
+      "pieChartOverview": "ภาพรวมหน่วยงาน",
       "btnActive": "ใช้งาน",
       "btnCsv": "CSV",
       "totalItems": "รายการทั้งหมด",
       "others": "อื่นๆ",
       "othersFull": "กลุ่ม/ฝ่าย อื่นๆ",
       "loading": "กำลังโหลดข้อมูล...",
-      "calculating": "กำลังคำนวณสัดส่วน..."
+      "calculating": "กำลังคำนวณสัดส่วน...",
+      "selectItem": "เลือกรายการเพื่อเจาะลึกข้อมูล",
+      "noData": "ไม่มีข้อมูล ROPA ในขณะนี้",
+      "allActivities": "กิจกรรมทั้งหมดในกลุ่ม/ฝ่าย",
+      "clickGraphToDrill": "คลิกที่กราฟเพื่อดูรายสำนัก",
+      "clickGraphToDrillDept": "คลิกที่กราฟเพื่อดูรายกลุ่ม/ฝ่าย",
+      "lawfulBasis": "สัดส่วนฐานทางกฎหมาย (Lawful Basis)",
+      "pieChartDepartments": "กิจกรรม ROPA",
+      "pieChartLawfulBasis": "กิจกรรม ROPA ตามฐานทางกฎหมาย"
     },
     "ropaTable": {
       "title": "บันทึกกิจกรรมล่าสุด (ROPA)",
@@ -133,6 +142,9 @@
       "emailLabel": "อีเมล",
       "emailValue": "compliance@otp.go.th"
     }
+  },
+  "pageViewBadge": {
+    "views": "ผู้เข้าชมหน้านี้"
   },
   "dpo": {
     "title": "ทีมเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล",
@@ -478,29 +490,36 @@
     }
   },
   "adminDashboard": {
-    "title": "แผงควบคุมผู้ดูแลระบบ (Admin Dashboard)",
-    "subtitle": "จัดการเอกสาร อินโฟกราฟิก และเนื้อหาของเว็บไซต์",
+    "title": "แผงควบคุมผู้ดูแลระบบ",
+    "subtitle": "จัดการเอกสาร สื่อประชาสัมพันธ์ และเนื้อหาเว็บไซต์",
     "quickActions": "เมนูด่วน",
     "uploadDocBtn": "+ อัปโหลดเอกสารใหม่",
-    "uploadInfoBtn": "+ อัปโหลดอินโฟกราฟิกใหม่",
+    "uploadInfoBtn": "+ อัปโหลดสื่อประชาสัมพันธ์ใหม่",
     "recentDocs": "เอกสารล่าสุด",
-    "recentInfo": "อินโฟกราฟิกล่าสุด",
+    "recentInfo": "สื่อประชาสัมพันธ์ล่าสุด",
+    "itemsTotal": "รายการทั้งหมด",
+    "popularityTitle": "ความนิยมแต่ละหน้า (Module Popularity)",
+    "popularitySubtitle": "สถิติการเข้าชมแยกตามหน้าต่างๆ ภายในเว็บไซต์",
+    "loadingPopularity": "กำลังรวบรวมข้อมูลการเข้าชม...",
+    "visits": "ครั้ง",
     "table": {
-      "title": "ชื่อเอกสาร",
+      "title": "ชื่อหัวข้อ",
       "category": "หมวดหมู่",
-      "date": "วันที่อัปโหลด",
-      "view": "ดูไฟล์",
+      "date": "วันที่",
+      "view": "ดู",
       "edit": "แก้ไข",
       "delete": "ลบ",
-      "actions": "จัดการ"
+      "actions": "จัดการ",
+      "path": "เส้นทาง (Path)",
+      "views": "จำนวนการเข้าชม (Views)"
     },
     "messages": {
       "confirmDelete": "คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การกระทำนี้ไม่สามารถย้อนกลับได้",
       "deleteSuccess": "ลบรายการสำเร็จ",
-      "deleteError": "เกิดข้อผิดพลาดในการลบ"
+      "deleteError": "เกิดข้อผิดพลาดในการลบรายการ"
     },
     "loading": "กำลังโหลดข้อมูล...",
-    "empty": "ยังไม่มีข้อมูลในระบบ"
+    "empty": "ยังไม่มีข้อมูลในขณะนี้"
   },
   "privacyPolicyPage": {
     "title": "นโยบายความเป็นส่วนตัวของข้อมูล (Privacy Policy)",

@@ -50,9 +50,52 @@ app.post('/api/visitors/increment', async (req, res) => {
 
     res.json({ count: result.rows[0].total_visitors });
   } catch (error) {
-    console.error('Error incrementing visitors:', error.message); // <-- add .message
-    res.status(500).json({ error: error.message }); // <-- return the actual error
+    console.error('Error incrementing visitors:', error.message);
+    res.status(500).json({ error: error.message });
   }
+});
+
+app.post('/api/page-visit', async (req, res) => {
+    const { page_path } = req.body;
+    if (!page_path) return res.status(400).json({ error: 'Page path is required' });
+
+    try {
+        const query = `
+            INSERT INTO page_views (page_path, view_count) 
+            VALUES ($1, 1) 
+            ON CONFLICT (page_path) 
+            DO UPDATE SET view_count = page_views.view_count + 1
+        `;
+        await pool.query(query, [page_path]);
+        res.status(200).json({ message: 'Page visit recorded' });
+    } catch (error) {
+        console.error('Error tracking page:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.get('/api/page-stats', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM page_views ORDER BY view_count DESC');
+        res.status(200).json(result.rows); 
+    } catch (error) {
+        console.error('Error fetching stats:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.get('/api/page-visit/single', async (req, res) => {
+    const { path } = req.query;
+    if (!path) return res.status(400).json({ error: 'Path is required' });
+
+    try {
+        const result = await pool.query('SELECT view_count FROM page_views WHERE page_path = $1', [path]);
+        const count = result.rows.length > 0 ? result.rows[0].view_count : 0;
+        res.status(200).json({ count });
+    } catch (error) {
+        console.error('Error fetching single page stat:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 const PORT = process.env.PORT || 5000;

@@ -20,6 +20,8 @@ import CookiePolicy from './pages/CookiePolicy';
 import EditDocument from './pages/admin/EditDocument';
 import EditInfographic from './pages/admin/EditInfographic';
 import ProtectedRoute from './components/ProtectedRoute';
+import PageTracker from './components/PageTracker';
+import PageViewBadge from './components/PageViewBadge';
 
 // === NEW HELPER COMPONENT ===
 // This checks if the user is ALREADY logged in.
@@ -36,6 +38,8 @@ function App() {
   
   return (
     <BrowserRouter>
+      <PageTracker />
+      <PageViewBadge /> 
       <TitleManager />
       <Routes>
         <Route path="/" element={<Layout />}>

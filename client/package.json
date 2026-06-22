@@ -20,7 +20,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-i18next": "^17.0.7",
     "react-router-dom": "^7.15.0",
-    "recharts": "^2.10.3",
+    "recharts": "^2.15.4",
     "swiper": "^12.2.0"
   },
   "devDependencies": {
