@@ -231,7 +231,7 @@ export default function Home() {
           <SwiperSlide>
             <div style={{
               width: '100%', height: '100%',
-              backgroundImage: 'url(/slide1.png)',
+              backgroundImage: 'url(/slideshow1.png)',
               backgroundSize: 'cover', backgroundPosition: 'center'
             }}>
               <div style={{ width: '100%', height: '100%', background: 'rgba(24, 35, 55, 0.4)' }} />
@@ -242,7 +242,7 @@ export default function Home() {
           <SwiperSlide>
             <div style={{
               width: '100%', height: '100%',
-              backgroundImage: 'url(/slide2.png)',
+              backgroundImage: 'url(/slideshow2.jpg)',
               backgroundSize: 'cover', backgroundPosition: 'center'
             }}>
               <div style={{ width: '100%', height: '100%', background: 'rgba(24, 35, 55, 0.4)' }} />
@@ -253,7 +253,7 @@ export default function Home() {
           <SwiperSlide>
             <div style={{
               width: '100%', height: '100%',
-              backgroundImage: 'url(/otpslide4-1.jpg)',
+              backgroundImage: 'url(/slideshow3.jpg)',
               backgroundSize: 'cover', backgroundPosition: 'center'
             }}>
               <div style={{ width: '100%', height: '100%', background: 'rgba(24, 35, 55, 0.4)' }} />
@@ -334,19 +334,17 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn delay={0.3}>
-              {/* You may want to rename 'video-wrapper' to 'image-wrapper' in your CSS if it has iframe-specific styling */}
               <div className="video-wrapper">
-                <img
-                  src="slide3.png"
-                  alt="PDPA Video Placeholder"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    borderRadius: '12px',
-                    display: 'block',
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
-                  }}
-                />
+                <iframe
+                  width="100%"
+                  height="100%"
+                  /* Replace 'YOUR_VIDEO_ID' with the actual YouTube ID (e.g., dQw4w9WgXcQ) */
+                  src="https://www.youtube-nocookie.com/embed/OnesP7KPpfM?rel=0"
+                  title="PDPA Introduction Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
               </div>
             </FadeIn>
           </div>
@@ -362,15 +360,14 @@ export default function Home() {
               {/* Card Header */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                  {/* Indigo Color Strip */}
                   <div style={{ width: '5px', height: '26px', backgroundColor: '#4f46e5', borderRadius: '4px' }}></div>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', margin: 0, fontFamily: 'Prompt' }}>
-                    จำนวน ROPA ต่อกลุ่ม/ฝ่าย
+                    {t('home.ropaDashboard.barChartTitle', 'จำนวน ROPA ต่อกลุ่ม/ฝ่าย')}
                   </h3>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <button style={{ border: 'none', cursor: 'pointer', fontSize: '0.75rem', padding: '0.4rem 0.8rem', background: '#f1f5f9', color: '#64748b', borderRadius: '6px', fontWeight: '500', fontFamily: 'Prompt' }}>
-                    ใช้งาน
+                    {t('home.ropaDashboard.btnActive', 'ใช้งาน')}
                   </button>
                   <button
                     onClick={handleDownloadCSV}
@@ -378,7 +375,7 @@ export default function Home() {
                     onMouseOver={(e) => e.currentTarget.style.opacity = 0.8}
                     onMouseOut={(e) => e.currentTarget.style.opacity = 1}
                   >
-                    CSV
+                    {t('home.ropaDashboard.btnCsv', 'CSV')}
                   </button>
                 </div>
               </div>
@@ -386,8 +383,8 @@ export default function Home() {
               {/* Dashboard Split Layout (Compact / กระชับ Version) */}
               <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
 
-                {/* LEFT SIDE: Bar Chart (Fully Elastic "กระชับ" Version) */}
-                <div style={{ flex: '1 1 60%', minWidth: '350px', display: 'flex', flexDirection: 'column' }}> {/* Added flex-column so it can stretch */}
+                {/* LEFT SIDE: Bar Chart (Fully Elastic & Mobile Responsive) */}
+                <div style={{ flex: '1 1 60%', minWidth: '250px', maxWidth: '100%', display: 'flex', flexDirection: 'column' }}>
                   {ropaChartData && ropaChartData.length > 0 ? (
                     (() => {
                       const maxCount = Math.max(...ropaChartData.map(d => d.count), 1);
@@ -395,14 +392,13 @@ export default function Home() {
                       const step = chartMax / 4;
 
                       return (
-                        /* CHANGED: Removed height: 280px. Added flex: 1 to fill empty space, and bottom padding for the text labels */
                         <div style={{ display: 'flex', width: '100%', flex: 1, minHeight: '280px', position: 'relative', paddingBottom: '32px', marginTop: '1rem' }}>
 
                           {/* Y-Axis Labels Column */}
                           <div style={{
                             display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end',
                             paddingRight: '12px', height: '100%', color: '#64748b', fontSize: '0.85rem',
-                            fontWeight: '600', fontFamily: 'Prompt', userSelect: 'none', width: '30px'
+                            fontWeight: '600', fontFamily: 'Prompt', userSelect: 'none', width: '30px', flexShrink: 0
                           }}>
                             <span>{chartMax}</span>
                             <span>{chartMax - step}</span>
@@ -423,8 +419,8 @@ export default function Home() {
                               <div style={{ borderTop: '2px solid #cbd5e1', width: '100%' }}></div>
                             </div>
 
-                            {/* The Bars Container */}
-                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', height: '100%', alignItems: 'flex-end', justifyContent: 'flex-start', gap: '1.5rem', paddingLeft: '1rem' }}>
+                            {/* The Bars Container (Responsive Flex) */}
+                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', height: '100%', alignItems: 'flex-end', justifyContent: 'space-evenly', width: '100%', padding: '0 0.5rem' }}>
                               {ropaChartData.map((item, idx) => {
                                 const barHeightPercent = Math.min((item.count / chartMax) * 100, 100);
                                 const isHovered = hoveredBar === idx;
@@ -432,7 +428,7 @@ export default function Home() {
                                 return (
                                   <div
                                     key={idx}
-                                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '40px', height: '100%', justifyContent: 'flex-end', cursor: 'pointer' }}
+                                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '100%', maxWidth: '40px', height: '100%', justifyContent: 'flex-end', cursor: 'pointer' }}
                                     onMouseEnter={() => setHoveredBar(idx)}
                                     onMouseLeave={() => setHoveredBar(null)}
                                   >
@@ -481,7 +477,7 @@ export default function Home() {
                     })()
                   ) : (
                     <div style={{ width: '100%', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontFamily: 'Prompt' }}>
-                      กำลังโหลดข้อมูล...
+                      {t('home.ropaDashboard.loading', 'กำลังโหลดข้อมูล...')}
                     </div>
                   )}
                 </div>
@@ -496,7 +492,11 @@ export default function Home() {
                       if (ropaChartData.length > 5) {
                         pieData = ropaChartData.slice(0, 4);
                         const othersCount = ropaChartData.slice(4).reduce((sum, item) => sum + item.count, 0);
-                        pieData.push({ department: 'อื่นๆ', fullName: 'กลุ่ม/ฝ่าย อื่นๆ', count: othersCount });
+                        pieData.push({ 
+                          department: t('home.ropaDashboard.others', 'อื่นๆ'), 
+                          fullName: t('home.ropaDashboard.othersFull', 'กลุ่ม/ฝ่าย อื่นๆ'), 
+                          count: othersCount 
+                        });
                       } else {
                         pieData = [...ropaChartData];
                       }
@@ -517,7 +517,7 @@ export default function Home() {
                           <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem' }}>
                             <div style={{ width: '4px', height: '20px', backgroundColor: '#0ea5e9', borderRadius: '4px' }}></div>
                             <h4 style={{ fontSize: '1.05rem', fontWeight: '600', color: '#1e293b', margin: 0, fontFamily: 'Prompt' }}>
-                              สัดส่วน ROPA (Top 5)
+                              {t('home.ropaDashboard.pieChartTitle', 'สัดส่วน ROPA (Top 5)')}
                             </h4>
                           </div>
 
@@ -559,7 +559,9 @@ export default function Home() {
 
                             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
                               <span style={{ fontSize: '2rem', fontWeight: '700', color: '#1e293b', lineHeight: '1' }}>{totalCount}</span>
-                              <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: 'Prompt', marginTop: '0.2rem' }}>ทั้งหมด</span>
+                              <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: 'Prompt', marginTop: '0.2rem' }}>
+                                {t('home.ropaDashboard.totalItems', 'ทั้งหมด')}
+                              </span>
                             </div>
                           </div>
 
@@ -592,7 +594,7 @@ export default function Home() {
                     })()
                   ) : (
                     <div style={{ width: '100%', height: '280px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontFamily: 'Prompt' }}>
-                      กำลังคำนวณสัดส่วน...
+                      {t('home.ropaDashboard.calculating', 'กำลังคำนวณสัดส่วน...')}
                     </div>
                   )}
                 </div>
@@ -615,15 +617,15 @@ export default function Home() {
                   <div style={{ width: '5px', backgroundColor: '#8b5cf6', borderRadius: '4px' }}></div>
                   <div>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', margin: '0 0 0.3rem', fontFamily: 'Prompt' }}>
-                      {t('home.ropaTableTitle', 'บันทึกกิจกรรมล่าสุด (ROPA)')}
+                      {t('home.ropaTable.title', 'บันทึกกิจกรรมล่าสุด (ROPA)')}
                     </h3>
                     <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0, fontFamily: 'Prompt' }}>
-                      {t('home.ropaTableSub', 'ตัวอย่างรายการประมวลผลข้อมูลส่วนบุคคลล่าสุดภายในหน่วยงาน')}
+                      {t('home.ropaTable.subtitle', 'ตัวอย่างรายการประมวลผลข้อมูลส่วนบุคคลล่าสุดภายในหน่วยงาน')}
                     </p>
                   </div>
                 </div>
                 <Link to="/about/ropa" className="btn" style={{ background: '#f1f5f9', color: 'var(--primary-navy)', fontSize: '0.9rem', padding: '0.5rem 1rem' }}>
-                  {t('home.viewAll', 'ดูทั้งหมด')} &rarr;
+                  {t('home.ropaTable.viewAll', 'ดูทั้งหมด')} →
                 </Link>
               </div>
 
@@ -632,9 +634,9 @@ export default function Home() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.95rem' }}>
                   <thead style={{ background: '#f8fafc', color: '#475569', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     <tr>
-                      <th style={{ padding: '1rem 2rem', fontWeight: '600' }}>ชื่อกิจกรรม / โครงการ</th>
-                      <th style={{ padding: '1rem 2rem', fontWeight: '600' }}>ฐานทางกฎหมาย (Lawful Basis)</th>
-                      <th style={{ padding: '1rem 2rem', fontWeight: '600' }}>หน่วยงาน</th>
+                      <th style={{ padding: '1rem 2rem', fontWeight: '600' }}>{t('home.ropaTable.colName', 'ชื่อกิจกรรม / โครงการ')}</th>
+                      <th style={{ padding: '1rem 2rem', fontWeight: '600' }}>{t('home.ropaTable.colBasis', 'ฐานทางกฎหมาย (Lawful Basis)')}</th>
+                      <th style={{ padding: '1rem 2rem', fontWeight: '600' }}>{t('home.ropaTable.colDept', 'หน่วยงาน')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -660,7 +662,9 @@ export default function Home() {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="3" style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8' }}>ไม่มีข้อมูล ROPA ในขณะนี้</td>
+                        <td colSpan="3" style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8' }}>
+                          {t('home.ropaTable.empty', 'ไม่มีข้อมูล ROPA ในขณะนี้')}
+                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -899,28 +903,28 @@ export default function Home() {
               <div style={{ flex: '1 1 450px', padding: '3.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', padding: '0.4rem 1rem', background: '#ecfdf5', borderRadius: '50px', color: '#10b981', fontWeight: '600', fontSize: '0.85rem', fontFamily: 'Prompt' }}>
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
-                  ช่องทางการติดต่อ
+                  {t('home.contact.badge', 'ช่องทางการติดต่อ')}
                 </div>
-
+                
                 <div style={{ display: 'flex', alignItems: 'stretch', gap: '1rem', margin: '0 0 1.5rem' }}>
                   <div style={{ width: '6px', backgroundColor: '#4f46e5', borderRadius: '4px' }}></div>
                   <h3 style={{ fontSize: '1.8rem', fontWeight: '700', color: '#1e293b', margin: 0, fontFamily: 'Prompt', lineHeight: '1.3' }}>
-                    ศูนย์บัญชาการข้อมูลส่วนบุคคล <br /><span style={{ color: '#4f46e5' }}>(PDPA OTP)</span>
+                    {t('home.contact.title', 'ศูนย์บัญชาการข้อมูลส่วนบุคคล')} <br/><span style={{ color: '#4f46e5' }}>{t('home.contact.subtitle', '(PDPA OTP)')}</span>
                   </h3>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
+                  
                   {/* Address */}
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                     <div style={{ color: '#64748b', marginTop: '0.2rem' }}>
-                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>ที่ตั้งสำนักงาน</div>
+                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>{t('home.contact.addressLabel', 'ที่ตั้งสำนักงาน')}</div>
                       <div style={{ fontSize: '0.95rem', color: '#1e293b', fontFamily: 'Prompt', lineHeight: '1.5' }}>
-                        สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)<br />
-                        35 ถนนเพชรบุรี แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพฯ 10400
+                        {t('home.contact.addressLine1', 'สำนักงานนโยบายและแผนการขนส่งและจราจร (สนข.)')}<br/>
+                        {t('home.contact.addressLine2', '35 ถนนเพชรบุรี แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพฯ 10400')}
                       </div>
                     </div>
                   </div>
@@ -928,22 +932,22 @@ export default function Home() {
                   {/* Phone */}
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                     <div style={{ color: '#64748b', marginTop: '0.2rem' }}>
-                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>เบอร์โทรศัพท์</div>
-                      <div style={{ fontSize: '1.05rem', color: '#1e293b', fontWeight: '600', fontFamily: 'Prompt' }}>0 2215 1515 ต่อ 4081</div>
+                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>{t('home.contact.phoneLabel', 'เบอร์โทรศัพท์')}</div>
+                      <div style={{ fontSize: '1.05rem', color: '#1e293b', fontWeight: '600', fontFamily: 'Prompt' }}>{t('home.contact.phoneValue', '0 2215 1515 ต่อ 4081')}</div>
                     </div>
                   </div>
 
                   {/* Email */}
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                     <div style={{ color: '#64748b', marginTop: '0.2rem' }}>
-                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>อีเมล</div>
-                      <div style={{ fontSize: '1.05rem', color: '#1e293b', fontWeight: '600', fontFamily: 'Prompt' }}>compliance@otp.go.th</div>
+                      <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', fontFamily: 'Prompt', marginBottom: '0.2rem' }}>{t('home.contact.emailLabel', 'อีเมล')}</div>
+                      <div style={{ fontSize: '1.05rem', color: '#1e293b', fontWeight: '600', fontFamily: 'Prompt' }}>{t('home.contact.emailValue', 'compliance@otp.go.th')}</div>
                     </div>
                   </div>
 

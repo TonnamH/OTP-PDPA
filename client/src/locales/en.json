@@ -95,6 +95,43 @@
       "empty": "No infographics available at the moment.",
       "viewAll": "View All",
       "loading": "Loading..."
+    },
+    "updates": {
+      "loading": "Loading..."
+    },
+    "ropaDashboard": {
+      "title": "ROPA Record System",
+      "subtitle": "Statistics and overview of personal data processing activities",
+      "barChartTitle": "ROPA by Department",
+      "pieChartTitle": "ROPA Proportion (Top 5)",
+      "btnActive": "Active",
+      "btnCsv": "CSV",
+      "totalItems": "Total Items",
+      "others": "Others",
+      "othersFull": "Other Departments",
+      "loading": "Loading data...",
+      "calculating": "Calculating proportion..."
+    },
+    "ropaTable": {
+      "title": "Latest Activities (ROPA)",
+      "subtitle": "Examples of recent personal data processing activities within the organization",
+      "colName": "Activity / Project Name",
+      "colBasis": "Lawful Basis",
+      "colDept": "Department",
+      "empty": "No ROPA data available at the moment",
+      "viewAll": "View All"
+    },
+    "contact": {
+      "badge": "Contact Us",
+      "title": "Personal Data Command Center",
+      "subtitle": "(PDPA OTP)",
+      "addressLabel": "Office Location",
+      "addressLine1": "Office of Transport and Traffic Policy and Planning (OTP)",
+      "addressLine2": "35 Phetchaburi Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400",
+      "phoneLabel": "Phone Number",
+      "phoneValue": "0 2215 1515 ext. 4081",
+      "emailLabel": "Email",
+      "emailValue": "compliance@otp.go.th"
     }
   },
   "dpo": {
